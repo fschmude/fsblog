@@ -1,0 +1,153 @@
+17.7.2014
+[20-Jun-2014 09:27:18 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[HY000] [2003] Can't connect to MySQL server on 'rdbms.strato.de' (110)' in /home/fs/vw/blog/M/Model.php:22
+Stack trace:
+#0 /home/fs/vw/blog/M/Model.php(22): PDO->__construct('mysql:host=rdbm...', 'U1263851', '2GProfil')
+#1 /home/fs/vw/blog/index.php(6): Model->__construct()
+#2 {main}
+  thrown in /home/fs/vw/blog/M/Model.php on line 22
+Error (typ 1) in /home/fs/vw/blog/M/Model.php:22: Uncaught exception 'PDOException' with message 'SQLSTATE[HY000] [2003] Can't connect to MySQL server on 'rdbms.strato.de' (110)' in /home/fs/vw/blog/M/Model.php:22
+Stack trace:
+#0 /home/fs/vw/blog/M/Model.php(22): PDO->__construct('mysql:host=rdbm...', 'U1263851', '2GProfil')
+#1 /home/fs/vw/blog/index.php(6): Model->__construct()
+#2 {main}
+  thrown
+[20-Jun-2014 09:27:56 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[HY000] [2003] Can't connect to MySQL server on 'rdbms.strato.de' (110)' in /home/fs/vw/blog/M/Model.php:22
+Stack trace:
+#0 /home/fs/vw/blog/M/Model.php(22): PDO->__construct('mysql:host=rdbm...', 'U1263851', '2GProfil')
+#1 /home/fs/vw/blog/index.php(6): Model->__construct()
+#2 {main}
+  thrown in /home/fs/vw/blog/M/Model.php on line 22
+Error (typ 1) in /home/fs/vw/blog/M/Model.php:22: Uncaught exception 'PDOException' with message 'SQLSTATE[HY000] [2003] Can't connect to MySQL server on 'rdbms.strato.de' (110)' in /home/fs/vw/blog/M/Model.php:22
+Stack trace:
+#0 /home/fs/vw/blog/M/Model.php(22): PDO->__construct('mysql:host=rdbm...', 'U1263851', '2GProfil')
+#1 /home/fs/vw/blog/index.php(6): Model->__construct()
+#2 {main}
+  thrown
+[20-Jun-2014 09:28:06 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[HY000] [2003] Can't connect to MySQL server on 'rdbms.strato.de' (110)' in /home/fs/vw/blog/M/Model.php:22
+Stack trace:
+#0 /home/fs/vw/blog/M/Model.php(22): PDO->__construct('mysql:host=rdbm...', 'U1263851', '2GProfil')
+#1 /home/fs/vw/blog/index.php(6): Model->__construct()
+#2 {main}
+  thrown in /home/fs/vw/blog/M/Model.php on line 22
+Error (typ 1) in /home/fs/vw/blog/M/Model.php:22: Uncaught exception 'PDOException' with message 'SQLSTATE[HY000] [2003] Can't connect to MySQL server on 'rdbms.strato.de' (110)' in /home/fs/vw/blog/M/Model.php:22
+Stack trace:
+#0 /home/fs/vw/blog/M/Model.php(22): PDO->__construct('mysql:host=rdbm...', 'U1263851', '2GProfil')
+#1 /home/fs/vw/blog/index.php(6): Model->__construct()
+#2 {main}
+  thrown
+Error (typ 2048) in /home/fs/vw/blog/C/CConfirm.php:27: Non-static method Email::validate_address() should not be called statically, assuming $this from incompatible context
+Error (typ 2048) in /home/fs/vw/blog/C/CConfirm.php:27: Non-static method Email::validate_address() should not be called statically, assuming $this from incompatible context
+[20-Jun-2014 09:44:37 UTC] PHP Fatal error:  Call to undefined function fdebug() in /home/fs/vw/blog/V/VConfirm.php on line 77
+Error (typ 1) in /home/fs/vw/blog/V/VConfirm.php:77: Call to undefined function fdebug()
+2014-06-20 11:45:44 
+array(2) {
+  ["aid"]=>
+  int(19)
+  ["usermail"]=>
+  string(3) "a@a"
+}
+
+Error (typ 2048) in /home/fs/vw/blog/C/CConfirm.php:27: Non-static method Email::validate_address() should not be called statically, assuming $this from incompatible context
+[20-Jun-2014 09:54:32 UTC] PHP Fatal error:  Call to undefined method MArtikel::getUrl() in /home/fs/vw/blog/C/CConfirm.php on line 38
+Error (typ 1) in /home/fs/vw/blog/C/CConfirm.php:38: Call to undefined method MArtikel::getUrl()
+[20-Jun-2014 10:11:30 UTC] PHP Fatal error:  Call to undefined method Mock_MArtikel_f503d019::getUrl() in /home/fs/vw/blog/C/CConfirm.php on line 38
+Error (typ 1) in /home/fs/vw/blog/C/CConfirm.php:38: Call to undefined method Mock_MArtikel_f503d019::getUrl()
+[20-Jun-2014 10:25:23 UTC] PHP Warning:  PDOStatement::bindParam() expects at least 2 parameters, 0 given in /home/fs/vw/blog/M/MArtikel.php on line 305
+2014-06-20 12:25:23 
+array(2) {
+  ["aurl"]=>
+  string(9) "afd-islam"
+  ["usermail"]=>
+  string(3) "a@a"
+}
+
+Error (typ 2) in /home/fs/vw/blog/M/MArtikel.php:305: PDOStatement::bindParam() expects at least 2 parameters, 0 given
+2014-06-20 12:25:33 
+array(2) {
+  ["aurl"]=>
+  string(9) "afd-islam"
+  ["usermail"]=>
+  string(3) "a@a"
+}
+
+Error (typ 2048) in /home/fs/vw/blog/C/CConfirm.php:27: Non-static method Email::validate_address() should not be called statically, assuming $this from incompatible context
+2014-06-20 12:26:35 
+array(2) {
+  ["aurl"]=>
+  string(9) "afd-islam"
+  ["usermail"]=>
+  string(3) "a@a"
+}
+
+Error (typ 2048) in /home/fs/vw/blog/C/CConfirm.php:27: Non-static method Email::validate_address() should not be called statically, assuming $this from incompatible context
+2014-06-20 12:26:51 
+array(2) {
+  ["aurl"]=>
+  string(9) "afd-islam"
+  ["usermail"]=>
+  string(3) "a@a"
+}
+
+Error (typ 2048) in /home/fs/vw/blog/C/CConfirm.php:27: Non-static method Email::validate_address() should not be called statically, assuming $this from incompatible context
+[19-Nov-2014 16:13:49 Europe/Berlin] PHP Fatal error:  Uncaught exception 'PDOException' with message 'could not find driver' in /home/fs/vw/blog/M/Model.php:25
+Stack trace:
+#0 /home/fs/vw/blog/M/Model.php(25): PDO->__construct('mysql:host=loca...', 'root', 'Devel4Op')
+#1 /home/fs/vw/blog/index.php(6): Model->__construct()
+#2 {main}
+  thrown in /home/fs/vw/blog/M/Model.php on line 25
+Error (typ 1) in /home/fs/vw/blog/M/Model.php:25: Uncaught exception 'PDOException' with message 'could not find driver' in /home/fs/vw/blog/M/Model.php:25
+Stack trace:
+#0 /home/fs/vw/blog/M/Model.php(25): PDO->__construct('mysql:host=loca...', 'root', 'Devel4Op')
+#1 /home/fs/vw/blog/index.php(6): Model->__construct()
+#2 {main}
+  thrown
+[19-Nov-2014 16:24:48 Europe/Berlin] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[42000] [1049] Unknown database 'fsblog'' in /home/fs/vw/blog/M/Model.php:25
+Stack trace:
+#0 /home/fs/vw/blog/M/Model.php(25): PDO->__construct('mysql:host=loca...', 'root', 'Devel4Op')
+#1 /home/fs/vw/blog/index.php(6): Model->__construct()
+#2 {main}
+  thrown in /home/fs/vw/blog/M/Model.php on line 25
+Error (typ 1) in /home/fs/vw/blog/M/Model.php:25: Uncaught exception 'PDOException' with message 'SQLSTATE[42000] [1049] Unknown database 'fsblog'' in /home/fs/vw/blog/M/Model.php:25
+Stack trace:
+#0 /home/fs/vw/blog/M/Model.php(25): PDO->__construct('mysql:host=loca...', 'root', 'Devel4Op')
+#1 /home/fs/vw/blog/index.php(6): Model->__construct()
+#2 {main}
+  thrown
+[19-Nov-2014 16:24:52 Europe/Berlin] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[42000] [1049] Unknown database 'fsblog'' in /home/fs/vw/blog/M/Model.php:25
+Stack trace:
+#0 /home/fs/vw/blog/M/Model.php(25): PDO->__construct('mysql:host=loca...', 'root', 'Devel4Op')
+#1 /home/fs/vw/blog/index.php(6): Model->__construct()
+#2 {main}
+  thrown in /home/fs/vw/blog/M/Model.php on line 25
+Error (typ 1) in /home/fs/vw/blog/M/Model.php:25: Uncaught exception 'PDOException' with message 'SQLSTATE[42000] [1049] Unknown database 'fsblog'' in /home/fs/vw/blog/M/Model.php:25
+Stack trace:
+#0 /home/fs/vw/blog/M/Model.php(25): PDO->__construct('mysql:host=loca...', 'root', 'Devel4Op')
+#1 /home/fs/vw/blog/index.php(6): Model->__construct()
+#2 {main}
+  thrown
+[21-Nov-2014 13:37:43 Europe/Berlin] PHP Fatal error:  Cannot access protected property Model::$pdo in /home/fs/vw/blog/tt.php on line 5
+Error (typ 1) in /home/fs/vw/blog/tt.php:5: Cannot access protected property Model::$pdo
+[21-Nov-2014 13:43:28 Europe/Berlin] PHP Fatal error:  Call to undefined function debug() in /home/fs/vw/blog/tt.php on line 15
+Error (typ 1) in /home/fs/vw/blog/tt.php:15: Call to undefined function debug()
+[21-Nov-2014 13:43:45 Europe/Berlin] PHP Fatal error:  Call to undefined function vardump() in /home/fs/vw/blog/tt.php on line 15
+Error (typ 1) in /home/fs/vw/blog/tt.php:15: Call to undefined function vardump()
+[23-Jan-2015 13:02:31 Europe/Berlin] PHP Notice:  Undefined variable: artikel in /home/fs/vw/blog/C/CArtikel.php on line 33
+[23-Jan-2015 13:02:31 Europe/Berlin] PHP Notice:  Undefined variable: navi_arts in /home/fs/vw/blog/C/CArtikel.php on line 35
+[23-Jan-2015 13:02:31 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in /home/fs/vw/blog/V/View.php on line 78
+Error (typ 2) in /home/fs/vw/blog/V/View.php:78: Invalid argument supplied for foreach()
+[23-Jan-2015 13:02:54 Europe/Berlin] PHP Notice:  Undefined variable: artikel in /home/fs/vw/blog/C/CArtikel.php on line 33
+[23-Jan-2015 13:02:54 Europe/Berlin] PHP Notice:  Undefined variable: navi_arts in /home/fs/vw/blog/C/CArtikel.php on line 35
+[23-Jan-2015 13:02:54 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in /home/fs/vw/blog/V/View.php on line 78
+Error (typ 2) in /home/fs/vw/blog/V/View.php:78: Invalid argument supplied for foreach()
+[23-Jan-2015 13:07:55 Europe/Berlin] PHP Notice:  Undefined variable: artikel in /home/fs/vw/blog/C/CArtikel.php on line 33
+[23-Jan-2015 13:07:55 Europe/Berlin] PHP Notice:  Undefined variable: navi_arts in /home/fs/vw/blog/C/CArtikel.php on line 35
+[23-Jan-2015 13:07:55 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in /home/fs/vw/blog/V/View.php on line 78
+Error (typ 2) in /home/fs/vw/blog/V/View.php:78: Invalid argument supplied for foreach()
+[23-Jan-2015 13:07:58 Europe/Berlin] PHP Notice:  Undefined variable: artikel in /home/fs/vw/blog/C/CArtikel.php on line 33
+[23-Jan-2015 13:07:58 Europe/Berlin] PHP Notice:  Undefined variable: navi_arts in /home/fs/vw/blog/C/CArtikel.php on line 35
+[23-Jan-2015 13:07:58 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in /home/fs/vw/blog/V/View.php on line 78
+Error (typ 2) in /home/fs/vw/blog/V/View.php:78: Invalid argument supplied for foreach()
+[23-Jan-2015 13:08:01 Europe/Berlin] PHP Notice:  Undefined variable: artikel in /home/fs/vw/blog/C/CArtikel.php on line 33
+[23-Jan-2015 13:08:01 Europe/Berlin] PHP Notice:  Undefined variable: navi_arts in /home/fs/vw/blog/C/CArtikel.php on line 35
+[23-Jan-2015 13:08:01 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in /home/fs/vw/blog/V/View.php on line 78
+Error (typ 2) in /home/fs/vw/blog/V/View.php:78: Invalid argument supplied for foreach()

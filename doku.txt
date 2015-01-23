@@ -1,0 +1,13 @@
+(aftergit.php geht bei strato leider nicht)
+
+Nach git clone oder pull in Produktion:
+1. Passwörter anpassen
+    config.php
+
+2. Beschreibbare Verzeichnisse erstellen:
+    /log
+    /imga
+
+3. /tests löschen    
+
+
