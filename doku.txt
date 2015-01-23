@@ -8,6 +8,6 @@ Nach git clone oder pull in Produktion:
     /log
     /imga
 
-3. /tests löschen    
+3. /tests löschen
 
 
