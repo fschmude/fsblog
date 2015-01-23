@@ -62,7 +62,7 @@ class View {
     </td>
     <td class="header">
     <h1>FS-Blog</h1>
-    Ein freisinniges Blog.
+    Das freisinnige Blog von Fritz Schmude.
     </td>
     </tr>
     

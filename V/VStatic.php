@@ -24,7 +24,9 @@ class VStatic extends View {
           .'<br>'."\n"
           .'Ich bin identisch mit dem Poster "Birne" bei Telepolis von 2000 bis 2012 und bei <a href="http://www.islam-deutschland.info/" target="_blank">Islam-Deutschland.info</a> von 2006 bis 2010.'
           .'<br>'."\n"
-          .'Mehr braucht man nicht zu wissen, um hier mitzudiskutieren, wobei ich viel Spaß wünsche.'
+          .'Seit 2014 bin ich für die AfD ehrenamtlicher Stadtrat der Landeshauptstadt München (auf deutsch: in den Gemeinderat gewählt).'
+          .'<br>'."\n"
+          .'Mehr braucht man nicht zu wissen, um hier (ersatzweise <a href="https://www.facebook.com/fritz.schmude" target="_blank">auch auf Facebook</a>) mitzudiskutieren, wobei ich viel Spaß wünsche.'
           .'<br>'."\n"
           .'Meinungsaustausch sollte immer Spaß machen!'
           .'<br><br>'."\n"
