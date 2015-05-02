@@ -90,9 +90,6 @@ class MArtikel extends Model {
       throw new Exception('Ungültige ID beim Editieren eines Artikels');
     }
     
-    echo $art['text'].'<br>';
-    exit;
-    
     $stmt = $this->pdo->prepare(
       "UPDATE artikel SET titel=:titel, url=:url, metadesc=:metadesc, datum=:datum, text=:text, status=:status"
       ." WHERE id=:id"
@@ -252,7 +249,8 @@ class MArtikel extends Model {
     $lfnr = isset($row['lfnr']) ? $row['lfnr'] + 1 : 1;
     
     // speichern
-    $code = MHelper::make_code();
+    $Helper = new MHelper();
+    $code = $Helper->make_code();
     $stmt = $this->pdo->prepare(
       "INSERT INTO posts(aid,lfnr,code,username,usermail,datum,text,status)"
       ." VALUES(:aid,:lfnr,:code,:username,:usermail,SYSDATE(),:text,0)"
