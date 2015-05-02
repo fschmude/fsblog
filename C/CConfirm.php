@@ -13,6 +13,7 @@ class CConfirm {
       $b_input_wellformed = false;
       $titel = '';
       $displaymode = VCONFIRM_DISPLAYMODE_NOTHING;
+      $Mail = new Email();
       
       // new post?
       if (isset($post['aid']) && ($aid = (int) $post['aid'])
@@ -24,7 +25,7 @@ class CConfirm {
         $titel = 'Kommentar erfasst';
         if (!strlen($usermail = trim($post['usermail']))) {
           $msg = 'Keine E-Mail-Adresse angegeben.';
-        } elseif (!Email::validate_address($usermail)) {
+        } elseif (!$Mail->validate_address($usermail)) {
           $msg = '"'.$usermail.'" scheint keine gültige E-Mail-Adresse zu sein.';
         } elseif (!strlen($ptext = trim($post['ptext']))) {
           $msg = 'Es wurde kein Posting eingetippt.';
@@ -63,7 +64,7 @@ class CConfirm {
         $lmail = trim($post['lmail']);
         if (!$lmail) {
           $msg = 'Keine E-Mail-Adresse übergeben';
-        } elseif (!Email::validate_address($lmail)) {
+        } elseif (!$Mail->validate_address($lmail)) {
           $msg = '"'.$lmail.'" ist keine gültige E-Mail-Adresse.';
         } else {
           $mleser->create_leser($lmail);
