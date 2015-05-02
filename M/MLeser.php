@@ -13,7 +13,8 @@ class MLeser extends Model {
       "INSERT INTO leser(lmail,code,datum,status) VALUES(:lmail,:code,SYSDATE(),0)"
     );
     $stmt->bindParam(':lmail', $lmail);
-    $code = MHelper::make_code();
+    $Helper = new MHelper();
+    $code = $Helper->make_code();
     $stmt->bindParam(':code', $code);
     if (!$stmt->execute()) {
       throw new Exception('Fehler beim Einfügen der Mailadresse "'.$lmail.'"');
