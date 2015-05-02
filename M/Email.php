@@ -15,7 +15,7 @@ class Email {
 
   // mail verschicken
   public function mailen( $adr, $betreff, $text ) {
-    if (ORT == "live") {
+    if (DO_SEND_MAILS) {
       $header = 'From: '.EMAIL_OFFIZIELL."\n"
         .'MIME-Version: 1.0'."\n"
         .'Content-type: text/plain; charset=utf-8'."\n"
