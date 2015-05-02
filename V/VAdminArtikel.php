@@ -70,9 +70,17 @@ class VAdminArtikel extends VAdmin {
     <div align="center">
     <input type="submit" value="Eintragen">
     </div>
+    </form>
     
     <a href="tpreview.php?aid=<?= $data['id'] ?>" target="_blank">Preview</a>
 
+    <form action="admin.php" method="post">
+    <input type="hidden" value="Bild_list" name="mode"></input>
+    <div align="center">
+    <input type="submit" value="Bilder verwalten">
+    </div>
+    </form>
+    
     <?
     $this->displayFoot();
   }
