@@ -8,6 +8,8 @@ define('BASEURL', 'http://www.fs-blog.de/');
 
 define('BACKEND_PASSWORD', 'change_this');
 
+define('DO_SEND_MAILS', true);  // true || false
+
 // MySQL connection
 define('DB_HOST', 'change_this');
 define('DB_NAME', 'change_this');
