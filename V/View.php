@@ -8,9 +8,6 @@ class View {
    */
   public function __construct() {
     $this->hinweis = 'VERSION = '.VERSION;
-    if (ORT != 'live') {
-        $this->hinweis .= ', ORT = "'.ORT.'"! Vor Upload in Page.php ändern!';
-    }
   }
 
   public function head( $titel, $canonical = '', $datum = '', $desc = '', $navi_arts ) {
@@ -49,9 +46,6 @@ class View {
       </script>
       <?
     }          
-    if (ORT != 'live') {
-      echo '<div style="background-color:#ffcccc;text-align:center;font-size:14px;font-weight:bold;">'.$this->hinweis.'</div>'."\n";
-    } 
     ?>
     <table style="width:100%;margin:0px;padding:0px;border-spacing:0px;border-collapse:collapse; background-color: #ffffff;">
     <tr>
