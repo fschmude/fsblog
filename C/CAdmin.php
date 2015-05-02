@@ -39,7 +39,7 @@ class CAdmin {
         if (!$pass) {
           $data = array('msg' => 'Bitte Passwort eingeben.');
           $v = $this->getObject('VAdminStart');
-        } elseif ($pass != 'change_backend_password') {
+        } elseif ($pass != BACKEND_PASSWORD) {
           $data = array('msg' => 'Falsches Passwort.');
           $v = $this->getObject('VAdminStart');
         } else {
