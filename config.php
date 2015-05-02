@@ -2,27 +2,21 @@
 /**
  * Hier dürfen sich nur globale Konstanten aufhalten!
  */
-define( 'ORT', 'lokal' ); // lokal | live
-define( 'VERSION', '2.0' );
+define('VERSION', '2.1');
 
-switch (ORT) {
-case 'live':
-  define('BASEURL', 'http://www.fs-blog.de/'); 
-  define('DISPLAY_ERRORS', false);
-  break;
-case 'lokal':
-  define('BASEURL', 'http://localhost/blog/');
-  define('DISPLAY_ERRORS', true);
-  // MySQL connection
-  define('DB_HOST', 'localhost');
-  define('DB_NAME', 'fsblog');
-  define('DB_USER', 'root');
-  define('DB_PASS', 'Devel4Op');
-  break;
-}
+define('BASEURL', 'http://www.fs-blog.de/'); 
+
+define('BACKEND_PASSWORD', 'change_this');
+
+// MySQL connection
+define('DB_HOST', 'change_this');
+define('DB_NAME', 'change_this');
+define('DB_USER', 'change_this');
+define('DB_PASS', 'change_this');
 
 // errorhandling
 error_reporting(E_ALL);
+define('DISPLAY_ERRORS', true);  // true || false
 ini_set('display_errors', DISPLAY_ERRORS);
 define('LOG_FILE', __DIR__.'/log/error.log');
 
