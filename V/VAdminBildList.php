@@ -57,6 +57,15 @@ class VAdminBildList extends VAdmin {
       $this->displayLinkForm('Del', 'Bild_del', true);
     }
     
+    ?>
+    <form action="admin.php" method="post">
+    <input type="hidden" value="Artikel_list" name="mode"></input>
+    <div align="center">
+    <input type="submit" value="Artikel verwalten">
+    </div>
+    </form>
+    
+    <?
     $this->displayFoot();
   }
 
