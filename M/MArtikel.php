@@ -142,6 +142,7 @@ class MArtikel extends Model {
   
   /**
    * Einen Artikel zusammen mit Postings und Bildern holen - anhand der fake-url
+   * Bei nicht freigeschalteten Artikeln Anmeldung erforderlich!
    */
   public function get_artikel_komplett_by_url($url) {
     $stmt = $this->pdo->prepare("SELECT * FROM artikel WHERE url=:url");
@@ -152,6 +153,12 @@ class MArtikel extends Model {
     $art = $stmt->fetch(PDO::FETCH_ASSOC);
     if (!$art) {
       throw new Exception('Es gibt keinen Artikel mit url='.$url);
+    }
+    
+    // Freigeschaltet?
+    
+    if (!(int)$art['status'] && !(isset($_SESSION['ok']) && $_SESSION['ok'])) {
+      throw new Exception('Dieser Artikel ist nicht freigeschaltet.');
     }
 
     $result = $this->add_dependent_rows($art);
@@ -190,14 +197,6 @@ class MArtikel extends Model {
    * );
    */
   private function add_dependent_rows($art) {
-    // check
-    if (!isset($art['status'])) {
-      throw new Exception('Artikel enthält kein Status-Feld');
-    }
-    if ($art['status'] != 1) {
-      throw new Exception('Dieser Artikel ist nicht freigeschaltet.');
-    }
-    
     // hat's Bilder?
     $art['bilder'] = array();
     $pos = 0;
