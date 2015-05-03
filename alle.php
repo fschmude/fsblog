@@ -1,5 +1,4 @@
 <?
-require_once 'fslib.php';
 require_once 'C/CListe.php';
 require_once 'M/MArtikel.php';
 require_once 'V/VListe.php';
