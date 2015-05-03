@@ -74,8 +74,6 @@ class VConfirm extends View {
         echo $content;
       }
       
-      fdebug(__FILE__,__LINE__,$misc);
-      
       if (isset($misc['aurl']) && $misc['aurl']) {
         echo '<a href="artikel/'.$misc['aurl'].'.htm">Zurück zum Artikel</a>';
         echo '<br><br>';
