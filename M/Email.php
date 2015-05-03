@@ -25,8 +25,8 @@ class Email {
       
     } else {
       echo '<div style="background-color:#ccffff;padding:5px;border:1px solid #009999;">';
-      echo 'ORT != "live" ("'.ORT.'"), daher kein echtes Mail.<br>';
-      echo 'Folgendes würde verschickt - an '.$adr.'<br><br>';
+      echo 'DO_SEND_MAILS ist nicht true, daher wird kein echtes Mail verschickt.<br>';
+      echo 'Folgendes würde(!) verschickt - an '.$adr.'<br><br>';
       echo 'Betreff: '.$betreff."<br><br>";
       echo str_replace("\n", "\n<br>\n", $text);
       echo '</div><br>';
