@@ -71,15 +71,42 @@ class MArtikel_Test extends Testcase {
   
   
   /**
-   * testing get_artikel_komplett()
+   * testing get_artikel_komplett_by_url()
    */
-  public function test_gk01() {
-    // artikel nicht freigeschaltet
+  public function test_gu01() {
+    // all ok
+    $this->prep_artikel(1);
+    $m = new MArtikel();
+    $res = $m->get_artikel_komplett_by_url('testurl');
+    $this->check_artikel_komplett($res);
+  }
+  
+  public function test_gu02() {
+    // freigeschaltet, User nicht fürs Backend angemeldet => Artikel kommt
+    $this->prep_artikel(1);
+    $_SESSION['ok'] = '';
+    $m = new MArtikel();
+    $res = $m->get_artikel_komplett_by_url('testurl');
+    $this->check_artikel_komplett($res);
+  }
+  
+  public function test_gu03() {
+    // nicht freigeschaltet, aber User ist fürs Backend angemeldet
     $this->prep_artikel(0);
+    $_SESSION['ok'] = true;
+    $m = new MArtikel();
+    $res = $m->get_artikel_komplett_by_url('testurl');
+    $this->check_artikel_komplett($res);
+  }
+  
+  public function test_gu04() {
+    // artikel nicht freigeschaltet UND user nicht angemeldet
+    $this->prep_artikel(0);
+    $_SESSION['ok'] = false;
     $m = new MArtikel();
     $msg = '';
     try {
-      $res = $m->get_artikel_komplett(1);
+      $res = $m->get_artikel_komplett_by_url('testurl');
       $msg = 'error not thrown';
     } catch (Exception $e) {
       $this->assertSame('Dieser Artikel ist nicht freigeschaltet.', $e->getMessage());
@@ -89,20 +116,14 @@ class MArtikel_Test extends Testcase {
     }
   }
   
-  public function test_gk02() {
+  /**
+   * testing get_artikel_komplett()
+   */
+  public function test_gk01() {
     // all ok
     $this->prep_artikel(1);
     $m = new MArtikel();
     $res = $m->get_artikel_komplett(1);
-
-    $this->check_artikel_komplett($res);
-  }
-  
-  public function test_gk03() {
-    // all ok
-    $this->prep_artikel(1);
-    $m = new MArtikel();
-    $res = $m->get_artikel_komplett_by_url('testurl');
 
     $this->check_artikel_komplett($res);
   }
