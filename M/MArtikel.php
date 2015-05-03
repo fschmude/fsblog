@@ -156,10 +156,7 @@ class MArtikel extends Model {
     }
     
     // Freigeschaltet?
-    
-    if (!(int)$art['status'] && !(isset($_SESSION['ok']) && $_SESSION['ok'])) {
-      throw new Exception('Dieser Artikel ist nicht freigeschaltet.');
-    }
+    $this->is_public($art);
 
     $result = $this->add_dependent_rows($art);
     return $result;
@@ -167,6 +164,7 @@ class MArtikel extends Model {
   
   /**
    * Einen Artikel zusammen mit Postings und Bildern holen - anhand der ID
+   * Bei nicht freigeschalteten Artikeln Anmeldung erforderlich!
    */
   public function get_artikel_komplett($aid) {
     $stmt = $this->pdo->prepare("SELECT * FROM artikel WHERE id=:aid");
@@ -179,8 +177,24 @@ class MArtikel extends Model {
       throw new Exception('Es gibt keinen Artikel mit id='.$aid);
     }
 
+    // Freigeschaltet?
+    $this->is_public($art);
+
     $result = $this->add_dependent_rows($art);
     return $result;
+  }
+  
+  /**
+   * Check, ob ein Artikel angezeigt werden darf
+   * @param array $art = ds aus artikel
+   * @return true, falls ok
+   * @throws Exception, falls nicht freigeschaltet und keine Backend-Anmeldung
+   */
+  private function is_public($art) {
+    if (!(int)$art['status'] && !(isset($_SESSION['ok']) && $_SESSION['ok'])) {
+      throw new Exception('Dieser Artikel ist nicht freigeschaltet.');
+    }
+    return true;
   }
   
   /**
