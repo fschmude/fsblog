@@ -79,7 +79,7 @@ class View {
       
       // Mail-Feature
       ?>
-      <form method="post" action="confirm.php">
+      <form method="post" action="<?= BASEURL ?>confirm.php">
       Ich will bei neuen Artikeln informiert werden:
       <br>
       (E-Mail-Adresse eingeben)
