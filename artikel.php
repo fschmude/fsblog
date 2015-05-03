@@ -1,4 +1,6 @@
 <?
+session_start();
+
 require_once 'C/CArtikel.php';
 require_once 'M/MArtikel.php';
 require_once 'V/VArtikel.php';
