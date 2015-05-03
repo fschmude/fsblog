@@ -4,7 +4,7 @@ require_once 'config.php';
 class CArtikel {
   
   public function work($get, $post, $mart, $view) {
-    $errmsg = '';
+    $errmsg = $artikel = $navi_arts = '';
     try {
       if (isset($get['aid']) && $aid = (int) $get['aid']) {
         // call by article id
