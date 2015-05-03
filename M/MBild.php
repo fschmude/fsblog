@@ -24,7 +24,6 @@ class MBild extends Model {
    * Ein Bild-Datensatz editieren
    */
   public function edit($row) {
-    fdebug(__FILE__,__LINE__,$row);
     if (!isset($row['id']) || !(int)$row['id']) {
       throw new Exception('Ungültige ID beim Editieren eines Bildes');
     }
