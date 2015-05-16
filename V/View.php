@@ -101,10 +101,10 @@ class View {
       <table style="width:100%;margin:0px;padding:0px;border-spacing:0px;border-collapse:collapse; background-color: #ffffff;">
       <tr>
       <td width="50%">
-        <h2><?=$titel?></h2>
+        <h2><?= $titel ?></h2>
       </td>
       <td class="normal" style="text-align:right">
-        <?=$datum?>
+        <?= date('Y-m-d H:i', strtotime($datum)) ?>
       </td>
       </tr>
       </table>
