@@ -104,7 +104,11 @@ class View {
         <h2><?= $titel ?></h2>
       </td>
       <td class="normal" style="text-align:right">
-        <?= date('Y-m-d H:i', strtotime($datum)) ?>
+        <?
+        if ($datum) {
+          echo date('Y-m-d H:i', strtotime($datum));
+        }
+        ?>
       </td>
       </tr>
       </table>
