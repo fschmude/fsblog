@@ -72,8 +72,16 @@ class VAdminArtikel extends VAdmin {
     </div>
     </form>
     
-    <a href="tpreview.php?aid=<?= $data['id'] ?>" target="_blank">Preview</a>
+    <?
+    if ($data['url']) {
+      ?>
+      <a href="<?= BASEURL.'artikel/'.$data['url'].'.htm' ?>" target="_blank">Preview</a>
+      <?
+    } else {
+      echo 'Kein Preview-Link, da noch kein URL vergeben.';
+    }
 
+    ?>
     <form action="admin.php" method="post">
     <input type="hidden" value="Bild_list" name="mode"></input>
     <div align="center">
