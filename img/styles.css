@@ -1,6 +1,6 @@
 body{
   color:#000000;
-  font-family:arial,sans-serif;                
+  font-family:arial,sans-serif;
   font-size:12px;
   line-height:18px;
   padding:0px;
@@ -15,47 +15,7 @@ a:hover, a:active{
   color:#009999;
   text-decoration:underline;
 }
-.icon{
-  width:15%;
-  background-color: #ffffff;
-  vertical-align: bottom;
-  text-align: center;
-  border-style: solid none none solid;
-  border-top-width: 3px;
-  border-left-width: 3px;
-  border-color: #009999;
-}
-.header{
-  width:85%;
-  background-color: #ffffff;
-  vertical-align: middle;
-  text-align: center;
-  border-style: solid solid solid none;
-  border-top-width: 3px;
-  border-right-width: 3px;
-  border-bottom-width: 1px;
-  border-color: #009999;
-}
-.navi{
-  padding:10px; 
-  width:15%;
-  background-color: #ffffff;
-  vertical-align: top;
-  border-style: none solid none solid;
-  border-right-width: 1px;
-  border-left-width: 3px;
-  border-color: #009999;
-}
-.content{
-  padding:10px; 
-  width:85%;
-  vertical-align: top;
-  background-color: #ffffff;
-  border-style: solid solid none none;
-  border-top-width: 1px;
-  border-right-width: 3px;
-  border-color: #009999;
-}
+
 h1,h2,.us{
   background-color: #ffffff;
   color:#009999;
@@ -64,40 +24,109 @@ h1,h2,.us{
   line-height:24px;
   font-weight:bold;
 }
-.head{
-  background-color: #ffffff;
-  border-style: solid solid none solid;
-  border-width: 3px;
-  border-color: #009999;
-  text-align: center;
-  line-height: 20px;
-}
+
 .normal{
   background-color: #ffffff;
-  font-family:arial,sans-serif;                
+  font-family:arial,sans-serif;
   font-size:12px;
   font-weight:normal;
   color:#000000;
 }
 .foot{
+  width:100%;
   background-color: #ffffff;
-  font-family:arial,sans-serif;                
+  font-family:arial,sans-serif;
   font-size:11px;
   line-height:24px;
-  border-style: solid;
-  border-top-width: 1px;
-  border-right-width: 3px;
-  border-bottom-width: 3px;
-  border-left-width: 3px;
-  border-color: #009999;
   text-align: center;
 }
 .tdc{
   background-color: #ffffff;
-  font-family:arial,sans-serif;                
+  font-family:arial,sans-serif;
   font-size:12px;
   border-style: solid;
   border-width: 1px;
   border-color: #009999;
+}
+
+/*------------------------------------------------------------------------------
+  Layout tables 
+------------------------------------------------------------------------------*/
+.lt1 {
+  border-style:solid;
+  border-width:3px 3px 0px;
+  border-color:#009999;
+  background-color:#ffffff;
+  overflow:auto;
+}
+.lt2 {
+  border-style:solid;
+  border-width:0px 3px;
+  border-color:#009999;
+  background-color:#ffffff;
+  overflow:auto;
+}
+.lt3 {
+  border-style:solid;
+  border-width:1px 3px 3px 3px;
+  border-color:#009999;
+  background-color:#ffffff;
+  overflow:auto;
+}
+
+/*------------------------------------------------------------------------------
+  box formatting - first for mobile! 
+------------------------------------------------------------------------------*/
+.icon{
+  width:100%;
+  float:left;
+  text-align: center;
+}
+.header{
+  float:left;
+  width:100%;
+  background-color: #ffffff;
+  vertical-align: middle;
+  text-align: center;
+}
+.navi{
+  float:right;
+  width:100%;
+  background-color: #ffffff;
+  border-top:solid 1px #009999;
+}
+.content{
+  float:right;
+  width:100%;
+  border-top:solid 1px #009999;
+}
+.inside{
+  padding:4px;
+}
+.abobox{
+  width:95%;
+}
+
+/*------------------------------------------------------------------------------
+  box formatting - tablet, PC 
+------------------------------------------------------------------------------*/
+@media only screen and (min-width: 600px) {
+  .icon{
+    width:25%;
+  }
+  .header{
+    width:75%;
+  }
+  .navi{
+    width:25%;
+    border-top:none;
+  }
+  .content{
+    width:74%;
+    border-left:solid 1px #009999;
+  }  
+  .inside{
+    padding:10px;
+  }
 }
 
