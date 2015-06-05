@@ -8,7 +8,7 @@ class VArtikel extends View {
       $errmsg = $ddata['errmsg'];
       $art = $ddata['artikel'];
       $canonical = BASEURL.'artikel/'.$art['url'].'.htm';
-      $this->head($art['titel'], $canonical, $art['datum'], $art['metadesc'], $ddata['navi_arts']);
+      $this->head($art['titel'], $canonical, $art['datum'], $art['metadesc']);
       $text_html = $this->parse_artikel($art['text'], $art['bilder']);
       
     } catch (Exception $e) {
@@ -65,7 +65,7 @@ class VArtikel extends View {
             #<?= $post['lfnr'] ?> von "<?= $post['username'] ?>":
           </td>
           <td style="padding:0px;text-align:right;">
-            <?= Date( 'Y-m-d H:i', strtotime($post['datum']) ) ?>
+            <?= Date('d.m.Y, H:i', strtotime($post['datum'])) ?>
           </td>
           </tr>
           </table>
@@ -117,7 +117,7 @@ class VArtikel extends View {
     </form>
     <?
 
-    $this->foot();              
+    $this->foot($ddata['navi_arts']);
   }
   
 }
