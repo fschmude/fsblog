@@ -60,7 +60,7 @@ class VConfirm extends View {
       $errmsg = 'Ungültiger display mode: '.$displaymode;
     }
     
-    $this->head($titel, '', '', '', $navi_arts);
+    $this->head($titel, '', '', '');
     
     if ($errmsg) {
       $this->errmsg($errmsg);
@@ -83,8 +83,6 @@ class VConfirm extends View {
       <?
     }
     
-    $this->foot();
-      
+    $this->foot($navi_arts);
   }
-  
 }
