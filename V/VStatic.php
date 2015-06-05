@@ -55,7 +55,7 @@ class VStatic extends View {
       // page is ok, so canonical must be, too
       $canonical = BASEURL.$page.'.php';
       
-      $this->head($titel, $canonical, '', $titel, $naviarts);
+      $this->head($titel, $canonical, '', $titel);
       
     } catch (Exception $e) {
       $errmsg = $e->getMessage();
@@ -68,7 +68,7 @@ class VStatic extends View {
       echo $text;
     }
 
-    $this->foot();              
+    $this->foot($naviarts);
   }
   
 }
