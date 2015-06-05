@@ -49,7 +49,7 @@ class VListe extends View {
         }
         $i++;
       }
-      $this->head($titel, $canonical, '', $desc, $naviarts);
+      $this->head($titel, $canonical, '', $desc);
       
     } catch (Exception $e) {
       $errmsg = $e->getMessage();
@@ -68,13 +68,12 @@ class VListe extends View {
         $text = $this->parse_txt($art['text']);
         $text = substr($text, 0, 400);
         echo $text.'... <a href="'.$url.'">Weiterlesen</a>';
-        echo '<br><br>'."\n";        
+        echo '<br><br>'."\n";
       }
       echo $nachher;
     }
 
-    $this->foot();              
+    $this->foot($naviarts);
   }
-  
 
 }
