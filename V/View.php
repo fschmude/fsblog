@@ -10,7 +10,7 @@ class View {
     $this->hinweis = 'VERSION = '.VERSION;
   }
 
-  public function head( $titel, $canonical = '', $datum = '', $desc = '', $navi_arts ) {
+  public function head($titel, $canonical = '', $datum = '', $desc = '') {
     ?><!DOCTYPE HTML>
     <html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml"> 
     <head>
@@ -47,21 +47,49 @@ class View {
       <?
     }          
     ?>
-    <table style="width:100%;margin:0px;padding:0px;border-spacing:0px;border-collapse:collapse; background-color: #ffffff;">
-    <tr>
-    <td class="icon">
+    <div class="lt1">
+    <div class="icon">
+    <br>
     <?
     echo '<a href="'.BASEURL.'index.php"><img src="'.BASEURL.'img/fslogo.png" style="border-width:0px;"></a>'."\n";
     ?>
-    </td>
-    <td class="header">
+    </div>
+    
+    <div class="header">
     <h1>FS-Blog</h1>
     Das freisinnige Blog von Fritz Schmude.
-    </td>
-    </tr>
+    </div>
+    </div><!-- lt1 -->
     
-    <tr>
-    <td class="navi">
+    <div class="lt2">
+    <div class="content">
+    <div class="inside">
+      <table style="width:100%;margin:0px;padding:0px;border-spacing:0px;border-collapse:collapse; background-color: #ffffff;">
+      <tr>
+      <td width="50%">
+        <h2><?= $titel ?></h2>
+      </td>
+      <td class="normal" style="text-align:right">
+        <?
+        if ($datum) {
+          echo date('Y-m-d H:i', strtotime($datum));
+        }
+        ?>
+      </td>
+      </tr>
+      </table>
+      <div>
+    <?
+  }
+
+  public function foot($navi_arts = array()){
+    ?>
+    </div>
+    </div><!-- inside -->
+    </div><!-- content -->
+    
+    <div class="navi">
+    <div class="inside">
       <?
       // Link zu START
       echo '<a href="'.BASEURL.'index.php">Start</a>'."\n";
@@ -84,10 +112,10 @@ class View {
       <br>
       (E-Mail-Adresse eingeben)
       <br>
-      <input type="email" id="lmail" name="lmail">
+      <div style="text-align:center;">
+      <input type="email" id="lmail" name="lmail" class="abobox">
       <br>
-      <div align="center">
-      <button type="submit">Eintragen</button>
+      <button type="submit" class="abobox">Eintragen</button>
       </div>
       </form>
       <br>
@@ -96,39 +124,18 @@ class View {
       // Über das FS-Blog
       echo '<a href="'.BASEURL.'about.php">Über das FS-Blog</a>'
       ?>
-    </td>
-    <td class="content">
-      <table style="width:100%;margin:0px;padding:0px;border-spacing:0px;border-collapse:collapse; background-color: #ffffff;">
-      <tr>
-      <td width="50%">
-        <h2><?= $titel ?></h2>
-      </td>
-      <td class="normal" style="text-align:right">
-        <?
-        if ($datum) {
-          echo date('Y-m-d H:i', strtotime($datum));
-        }
-        ?>
-      </td>
-      </tr>
-      </table>
-      <div>
-    <?
-  }
-
-  public function foot(){
-    ?>
-      </div>
-    </td>
-    </tr>
-    </table>
+    </div>
+    </div>
+    </div><!-- lt2 -->
     
+    <div class="lt3">
     <div class="foot">
     <a href="<?=BASEURL?>kontakt.php">Kontakt</a>
     &nbsp; | &nbsp;
     Erstellt mit <a href="http://jedit.org/" target="_blank">jedit</a>
     &nbsp; | &nbsp;
     <a href="<?=BASEURL?>rss.php">RSS-Feed</a>
+    </div>
     </div>
     </body>
     </html>
