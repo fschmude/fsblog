@@ -11,7 +11,7 @@ class VAdminBildList extends VAdmin {
 
     ?>
     <form method="post" action="admin.php">
-    <input type="hidden" name="mode" value="Artikel_new">
+    <input type="hidden" name="mode" value="Bild_new">
     <button type="submit">Neues Bild anlegen</button>
     </form>
     <br>
@@ -44,7 +44,7 @@ class VAdminBildList extends VAdmin {
           <a href="javascript:launchEdit(<?= $bild['id'] ?>);"><img src="img/icon_edit.png" width="16" height="16"></a>
         </td>
         <td class="edittable" style="text-align:center;">
-          <a href="javascript:launchDel(<?= $bild['id'] ?>,'Wollen Sie dieses Bild wirklich löschen?');"><img src="img/icon_delete.png" width="16" height="16"></a>
+          <a href="javascript:launchDel(<?= $bild['id'] ?>,'Wollen Sie das Bild mit ID=<?= $bild['id'] ?> wirklich löschen?');"><img src="img/icon_delete.png" width="16" height="16"></a>
         </td>
         </tr>
         <?
