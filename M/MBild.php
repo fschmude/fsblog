@@ -7,7 +7,7 @@ class MBild extends Model {
    * Genau ein Bild anhand der ID holen
    */
   public function getItem($id) {
-    $stmt = $this->pdo->prepare(
+    $stmt = $this->get_pdo()->prepare(
       "SELECT *"
       ." FROM bilder"
       ." WHERE id=:id"
@@ -23,12 +23,31 @@ class MBild extends Model {
   /**
    * Ein Bild-Datensatz editieren
    */
-  public function edit($row) {
+  public function create() {
+    $sql = "INSERT INTO bilder VALUE()";
+    $stmt = $this->get_pdo()->prepare($sql);
+    if (!$stmt->execute()) {
+      throw new Exception('Fehler bei '.$sql);
+    }
+    
+    // get ID
+    $id = $this->get_pdo()->lastInsertId();
+    if (! (int) $id) {
+      throw new Exception('Bild-id konnte nicht ermittelt werden');
+    }
+    return $id;
+  }
+  
+  
+  /**
+   * Ein Bild-Datensatz editieren
+   */
+  public function edit($row, $files) {
     if (!isset($row['id']) || !(int)$row['id']) {
       throw new Exception('Ungültige ID beim Editieren eines Bildes');
     }
     
-    $stmt = $this->pdo->prepare(
+    $stmt = $this->get_pdo()->prepare(
       "UPDATE bilder SET width=:width, height=:height, ext=:ext "
       ." WHERE id=:id"
     );
@@ -40,9 +59,12 @@ class MBild extends Model {
     ))) {
       throw new Exception('Fehler beim Editieren des Bildes mit id='.$row['id']);
     }
+    
+    // handle file
+    if ($files['datei']['size']) {
+      move_uploaded_file($files['datei']['tmp_name'], 'imga/'.$row['id'].'.'.$row['ext']);
+    }
     return true;
-    
-    
   }
   
   
@@ -54,13 +76,12 @@ class MBild extends Model {
     $file = 'imga/'.$id.'.'.$res['ext'];
     
     // bild löschen, falls vorhanden
-    if (!file_exists($file)) {
-      throw new Exception('Bild '.$file.' existiert gar nicht');
+    if (file_exists($file)) {
+      unlink($file);
     }
-    unlink($file);
     
     // ds löschen
-    $stmt = $this->pdo->prepare(
+    $stmt = $this->get_pdo()->prepare(
       "DELETE FROM bilder WHERE id=:id"
     );
     if (!$stmt->execute(array(':id' => $id))) {
@@ -73,7 +94,7 @@ class MBild extends Model {
    * Alle Bild-Datensätze holen
    */
   public function getList() {
-    $stmt = $this->pdo->prepare(
+    $stmt = $this->get_pdo()->prepare(
       "SELECT *"
       ." FROM bilder"
       ." ORDER BY id"
