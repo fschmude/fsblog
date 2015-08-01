@@ -347,6 +347,15 @@ class MArtikel extends Model {
   /**
    * posting bestätigen
    */
+  public function delete($aid) {
+    $stmt = $this->pdo->prepare("DELETE FROM artikel WHERE id=:id");
+    $stmt->execute(array(':id' => $aid));
+  }
+  
+  
+  /**
+   * posting bestätigen
+   */
   public function confirm_post($pid, $code) {
     $stmt = $this->pdo->prepare("SELECT status, aid, usermail FROM posts WHERE id=:pid AND code=:code");
     $stmt->bindParam(':pid', $pid);
