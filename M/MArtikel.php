@@ -11,7 +11,7 @@ class MArtikel extends Model {
    * Alle Artikel holen, mit Text
    */
   public function get_all() {
-    $stmt = $this->pdo->prepare(
+    $stmt = $this->get_pdo()->prepare(
       "SELECT id aid,datum,titel,url,text"
       ." FROM artikel"
       ." WHERE status=1"
@@ -51,7 +51,7 @@ class MArtikel extends Model {
       ." FROM artikel"
       ." ORDER BY id DESC"
     ;
-    $stmt = $this->pdo->prepare($sql);
+    $stmt = $this->get_pdo()->prepare($sql);
     $stmt->bindParam(':anz', $anz);
     if (!$stmt->execute()) {
       throw new Exception('Fehler bei '.$sql);
@@ -69,7 +69,7 @@ class MArtikel extends Model {
       throw new Exception('Keine gültige aid übergeben');
     }
     
-    $stmt = $this->pdo->prepare(
+    $stmt = $this->get_pdo()->prepare(
       "SELECT *"
       ." FROM artikel"
       ." WHERE id=:aid"
@@ -90,7 +90,7 @@ class MArtikel extends Model {
       throw new Exception('Ungültige ID beim Editieren eines Artikels');
     }
     
-    $stmt = $this->pdo->prepare(
+    $stmt = $this->get_pdo()->prepare(
       "UPDATE artikel SET titel=:titel, url=:url, metadesc=:metadesc, datum=:datum, text=:text, status=:status"
       ." WHERE id=:id"
     );
@@ -126,7 +126,7 @@ class MArtikel extends Model {
       ." ORDER BY id DESC"
       ." LIMIT ".$anz
     ;
-    $stmt = $this->pdo->prepare($sql);
+    $stmt = $this->get_pdo()->prepare($sql);
     if (!$stmt->execute()) {
       throw new Exception('Fehler beim Suchen der '.$anz.' neuesten Artikel');
     }
@@ -145,7 +145,7 @@ class MArtikel extends Model {
    * Bei nicht freigeschalteten Artikeln Anmeldung erforderlich!
    */
   public function get_artikel_komplett_by_url($url) {
-    $stmt = $this->pdo->prepare("SELECT * FROM artikel WHERE url=:url");
+    $stmt = $this->get_pdo()->prepare("SELECT * FROM artikel WHERE url=:url");
     $stmt->bindParam(':url', $url);
     if (!$stmt->execute()) {
       throw new Exception('Fehler beim Holen des Artikels mit url='.$url);
@@ -167,7 +167,7 @@ class MArtikel extends Model {
    * Bei nicht freigeschalteten Artikeln Anmeldung erforderlich!
    */
   public function get_artikel_komplett($aid) {
-    $stmt = $this->pdo->prepare("SELECT * FROM artikel WHERE id=:aid");
+    $stmt = $this->get_pdo()->prepare("SELECT * FROM artikel WHERE id=:aid");
     $stmt->bindParam(':aid', $aid);
     if (!$stmt->execute()) {
       throw new Exception('Fehler beim Holen des Artikels mit id='.$aid);
@@ -215,7 +215,7 @@ class MArtikel extends Model {
     $art['bilder'] = array();
     $pos = 0;
     $search = '<imga id="';
-    $st_b = $this->pdo->prepare( "SELECT * FROM bilder WHERE id=:bid" );
+    $st_b = $this->get_pdo()->prepare( "SELECT * FROM bilder WHERE id=:bid" );
     while ($pos = strpos($art['text'], $search, $pos)) {
       $pos_e = strpos($art['text'], '>', $pos + 10);
       $bid = substr($art['text'], $pos + 10, $pos_e - $pos - 10);
@@ -233,7 +233,7 @@ class MArtikel extends Model {
     
     // Postings
     $art['posts'] = array();
-    $st_p = $this->pdo->prepare(
+    $st_p = $this->get_pdo()->prepare(
       "SELECT * FROM posts"
       ." WHERE aid=:aid AND status=2"
       ." ORDER BY lfnr"
@@ -253,7 +253,7 @@ class MArtikel extends Model {
    */
   public function create_post($aid, $username, $usermail, $ptext) {
     // lfnr berechnen
-    $stmt = $this->pdo->prepare( "SELECT max(lfnr) lfnr FROM posts WHERE aid=:aid" );
+    $stmt = $this->get_pdo()->prepare( "SELECT max(lfnr) lfnr FROM posts WHERE aid=:aid" );
     $stmt->bindParam(':aid', $aid);
     if (!$stmt->execute()) {
       throw new Exception('Fehler beim Zählen der postings zu aid='.$aid);
@@ -264,7 +264,7 @@ class MArtikel extends Model {
     // speichern
     $Helper = new MHelper();
     $code = $Helper->make_code();
-    $stmt = $this->pdo->prepare(
+    $stmt = $this->get_pdo()->prepare(
       "INSERT INTO posts(aid,lfnr,code,username,usermail,datum,text,status)"
       ." VALUES(:aid,:lfnr,:code,:username,:usermail,SYSDATE(),:text,0)"
     );
@@ -277,7 +277,7 @@ class MArtikel extends Model {
     if (!$stmt->execute()) {
       throw new Exception('Fehler beim Aufzeichnen eines Posts');
     }
-    $pid = $this->pdo->lastInsertId();
+    $pid = $this->get_pdo()->lastInsertId();
     if (! (int) $pid) {
       throw new Exception('pid konnte nicht ermittelt werden');
     }
@@ -312,7 +312,7 @@ class MArtikel extends Model {
     }
     
     // go
-    $st = $this->pdo->prepare(
+    $st = $this->get_pdo()->prepare(
       "SELECT url FROM artikel"
       ." WHERE id=:aid"
     );
@@ -330,13 +330,13 @@ class MArtikel extends Model {
    */
   public function create() {
     $sql = "INSERT INTO artikel(datum,status) VALUES(SYSDATE(),0)";
-    $stmt = $this->pdo->prepare($sql);
+    $stmt = $this->get_pdo()->prepare($sql);
     if (!$stmt->execute()) {
       throw new Exception('Fehler bei '.$sql);
     }
     
     // get ID
-    $aid = $this->pdo->lastInsertId();
+    $aid = $this->get_pdo()->lastInsertId();
     if (! (int) $aid) {
       throw new Exception('aid konnte nicht ermittelt werden');
     }
@@ -348,7 +348,7 @@ class MArtikel extends Model {
    * posting bestätigen
    */
   public function delete($aid) {
-    $stmt = $this->pdo->prepare("DELETE FROM artikel WHERE id=:id");
+    $stmt = $this->get_pdo()->prepare("DELETE FROM artikel WHERE id=:id");
     $stmt->execute(array(':id' => $aid));
   }
   
@@ -357,7 +357,7 @@ class MArtikel extends Model {
    * posting bestätigen
    */
   public function confirm_post($pid, $code) {
-    $stmt = $this->pdo->prepare("SELECT status, aid, usermail FROM posts WHERE id=:pid AND code=:code");
+    $stmt = $this->get_pdo()->prepare("SELECT status, aid, usermail FROM posts WHERE id=:pid AND code=:code");
     $stmt->bindParam(':pid', $pid);
     $stmt->bindParam(':code', $code);
     if (!$stmt->execute()) {
@@ -370,7 +370,7 @@ class MArtikel extends Model {
     switch ($post['status']) {
     case 0:
       // ok, jetzt status setzen
-      $stmt = $this->pdo->prepare("UPDATE posts SET status=1 WHERE id=:pid" );
+      $stmt = $this->get_pdo()->prepare("UPDATE posts SET status=1 WHERE id=:pid" );
       $stmt->bindParam(':pid', $pid);
       if (!$stmt->execute()) {
         throw new Exception('Fehler beim Freischalten des Postings pid='.$pid);
