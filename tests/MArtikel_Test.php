@@ -270,6 +270,26 @@ class MArtikel_Test extends Testcase {
     );
   }
   
-  
+
+  /*
+   * tests for delete()
+   */
+  public function test_d1() {
+    $this->exec_sqls(array(
+      "DELETE FROM artikel WHERE id=1",
+      "INSERT INTO artikel(id)"
+      ." VALUES(            1)"
+    ));
+    $this->check_db(
+      "SELECT count(*) cnt FROM artikel WHERE id=1",
+      array('cnt' => '1')
+    );
+    $m = new MArtikel();
+    $m->delete(1);
+    $this->check_db(
+      "SELECT count(*) cnt FROM artikel WHERE id=1",
+      array('cnt' => '0')
+    );
+  }
   
 }
