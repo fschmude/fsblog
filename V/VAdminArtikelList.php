@@ -44,7 +44,7 @@ class VAdminArtikelList extends VAdmin {
           <a href="javascript:launchEdit(<?= $artikel['id'] ?>);"><img src="img/icon_edit.png" width="16" height="16"></a>
         </td>
         <td class="edittable" style="text-align:center;">
-          <a href="javascript:launchDel(<?= $artikel['id'] ?>,'Wollen Sie diesen Artikel wirklich löschen?');"><img src="img/icon_delete.png" width="16" height="16"></a>
+          <a href="javascript:launchDel(<?= $artikel['id'] ?>,'Wollen Sie den Artikel mit ID=<?= $artikel['id'] ?> wirklich löschen?');"><img src="img/icon_delete.png" width="16" height="16"></a>
         </td>
         </tr>
         <?
