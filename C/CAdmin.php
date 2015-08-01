@@ -24,7 +24,7 @@ class CAdmin {
   }
 
 
-  public function run($get, $post) {
+  public function run($get, $post, $files) {
     $data = '';
     $errmsg = '';
     try {
@@ -78,7 +78,7 @@ class CAdmin {
             break;
             
           case 'up':
-            $model->edit($post);
+            $model->edit($post, $files);
             // fallthrough
           case 'up1':
             $data = $model->getItem($post['id']);
