@@ -16,6 +16,11 @@ class VAdminArtikelList extends VAdmin {
     </form>
     <br>
     
+    <form action="admin.php" method="post">
+    <input type="hidden" value="Bild_list" name="mode"></input>
+    <input type="submit" value="Bilder verwalten">
+    </form>
+    
     <?
     // Liste anzeigen
     if (!count($data)) {
