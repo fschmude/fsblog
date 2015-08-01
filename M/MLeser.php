@@ -9,7 +9,7 @@ class MLeser extends Model {
    * Eine Leseradresse eintragen
    */
   public function create_leser($lmail) {
-    $stmt = $this->pdo->prepare(
+    $stmt = $this->get_pdo()->prepare(
       "INSERT INTO leser(lmail,code,datum,status) VALUES(:lmail,:code,SYSDATE(),0)"
     );
     $stmt->bindParam(':lmail', $lmail);
@@ -39,7 +39,7 @@ class MLeser extends Model {
    */
   public function confirm($code) {
     // code suchen
-    $stmt = $this->pdo->prepare("SELECT id, lmail, code, status FROM leser WHERE code=:code");
+    $stmt = $this->get_pdo()->prepare("SELECT id, lmail, code, status FROM leser WHERE code=:code");
     $stmt->bindParam(':code', $code);
     if (!$stmt->execute()) {
       throw new Exception('Fehler beim Suchen nach code="'.$code.'"');
@@ -51,7 +51,7 @@ class MLeser extends Model {
     switch ($leser['status']) {
     case 0:
       // freischalten
-      $stmt = $this->pdo->prepare("UPDATE leser SET status=1 WHERE code=:code");
+      $stmt = $this->get_pdo()->prepare("UPDATE leser SET status=1 WHERE code=:code");
       $stmt->bindParam(':code', $code);
       if (!$stmt->execute()) {
         throw new Exception('Fehler beim Freischalten von code="'.$code.'"');
