@@ -22,6 +22,10 @@ define('DISPLAY_ERRORS', true);  // true || false
 ini_set('display_errors', DISPLAY_ERRORS);
 define('LOG_FILE', __DIR__.'/log/error.log');
 
+// Login fürs Backend
+define('LOGIN_FILE', __DIR__.'/log/last_login.txt');
+define('LOGIN_REFRAK', 10);
+
 
 /*******************************************************************************
  Do not edit below this line
