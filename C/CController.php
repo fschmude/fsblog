@@ -35,6 +35,5 @@ abstract class CController {
     return $this->objs[$key];
   }
 
-
 }
 
