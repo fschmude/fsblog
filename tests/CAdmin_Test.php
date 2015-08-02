@@ -52,7 +52,6 @@ class CAdmin_Test extends Testcase {
   private function warten() {
     $wait = LOGIN_REFRAK + 1;
     fwrite(STDERR, '[warte '.$wait.' Sekunden]');
-    flush();
     sleep($wait);
   }
   
