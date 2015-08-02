@@ -8,7 +8,7 @@ class CConfirm_Test extends Testcase {
   
   public function test_01() {
     // no input
-    $v = new VMock();
+    $v = new CConfirm_VMock();
     $get = array();
     $post = array();
     $c = new CConfirm();
@@ -20,7 +20,7 @@ class CConfirm_Test extends Testcase {
   
   public function test_02() {
     // new post with no text
-    $v = new VMock();
+    $v = new CConfirm_VMock();
     $mart = $this->getMock('MArtikel');
     $get = array();
     $post = array('aid' => 1,
@@ -38,7 +38,7 @@ class CConfirm_Test extends Testcase {
   
   public function test_03() {
     // new post with no email
-    $v = new VMock();
+    $v = new CConfirm_VMock();
     $mart = $this->getMock('MArtikel');
     $get = array();
     $post = array('aid' => 1,
@@ -56,7 +56,7 @@ class CConfirm_Test extends Testcase {
   
   public function test_04() {
     // new post with invalid email
-    $v = new VMock();
+    $v = new CConfirm_VMock();
     $mart = $this->getMock('MArtikel');
     $get = array();
     $post = array('aid' => 1,
@@ -74,7 +74,7 @@ class CConfirm_Test extends Testcase {
   
   public function test_05() {
     // new post ok
-    $v = new VMock();
+    $v = new CConfirm_VMock();
     $mart = $this->getMock('MArtikel');
     $mart->expects($this->any())
       ->method('create_post')
@@ -96,7 +96,7 @@ class CConfirm_Test extends Testcase {
   
   public function test_06() {
     // confirm post, ok
-    $v = new VMock();
+    $v = new CConfirm_VMock();
     $mart = $this->getMock('MArtikel');
     $mart->expects($this->any())
       ->method('confirm_post')
@@ -117,7 +117,7 @@ class CConfirm_Test extends Testcase {
   
   public function test_07() {
     // confirm post, no code
-    $v = new VMock();
+    $v = new CConfirm_VMock();
     $mart = $this->getMock('MArtikel');
     $get = array(
       'pid' => 1,
@@ -134,7 +134,7 @@ class CConfirm_Test extends Testcase {
   
   public function test_08() {
     // create leser, email invalid
-    $v = new VMock();
+    $v = new CConfirm_VMock();
     $mart = $this->getMock('MArtikel');
     $mleser = $this->getMock('MLeser');
     $get = array();
@@ -149,7 +149,7 @@ class CConfirm_Test extends Testcase {
   
   public function test_09() {
     // create leser, email ok
-    $v = new VMock();
+    $v = new CConfirm_VMock();
     $mart = $this->getMock('MArtikel');
     $mleser = $this->getMock('MLeser');
     $get = array();
@@ -167,7 +167,7 @@ class CConfirm_Test extends Testcase {
 /**
  * Mock a view object, which allows us to inspect the arguments for display()
  */
-class VMock {
+class CConfirm_VMock {
   
   public $errmsg;
   public $msg;
