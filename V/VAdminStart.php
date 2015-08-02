@@ -15,11 +15,15 @@ class VAdminStart extends VAdmin {
     }
     ?>
     <form method="post" action="admin.php">
-    <input type="password" name="pass" value="">
+    <input type="password" name="pass" id="pass" value="">
     <button type="submit">Login</button>
     </form>
     <br>
     
+    <script type="text/javascript">
+    var pw = document.getElementById('pass');
+    pw.focus();
+    </script>
     <?
     $this->displayFoot();
   }
