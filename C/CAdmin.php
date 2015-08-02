@@ -1,54 +1,47 @@
 <?
-class CAdmin {
-  
-  protected $objs;
-  
-  /**
-   * Resolve dependency injection
-   * @param array $objects (for testing)
-   * @param string $key
-   * @return object - either the injected object, the default object otherwise
-   */
-  protected function getObject($key) {
-    if (!isset($this->objs[$key])) {
-      $letter = substr($key, 0, 1);
-      $file = $letter.'/'.$key.'.php';
-      if (!file_exists($file)) {
-        throw new Exception('Datei "'.$file.'" nicht gefunden.');
-      }
-      require_once $file;
-      $this->objs[$key] = new $key();
-    }
-    
-    return $this->objs[$key];
-  }
+require_once 'C/CController.php';
 
-
+class CAdmin extends CController {
+  
   public function run($get, $post, $files) {
     $data = '';
     $errmsg = '';
     try {
+      $v = $this->getObject('VAdminStart');
+      
       // Anmeldung überprüfen!
       if (isset($get['action']) && $get['action'] == 'logout') {
         $_SESSION['ok'] = false;
         $data = array('msg' => 'Sie sind nun abgemeldet. Bitte Passwort eingeben.');
-        $v = $this->getObject('VAdminStart');
-      
       } elseif (!isset($_SESSION['ok']) || !$_SESSION['ok']) {
         $pass = isset($post['pass']) ? $post['pass'] : '';
         if (!$pass) {
           $data = array('msg' => 'Bitte Passwort eingeben.');
-          $v = $this->getObject('VAdminStart');
-        } elseif ($pass != BACKEND_PASSWORD) {
-          $data = array('msg' => 'Falsches Passwort.');
-          $v = $this->getObject('VAdminStart');
         } else {
-          $_SESSION['ok'] = true;
+          
+          // last login try?
+          $strLastLogin = file_get_contents(LOGIN_FILE);
+          if (!$strLastLogin) {
+            throw new Exception('Letzter Login-Versuch konnte nicht gelesen werden.');
+          }
+          $dt = new DateTime($strLastLogin);
+          $dt->add(new DateInterval('PT'.LOGIN_REFRAK.'S'));
+          $dtnow = new DateTime();
+          $f = fopen(LOGIN_FILE, 'w');
+          fwrite($f, $dtnow->format('Y-m-d H:i:s'));
+          fclose($f);
+          if ($dtnow < $dt) {
+            $data = array('msg' => 'Bitte nur ein Login-Versuch alle '.LOGIN_REFRAK.' Sekunden.');
+          } elseif ($pass != BACKEND_PASSWORD) {
+            $data = array('msg' => 'Falsches Passwort.');
+          } else {
+            $_SESSION['ok'] = true;
+          }
         }
       }
       
       if (!isset($_SESSION['ok']) || !$_SESSION['ok']) {
-        $v = $this->getObject('VAdminStart');
+        // v ist schon AdminStart
         
       } else {
         if (!isset($post['mode']) || !$mode = $post['mode']) {
@@ -101,5 +94,5 @@ class CAdmin {
     $v->display($errmsg, $data);
   }
 
-
 }
+
