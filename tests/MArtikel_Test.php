@@ -146,8 +146,8 @@ class MArtikel_Test extends Testcase {
     // abhängige Datensätze anlegen
     $this->exec_sqls(array(
       "DELETE FROM bilder WHERE id=1",
-      "INSERT INTO bilder(id,width,height,  ext)"
-      ." VALUES(           1,  150,   100,'jpg')",
+      "INSERT INTO bilder(id,width,height,url   ,  ext,   alt)"
+      ." VALUES(           1,  150,   100,'test','jpg','Test')",
       "DELETE FROM posts WHERE aid=1 OR id<=4",
       "INSERT INTO posts(id,aid,lfnr,code,username,  usermail,    datum,text,status)"
       ." VALUES(          1,  1,   7,'a1',    'fs','fs@fs.de',SYSDATE(),'t1',     0)",
@@ -166,11 +166,13 @@ class MArtikel_Test extends Testcase {
     $this->assertSame('desc1', $res['metadesc']);
     $this->assertSame('Text mit <imga id="1"> usw.', $res['text']);
     $this->assertSame(1, count($res['bilder']));
-    $this->assertSame(array(
+    $this->assertEquals(array(
       'id' => '1',
       'width' => '150',
       'height' => '100',
-      'ext' => 'jpg'
+      'url' => 'test',
+      'ext' => 'jpg',
+      'alt' => 'Test'
     ), $res['bilder'][0]);
     $this->assertSame(1, count($res['posts']));
     $post = $res['posts'][0];
