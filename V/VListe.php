@@ -76,4 +76,37 @@ class VListe extends View {
     $this->foot($naviarts);
   }
 
+  
+  /**
+   * txt-only-parsing für Artikelliste, description-metatag, index usw.
+   */
+  private function parse_txt( $text ) {
+    $text = $this->cut_opening_tags( $text, 'a' );
+    $text = str_replace( '</a>', '', $text );
+    $text = $this->cut_opening_tags( $text, 'wiki' );
+    $text = str_replace( '</wiki>', '', $text );
+    $text = $this->cut_opening_tags( $text, 'img' ); // sollte auch imga erwischen
+    $text = str_replace( '<h2>', '', $text );
+    $text = str_replace( '</h2>', '', $text );
+    return $text;
+  }
+  
+  private function cut_opening_tags( $text, $tag ) {
+    $pos_a = strpos( $text, '<'.$tag );
+    while ($pos_a !== false) {
+      $pos_e = strpos( $text, '>', $pos_a );
+      if ($pos_e) {
+        $tag_complete = substr( $text, $pos_a, $pos_e - $pos_a + 1 );
+        $text = str_replace( $tag_complete, '', $text );
+        $pos_a = strpos( $text, '<'.$tag, (int) $pos_a );
+      } else {
+        // opening tag endet nicht (z.B. weil zu lang für Teaser), alles abschneiden
+        $text = substr($text, 0, $pos_a);
+        $pos_a = false;
+      }
+    }
+    return $text;
+  }
+  
 }
+
