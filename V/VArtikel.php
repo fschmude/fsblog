@@ -119,5 +119,58 @@ class VArtikel extends View {
 
     $this->foot($ddata['navi_arts']);
   }
+
   
+  /**
+   * Artikel für die Web-Anzeige parsen
+   */
+  private function parse_artikel($text, $bilder) {
+    // Zeilenumbrüche
+    $text = $this->parse_rn($text);
+    
+    // Wiki-Links
+    $text = str_replace( '<wiki href="', '<a target="_blank" href="http://de.wikipedia.org/wiki/', $text );
+    $text = str_replace( '</wiki>', '</a>', $text );
+    
+    // Bilder
+    if (count($bilder)) {
+      foreach ($bilder as $bild) {
+        $search = '<imga id="'.$bild['id'].'">';
+        $pos = strpos($text, $search);
+        if ($bild['url']) {
+          $url = $bild['url'];
+        } else {
+          $url = $bild['id'];
+        }
+        $repl =
+          '<div align="center">'
+          .'<img src="'.BASEURL.'imga/'.$url.'.'.$bild['ext'].'" width="'.$bild['width'].'" height="'.$bild['height'].'" alt="'.$bild['alt'].'">'
+          .'</div>'
+        ;
+        $text = str_replace($search, $repl, $text);
+      }
+    }
+    
+    return $text;
+  }
+
+  
+  /**
+   * Parsing von User-Kommentaren: Kein HTML erlaubt.
+   */
+  private function parse_post( $text ) {
+    $text = str_replace( '<', '&lt;', $text );
+    $text = str_replace( '>', '&gt;', $text );
+    $text = $this->parse_rn( $text );
+    return $text;
+  }
+  
+  // Zeilenumbrüche
+  private function parse_rn( $text ) {
+    $text = str_replace( "\r\n", "\n", $text );
+    $text = str_replace( "\n", "\n<br>\n", $text );
+    return $text;
+  }
+
 }
+
