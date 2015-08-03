@@ -5,6 +5,7 @@
 define('VERSION', '2.1');
 
 define('BASEURL', 'http://www.fs-blog.de/'); 
+define('BASEPATH', __DIR__);
 
 define('BACKEND_PASSWORD', 'change_this');
 
