@@ -25,8 +25,14 @@ class VAdminBild extends VAdmin {
     Höhe:
     <input type="text" name="height" value="<?= $data['height'] ?>" style="width:100px">
     <br>
+    URL (ohne Endung):
+    <input type="text" name="url" value="<?= $data['url'] ?>" style="width:100px">
+    <br>
     Extension (Dateinamen-Endung):
     <input type="text" name="ext" value="<?= $data['ext'] ?>" style="width:100px">
+    <br>
+    Beschreibung (für alt-Attribut):
+    <input type="text" name="alt" value="<?= $data['alt'] ?>" style="width:100px">
     <br>
     Bilddatei:
     <input type="file" name="datei" value="" style="width:300px">
