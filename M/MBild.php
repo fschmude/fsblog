@@ -48,14 +48,16 @@ class MBild extends Model {
     }
     
     $stmt = $this->get_pdo()->prepare(
-      "UPDATE bilder SET width=:width, height=:height, ext=:ext "
+      "UPDATE bilder SET width=:width, height=:height, url=:url, ext=:ext, alt=:alt "
       ." WHERE id=:id"
     );
     if (!$stmt->execute(array(
         ':id' => $row['id'],
         ':width' => $row['width'],
         ':height' => $row['height'],
-        ':ext' => $row['ext']
+        ':url' => $row['url'],
+        ':ext' => $row['ext'],
+        ':alt' => $row['alt']
     ))) {
       throw new Exception('Fehler beim Editieren des Bildes mit id='.$row['id']);
     }
@@ -107,5 +109,43 @@ class MBild extends Model {
   }
   
 
-  
+  /**
+   * Helper: get full path from image id, when extension is already known
+   * @param int $id
+   * @param string $ext
+   * @return array
+   */
+  public function getPath($id, $ext) {
+    return BASEPATH.'/imga/'.$id.'.'.$ext;
+  }
+
+
+  /**
+   * Get image info
+   * @param string image url ohne Endung, e.g. "blaues-bild" oder "12"
+   * @return array
+   */
+  public function getImageInfo($url) {
+    // Zahl oder Text-Url
+    if ((int) $url) {
+      $sql = "SELECT * FROM bilder WHERE id=:id";
+      $pms = array(':id' => $url);
+    } else {
+      $sql = "SELECT * FROM bilder WHERE url=:url";
+      $pms = array(':url' => $url);
+    }
+    
+    // now get row from db
+    $stmt = $this->get_pdo()->prepare($sql);
+    if (!$stmt->execute($pms)) {
+      throw new Exception('Fehler beim Suchen nach '.$url);
+    }
+    $ret = $stmt->fetch(PDO::FETCH_ASSOC);
+    if (!$ret) {
+      throw new Exception('Kein Datensatz zu Bild-URL "'.$url.'"');
+    }
+    return $ret;
+  }
+
 }
+
