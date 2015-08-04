@@ -375,7 +375,6 @@ class MArtikel extends Model {
       if (!$stmt->execute()) {
         throw new Exception('Fehler beim Freischalten des Postings pid='.$pid);
       }
-      break;
       
       // an mich mailen
       $mtext = 'Bestätigung der E-Mail-Adresse von '.$post['username'].': '.$post['usermail']."\n\n"
@@ -385,6 +384,7 @@ class MArtikel extends Model {
       ;
       $e = new Email();
       $e->mailen(EMAIL_ADMIN, 'fs-blog.de: Freischaltung', $mtext);
+      break;
       
     case 1:
       // schon freigeschaltet, vermutlich doppelt geklickt
