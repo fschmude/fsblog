@@ -357,7 +357,7 @@ class MArtikel extends Model {
    * posting bestätigen
    */
   public function confirm_post($pid, $code) {
-    $stmt = $this->get_pdo()->prepare("SELECT status, aid, usermail FROM posts WHERE id=:pid AND code=:code");
+    $stmt = $this->get_pdo()->prepare("SELECT status, aid, username, usermail, text FROM posts WHERE id=:pid AND code=:code");
     $stmt->bindParam(':pid', $pid);
     $stmt->bindParam(':code', $code);
     if (!$stmt->execute()) {
