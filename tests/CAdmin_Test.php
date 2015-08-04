@@ -27,7 +27,7 @@ class CAdmin_Test extends Testcase {
     
     // login refracture
     $c->run($get, $post, $files);
-    $v->check('', array('msg' => 'Bitte nur ein Login-Versuch alle 10 Sekunden.'));
+    $v->check('', array('msg' => 'Bitte nur ein Login-Versuch alle '.LOGIN_REFRAK.' Sekunden.'));
   }
   
   public function test_r03() {
