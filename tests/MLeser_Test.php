@@ -1,4 +1,5 @@
 <?
+require_once 'fslib.php';
 require_once 'Testcase.php';
 require_once 'M/MLeser.php';
 
@@ -83,6 +84,35 @@ class MLeser_Test extends Testcase {
       "SELECT status FROM leser WHERE lmail='huhu'",
       array('status' => '1')
     );
+  }
+  
+  
+  /**
+   * getTeaser()
+   */
+  public function test_gt1() {
+    $m = new MLeser();
+    $this->exec_sqls(array(
+      "DELETE FROM artikel WHERE id=1"
+    ));
+    $msg = '';
+    try {
+      $m->getTeaser(1);
+      $msg = 'Error not thrown!';
+    } catch (Exception $e) {
+      $this->assertSame('Es existiert kein Artikel mit aid=1', $e->getMessage());
+    }
+    if ($msg) $this->fail('Error not thrown');
+  }
+  
+  public function test_gt2() {
+    $m = new MLeser();
+    $this->exec_sqls(array(
+      "DELETE FROM artikel WHERE id=1",
+      "INSERT INTO artikel(id,titel,text,status) VALUES(1,'Testtitel', 'Dies ist ein Testartikel',1)"
+    ));
+    $a = $m->getTeaser(1);
+    $this->assertSame('Testtitel', $a['titel']);
   }
   
 }
