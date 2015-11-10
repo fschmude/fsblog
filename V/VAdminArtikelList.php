@@ -36,6 +36,7 @@ class VAdminArtikelList extends VAdmin {
       <td class="edittable">Status</td>
       <td class="edittable">edit</td>
       <td class="edittable">delete</td>
+      <td class="edittable">Mailtext</td>
       </tr>
       <?
       foreach ($data as $artikel) {
@@ -50,6 +51,9 @@ class VAdminArtikelList extends VAdmin {
         </td>
         <td class="edittable" style="text-align:center;">
           <a href="javascript:launchDel(<?= $artikel['id'] ?>,'Wollen Sie den Artikel mit ID=<?= $artikel['id'] ?> wirklich löschen?');"><img src="img/icon_delete.png" width="16" height="16"></a>
+        </td>
+        <td class="edittable">
+          <a href="mailtext.php?aid=<?= $artikel['id'] ?>" target="_blank">Mailtext</a>
         </td>
         </tr>
         <?
