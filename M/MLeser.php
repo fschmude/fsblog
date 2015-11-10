@@ -68,5 +68,40 @@ class MLeser extends Model {
 
     return $leser['lmail'];
   }
+
+  
+  /**
+   * Leserliste und Hinweistext für Mailing erzeugen
+   */
+  public function getTeaser($aid) {
+    if (!$aid) {
+      throw new Exception('Keine aid angegeben');
+    }
+    
+    // go
+    $stmt = $this->get_pdo()->prepare("SELECT * FROM artikel WHERE id=:aid");
+    if (!$stmt->execute(array(':aid' => $aid))) {
+      throw new Exception('Fehler beim Suchen von Artikel mit aid='.$aid);
+    }
+    $art = $stmt->fetch(PDO::FETCH_ASSOC);
+    if (!isset($art['status'])) {
+      throw new Exception('Es existiert kein Artikel mit aid='.$aid);
+    }
+    
+    // add leser
+    $stmt = $this->get_pdo()->prepare("SELECT lmail FROM leser WHERE status=1");
+    if (!$stmt->execute()) {
+      throw new Exception('Fehler beim Suchen der Leser');
+    }
+    $leser = array();
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+      $leser[] = $row['lmail'];
+    }
+    $art['leser'] = implode(', ', $leser);
+    
+    return $art;
+  }
+  
   
 }
+
