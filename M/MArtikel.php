@@ -218,14 +218,22 @@ class MArtikel extends Model {
     $st_b = $this->get_pdo()->prepare( "SELECT * FROM bilder WHERE id=:bid" );
     while ($pos = strpos($art['text'], $search, $pos)) {
       $pos_e = strpos($art['text'], '>', $pos + 10);
-      $bid = substr($art['text'], $pos + 10, $pos_e - $pos - 10);
+      $bid = substr($art['text'], $pos + 10, $pos_e - $pos - 11);
       $st_b->bindParam(':bid', $bid);
       if (!$st_b->execute()) {
         throw new Exception('Fehler beim Holen von Bild Nr. '.$bid);
       }
       $bild = $st_b->fetch(PDO::FETCH_ASSOC);
       if (!isset($bild['ext']) || !strlen($bild['ext'])) {
-        throw new Exception('Kein Eintrag für Bild Nr. '.$bid);
+        // Fehlerbild ausliefern
+        $bild = array(
+          'id' => $bid,
+          'width' => '100',
+          'height' => '50',
+          'url' => 'fehler',
+          'alt' => 'Kein Bild-Datensatz!',
+          'ext' => 'gif'
+        );
       }
       $art['bilder'][] = $bild;
       $pos++;
