@@ -20,6 +20,8 @@ class VMailtext {
     von, an: mail@fritz-schmude.de
     <br>
     bcc: <?= $data['leser'] ?>
+    <br>
+    subject: Neuer Artikel auf fs-blog.de: <?= $data['titel'] ?>
     <br><br>
     
     Liebe Abonnenten,
