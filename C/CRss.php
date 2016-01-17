@@ -1,7 +1,7 @@
 <?
-require_once 'C/CController.php';
+require_once 'C/Controller.php';
 
-class CRss extends CController {
+class CRss extends Controller {
   
   public function work($get, $post, $files) {
     $errmsg = '';
