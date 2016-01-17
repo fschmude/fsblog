@@ -11,7 +11,7 @@ class CAdmin_Test extends Testcase {
     $v =  new CAdmin_VMock();
     $get = $post = $files = array();
     $c = new CAdmin(array('VAdminStart' => $v));
-    $c->run($get, $post, $files);
+    $c->work($get, $post, $files);
     $v->check('', array('msg' => 'Bitte Passwort eingeben.'));
   }
   
@@ -22,11 +22,11 @@ class CAdmin_Test extends Testcase {
     $get = $files = array();
     $post = array('pass' => 'bogus');
     $c = new CAdmin(array('VAdminStart' => $v));
-    $c->run($get, $post, $files);
+    $c->work($get, $post, $files);
     $v->check('', array('msg' => 'Falsches Passwort.'));
     
     // login refracture
-    $c->run($get, $post, $files);
+    $c->work($get, $post, $files);
     $v->check('', array('msg' => 'Bitte nur ein Login-Versuch alle '.LOGIN_REFRAK.' Sekunden.'));
   }
   
@@ -37,7 +37,7 @@ class CAdmin_Test extends Testcase {
     $get = $files = array();
     $post = array('pass' => BACKEND_PASSWORD);
     $c = new CAdmin(array('VAdminArtikelList' => $v));
-    $c->run($get, $post, $files);
+    $c->work($get, $post, $files);
     $stmt = $this->pdo->prepare("SELECT count(*) cnt FROM artikel");
     if (!$stmt->execute()) {
       $this->fail('Fehler beim Zählen der Artikel-Datensätze');
