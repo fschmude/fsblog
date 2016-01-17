@@ -1,5 +1,7 @@
 <?
-class View {
+require_once 'V/IView.php';
+
+abstract class View implements IView {
   
   protected $hinweis;
   
