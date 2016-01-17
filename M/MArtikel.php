@@ -1,4 +1,7 @@
 <?
+require_once 'D/DBilder.php';
+require_once 'D/DArtikel.php';
+require_once 'D/DPosts.php';
 require_once 'M/Model.php';
 require_once 'M/Email.php';
 require_once 'M/MHelper.php';
@@ -7,20 +10,20 @@ define('TEASER_LENGTH', 300);
 
 class MArtikel extends Model {
   
+  private $dobj = null;
+  
   /**
-   * Alle Artikel holen, mit Text
+   * Konstruktor
    */
-  public function get_all() {
-    $stmt = $this->get_pdo()->prepare(
-      "SELECT id aid,datum,titel,url,text"
-      ." FROM artikel"
-      ." WHERE status=1"
-      ." ORDER BY id DESC"
-    );
-    if (!$stmt->execute()) {
-      throw new Exception('Fehler beim Suchen der '.$anz.' neuesten Artikel');
-    }
-    $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  public function __construct() {
+    $this->dobj = new DArtikel;
+  }
+  
+  /**
+   * Alle aktiven(!) Artikel holen, mit Text
+   */
+  public function getAllLive() {
+    $res = $this->dobj->getAllLive();
     
     // wortgenaues Abschneiden
     $this->snipText($res);
@@ -47,16 +50,7 @@ class MArtikel extends Model {
    * Übersichtsliste für admin
    */
   public function getList() {
-    $sql = "SELECT id,datum,status,url"
-      ." FROM artikel"
-      ." ORDER BY id DESC"
-    ;
-    $stmt = $this->get_pdo()->prepare($sql);
-    $stmt->bindParam(':anz', $anz);
-    if (!$stmt->execute()) {
-      throw new Exception('Fehler bei '.$sql);
-    }
-    $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $res = $this->dobj->getList();
     return $res;
   }
   
@@ -68,16 +62,7 @@ class MArtikel extends Model {
     if (!$aid = (int)$aid) {
       throw new Exception('Keine gültige aid übergeben');
     }
-    
-    $stmt = $this->get_pdo()->prepare(
-      "SELECT *"
-      ." FROM artikel"
-      ." WHERE id=:aid"
-    );
-    if (!$stmt->execute(array(':aid' => $aid))) {
-      throw new Exception('Fehler beim Suchen des Artikels mit aid='.$aid);
-    }
-    $res = $stmt->fetch(PDO::FETCH_ASSOC);
+    $res = $this->dobj->getRow($aid);
     return $res;
   }
   
@@ -90,20 +75,7 @@ class MArtikel extends Model {
       throw new Exception('Ungültige ID beim Editieren eines Artikels');
     }
     
-    $stmt = $this->get_pdo()->prepare(
-      "UPDATE artikel SET titel=:titel, url=:url, metadesc=:metadesc, datum=:datum, text=:text, status=:status"
-      ." WHERE id=:id"
-    );
-    $stmt->bindParam(':id', $art['id']);
-    $stmt->bindParam(':titel', $art['titel']);
-    $stmt->bindParam(':url', $art['url']);
-    $stmt->bindParam(':metadesc', $art['metadesc']);
-    $stmt->bindParam(':datum', $art['datum']);
-    $stmt->bindParam(':text', $art['text']);
-    $stmt->bindParam(':status', $art['status']);
-    if (!$stmt->execute()) {
-      throw new Exception('Fehler beim Editieren des Artikels mit aid='.$art['id']);
-    }
+    $this->dobj->edit($art);
     return true;
   }
   
@@ -112,26 +84,13 @@ class MArtikel extends Model {
    * @param int $anz
    * @param bool $bMitTeaser (default = false)
    */
-  public function get_top($anz, $bMitTeaser = false) {
+  public function getTop($anz, $bMitTeaser = false) {
     if (!$anz = (int) $anz) {
       throw new Exception('anz ('.$anz.') ist kein positives Int');
     }
     
-    $sql = "SELECT id aid,datum,titel,url";
-    if ($bMitTeaser) {
-      $sql .= ",text";
-    }
-    $sql .=" FROM artikel"
-      ." WHERE status=1"
-      ." ORDER BY id DESC"
-      ." LIMIT ".$anz
-    ;
-    $stmt = $this->get_pdo()->prepare($sql);
-    if (!$stmt->execute()) {
-      throw new Exception('Fehler beim Suchen der '.$anz.' neuesten Artikel');
-    }
-    $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
+    $res = $this->dobj->getTop($anz, $bMitTeaser);
+    
     // Falls mit Text, diesen wortgenau Abschneiden
     if ($bMitTeaser) {
       $this->snipText($res);
@@ -144,21 +103,13 @@ class MArtikel extends Model {
    * Einen Artikel zusammen mit Postings und Bildern holen - anhand der fake-url
    * Bei nicht freigeschalteten Artikeln Anmeldung erforderlich!
    */
-  public function get_artikel_komplett_by_url($url) {
-    $stmt = $this->get_pdo()->prepare("SELECT * FROM artikel WHERE url=:url");
-    $stmt->bindParam(':url', $url);
-    if (!$stmt->execute()) {
-      throw new Exception('Fehler beim Holen des Artikels mit url='.$url);
-    }
-    $art = $stmt->fetch(PDO::FETCH_ASSOC);
-    if (!$art) {
-      throw new Exception('Es gibt keinen Artikel mit url='.$url);
-    }
+  public function getArtikelKomplettByUrl($url) {
+    $art = $this->dobj->getArtikelByUrl($url);
     
     // Freigeschaltet?
-    $this->is_public($art);
+    $this->checkPublic($art);
 
-    $result = $this->add_dependent_rows($art);
+    $result = $this->addDependentRows($art);
     return $result;
   }
   
@@ -166,21 +117,13 @@ class MArtikel extends Model {
    * Einen Artikel zusammen mit Postings und Bildern holen - anhand der ID
    * Bei nicht freigeschalteten Artikeln Anmeldung erforderlich!
    */
-  public function get_artikel_komplett($aid) {
-    $stmt = $this->get_pdo()->prepare("SELECT * FROM artikel WHERE id=:aid");
-    $stmt->bindParam(':aid', $aid);
-    if (!$stmt->execute()) {
-      throw new Exception('Fehler beim Holen des Artikels mit id='.$aid);
-    }
-    $art = $stmt->fetch(PDO::FETCH_ASSOC);
-    if (!$art) {
-      throw new Exception('Es gibt keinen Artikel mit id='.$aid);
-    }
-
+  public function getArtikelKomplett($aid) {
+    $art = $this->dobj->getRow($aid);
+    
     // Freigeschaltet?
-    $this->is_public($art);
+    $this->checkPublic($art);
 
-    $result = $this->add_dependent_rows($art);
+    $result = $this->addDependentRows($art);
     return $result;
   }
   
@@ -190,7 +133,7 @@ class MArtikel extends Model {
    * @return true, falls ok
    * @throws Exception, falls nicht freigeschaltet und keine Backend-Anmeldung
    */
-  private function is_public($art) {
+  private function checkPublic($art) {
     if (!(int)$art['status'] && !(isset($_SESSION['ok']) && $_SESSION['ok'])) {
       throw new Exception('Dieser Artikel ist nicht freigeschaltet.');
     }
@@ -210,20 +153,17 @@ class MArtikel extends Model {
    *    'bilder' => array()
    * );
    */
-  private function add_dependent_rows($art) {
+  private function addDependentRows($art) {
     // hat's Bilder?
+    $dbilder = new DBilder;
     $art['bilder'] = array();
     $pos = 0;
     $search = '<imga id="';
-    $st_b = $this->get_pdo()->prepare( "SELECT * FROM bilder WHERE id=:bid" );
     while ($pos = strpos($art['text'], $search, $pos)) {
       $pos_e = strpos($art['text'], '>', $pos + 10);
       $bid = substr($art['text'], $pos + 10, $pos_e - $pos - 11);
-      $st_b->bindParam(':bid', $bid);
-      if (!$st_b->execute()) {
-        throw new Exception('Fehler beim Holen von Bild Nr. '.$bid);
-      }
-      $bild = $st_b->fetch(PDO::FETCH_ASSOC);
+      //$st_b->bindParam(':bid', $bid);
+      $bild = $dbilder->getRow($bid);
       if (!isset($bild['ext']) || !strlen($bild['ext'])) {
         // Fehlerbild ausliefern
         $bild = array(
@@ -240,17 +180,8 @@ class MArtikel extends Model {
     }
     
     // Postings
-    $art['posts'] = array();
-    $st_p = $this->get_pdo()->prepare(
-      "SELECT * FROM posts"
-      ." WHERE aid=:aid AND status=2"
-      ." ORDER BY lfnr"
-    );
-    $st_p->bindParam(':aid', $art['id']);
-    if (!$st_p->execute()) {
-      throw new Exception('Fehler beim Holen der Kommentare zu aid='.$art['id']);
-    }
-    $posts = $st_p->fetchAll(PDO::FETCH_ASSOC);
+    $dposts = new DPosts;
+    $posts = $dposts->getPostsForAid($art['id']);
     $art['posts'] = $posts;
     
     return $art;
@@ -259,36 +190,25 @@ class MArtikel extends Model {
   /**
    * posting erzeugen, noch nicht freigeschaltet!
    */
-  public function create_post($aid, $username, $usermail, $ptext) {
+  public function createPost($aid, $username, $usermail, $ptext) {
+    $dposts = new DPosts;
     // lfnr berechnen
-    $stmt = $this->get_pdo()->prepare( "SELECT max(lfnr) lfnr FROM posts WHERE aid=:aid" );
-    $stmt->bindParam(':aid', $aid);
-    if (!$stmt->execute()) {
-      throw new Exception('Fehler beim Zählen der postings zu aid='.$aid);
-    }
-    $row = $stmt->fetch(PDO::FETCH_ASSOC);
-    $lfnr = isset($row['lfnr']) ? $row['lfnr'] + 1 : 1;
+    $oldLfnr = $dposts->getMaxLfnr($aid);
+    $lfnr = (int) $oldLfnr + 1;
     
     // speichern
     $Helper = new MHelper();
-    $code = $Helper->make_code();
-    $stmt = $this->get_pdo()->prepare(
-      "INSERT INTO posts(aid,lfnr,code,username,usermail,datum,text,status)"
-      ." VALUES(:aid,:lfnr,:code,:username,:usermail,SYSDATE(),:text,0)"
-    );
-    $stmt->bindParam(':aid', $aid);
-    $stmt->bindParam(':lfnr', $lfnr);
-    $stmt->bindParam(':code', $code);
-    $stmt->bindParam(':username', $username);
-    $stmt->bindParam(':usermail', $usermail);
-    $stmt->bindParam(':text', $ptext);
-    if (!$stmt->execute()) {
-      throw new Exception('Fehler beim Aufzeichnen eines Posts');
-    }
-    $pid = $this->get_pdo()->lastInsertId();
-    if (! (int) $pid) {
-      throw new Exception('pid konnte nicht ermittelt werden');
-    }
+    $code = $Helper->makeCode();
+    $pid = $dposts->createValues(array(
+      'aid' => $aid,
+      'lfnr' => $lfnr,
+      'code' => $code,
+      'username' => $username,
+      'usermail' => $usermail,
+      'text' => $ptext,
+      'datum' => date('Y-m-d H:i:s'),
+      'status' => 0
+    ));
     
     // mailen
     $mtext = 'Liebe/r '.$username.','."\n\n"
@@ -314,21 +234,7 @@ class MArtikel extends Model {
    * @return string
    */
   public function getUrl($aid) {
-    // check
-    if (!$aid = (int) $aid) {
-      throw new Exception('No aid given');
-    }
-    
-    // go
-    $st = $this->get_pdo()->prepare(
-      "SELECT url FROM artikel"
-      ." WHERE id=:aid"
-    );
-    if (!$st->execute(array(':aid' => $aid))) {
-      throw new Exception('Fehler beim Holen der URL zu aid='.$aid);
-    }
-    $row = $st->fetch(PDO::FETCH_ASSOC);
-    return $row['url'];
+    return $this->dobj->getUrl($aid);
   }
   
   
@@ -337,58 +243,47 @@ class MArtikel extends Model {
    * @return int = article ID
    */
   public function create() {
-    $sql = "INSERT INTO artikel(datum,status) VALUES(SYSDATE(),0)";
-    $stmt = $this->get_pdo()->prepare($sql);
-    if (!$stmt->execute()) {
-      throw new Exception('Fehler bei '.$sql);
-    }
-    
-    // get ID
-    $aid = $this->get_pdo()->lastInsertId();
-    if (! (int) $aid) {
-      throw new Exception('aid konnte nicht ermittelt werden');
-    }
+    $aid = $this->dobj->createValues(array(
+      'datum' => date('Y-m-d H:i:s'),
+      'status' => 0,
+      'titel' => '',
+      'text' => '',
+      'metadesc' => ''
+    ));
     return $aid;
   }
   
   
   /**
-   * posting bestätigen
+   * Artikel löschen
    */
   public function delete($aid) {
-    $stmt = $this->get_pdo()->prepare("DELETE FROM artikel WHERE id=:id");
-    $stmt->execute(array(':id' => $aid));
+    $this->dobj->delete($aid);
   }
   
   
   /**
    * posting bestätigen
    */
-  public function confirm_post($pid, $code) {
-    $stmt = $this->get_pdo()->prepare("SELECT status, aid, username, usermail, text FROM posts WHERE id=:pid AND code=:code");
-    $stmt->bindParam(':pid', $pid);
-    $stmt->bindParam(':code', $code);
-    if (!$stmt->execute()) {
-      throw new Exception('Fehler beim Suchen nach Postings mit pid='.$pid.', code='.$code);
+  public function confirmPost($pid, $code) {
+    $dposts = new DPosts;
+    $post = $dposts->getRow($pid);
+    
+    // check code
+    if ($post['code'] != $code) {
+      throw new Exception('Code ('.$code.') stimmt nicht');
     }
-    $post = $stmt->fetch(PDO::FETCH_ASSOC);
-    if (!isset($post['status'])) {
-      throw new Exception('Es existiert kein Posting mit pid='.$pid.', code='.$code);
-    }
+
     switch ($post['status']) {
     case 0:
       // ok, jetzt status setzen
-      $stmt = $this->get_pdo()->prepare("UPDATE posts SET status=1 WHERE id=:pid" );
-      $stmt->bindParam(':pid', $pid);
-      if (!$stmt->execute()) {
-        throw new Exception('Fehler beim Freischalten des Postings pid='.$pid);
-      }
+      $dposts->setStatus($pid, 1);
       
       // an mich mailen
       $mtext = 'Bestätigung der E-Mail-Adresse von '.$post['username'].': '.$post['usermail']."\n\n"
         .'"'.$post['text'].'"'."\n\n"
         .'Beitrag freischalten:'."\n\n"
-        .BASEURL.'adm'."\n\n"
+        .BASEURL.'admin.php'."\n\n"
       ;
       $e = new Email();
       $e->mailen(EMAIL_ADMIN, 'fs-blog.de: Freischaltung', $mtext);
@@ -408,3 +303,4 @@ class MArtikel extends Model {
   }
   
 }
+
