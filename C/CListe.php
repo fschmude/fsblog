@@ -1,23 +1,22 @@
 <?
-require_once 'config.php';
+require_once 'C/CController.php';
 
-class CListe {
+class CListe extends CController {
   
-  public function work($get, $post, $mart, $vliste, $page) {
-    $errmsg = '';
-    $arts = array();
+  public function work($get, $post, $files) {
     try {
-      switch ($page) {
-      case 'index':
-        $arts = $mart->get_top(5, true);
-        break;
+      $errmsg = '';
+      $vdata = array('arts' => array(), 'page' => 'index');
+      $mart = $this->getObject('MArtikel');
+      
+      if (isset($get['list']) && $get['list'] == 'alle') {
+        // Liste aller Artikel
+        $vdata['arts'] = $mart->getAllLive();
+        $vdata['page'] = 'alle';
         
-      case 'alle':
-        $arts = $mart->get_all();
-        break;
-        
-      default:
-        throw new Exception('Ungültige page: "'.$page.'"');
+      } else {
+        // Startseite, nur neueste Artikel
+        $vdata['arts'] = $mart->getTop(5, true);
       }
       
     } catch (Exception $e) {
@@ -31,7 +30,9 @@ class CListe {
     }
     
     // display
-    $vliste->display($errmsg, $arts, $page);
+    $vliste = $this->getObject('VListe');
+    $vliste->display($errmsg, $vdata);
   }
   
 }
+
