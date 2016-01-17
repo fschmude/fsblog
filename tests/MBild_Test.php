@@ -1,5 +1,4 @@
 <?
-require_once 'fslib.php';
 require_once 'Testcase.php';
 require_once 'M/MBild.php';
 
@@ -27,7 +26,6 @@ class MBild_Test extends Testcase {
     );
   }
   
-
   
 }
 
