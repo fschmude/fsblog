@@ -1,7 +1,7 @@
 <?
-require_once 'C/CController.php';
+require_once 'C/Controller.php';
 
-class CArtikel extends CController {
+class CArtikel extends Controller {
   
   public function work($get, $post, $files) {
     $errmsg = $artikel = $navi_arts = '';
