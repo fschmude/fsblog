@@ -3,9 +3,9 @@ require_once 'V/View.php';
 
 class VStatic extends View {
 
-  public function display($errmsg, $naviarts, $page) {
+  public function display($errmsg, $vdata) {
     try {
-      switch ($page) {
+      switch ($vdata['page']) {
       case 'about':
         $titel = 'Über das FS-Blog';
         $text = '"FS", das steht natürlich für den "Freisinn", eine liberale Wählervereinigung, die der schwarzbraune Widerling in Heinrich Manns "Untertan" so sehr hasst, dass er sich zu ihrer Bekämpfung mit dem roten Widerling verbündet.'
@@ -49,11 +49,11 @@ class VStatic extends View {
         break;
         
       default:
-        throw new Exception('Ungültige page "'.$page.'"');
+        throw new Exception('Ungültige page "'.$vdata['page'].'"');
       }
       
       // page is ok, so canonical must be, too
-      $canonical = BASEURL.$page.'.php';
+      $canonical = BASEURL.$vdata['page'].'.php';
       
       $this->head($titel, $canonical, '', $titel);
       
@@ -68,7 +68,7 @@ class VStatic extends View {
       echo $text;
     }
 
-    $this->foot($naviarts);
+    $this->foot($vdata['navi_arts']);
   }
   
 }
