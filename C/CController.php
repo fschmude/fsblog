@@ -2,7 +2,10 @@
 /**
  * Mutter aller Controller
  */
-abstract class CController {
+require_once 'config.php';
+require_once 'C/IController.php';
+
+abstract class CController implements IController {
   
   protected $objs;
  
