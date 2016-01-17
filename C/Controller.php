@@ -5,7 +5,7 @@
 require_once 'config.php';
 require_once 'C/IController.php';
 
-abstract class CController implements IController {
+abstract class Controller implements IController {
   
   protected $objs;
  
