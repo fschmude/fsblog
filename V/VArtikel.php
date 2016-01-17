@@ -64,7 +64,7 @@ class VArtikel extends View {
             #<?= $post['lfnr'] ?> von "<?= $post['username'] ?>":
           </td>
           <td style="padding:0px;text-align:right;">
-            <?= Date('d.m.Y, H:i', strtotime($post['datum'])) ?>
+            <?= Date('Y-m-d H:i', strtotime($post['datum'])) ?>
           </td>
           </tr>
           </table>
