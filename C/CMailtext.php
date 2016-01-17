@@ -3,7 +3,7 @@ require_once 'C/CController.php';
 
 class CMailtext extends CController {
   
-  public function run($get) {
+  public function work($get, $post, $files) {
     $data = '';
     $errmsg = '';
     $v = $this->getObject('VMailtext');
@@ -18,7 +18,7 @@ class CMailtext extends CController {
         throw new Exception('Keine aid angegeben');
       }
       
-      $data = $m->getTeaser($get['aid']);
+      $data = $m->getMaildata($get['aid']);
       
     } catch (Exception $e) {
       $errmsg = $e->getMessage();
