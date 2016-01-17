@@ -74,8 +74,8 @@ class CConfirm_Test extends Testcase {
   public function test_05() {
     // new post ok
     $v = new CConfirm_Test_VConfirm();
-    $mart = $this->getMock('MArtikel');
-    $mart->expects($this->any())
+    $m = $this->getMock('MPost');
+    $m->expects($this->any())
       ->method('createPost')
       ->will($this->returnValue(23))
     ;
@@ -85,7 +85,7 @@ class CConfirm_Test extends Testcase {
       'usermail' => 'fs@fs.de',
       'ptext' => 'hallo'
     );
-    $c = new CConfirm(array('MArtikel' => $mart,'VConfirm' => $v));
+    $c = new CConfirm(array('MPost' => $m,'VConfirm' => $v));
     $c->work($get, $post, 0);
     $this->assertSame('', $v->errmsg);
     $this->assertSame('', $v->msg);
@@ -96,17 +96,18 @@ class CConfirm_Test extends Testcase {
   public function test_06() {
     // confirm post, ok
     $v = new CConfirm_Test_VConfirm();
-    $mart = $this->getMock('MArtikel');
-    $mart->expects($this->any())
+    $m = $this->getMock('MPost');
+    $m->expects($this->any())
       ->method('confirmPost')
       ->will($this->returnValue(23))
     ;
+    $ma = $this->getMock('MArtikel');
     $get = array(
       'pid' => 1,
       'code' => 'abc'
     );
     $post = array();
-    $c = new CConfirm(array('MArtikel' => $mart,'VConfirm' => $v));
+    $c = new CConfirm(array('MArtikel' => $ma, 'MPost' => $m,'VConfirm' => $v));
     $c->work($get, $post, 0);
     $this->assertSame('', $v->errmsg);
     $this->assertSame('', $v->msg);
@@ -117,13 +118,13 @@ class CConfirm_Test extends Testcase {
   public function test_07() {
     // confirm post, no code
     $v = new CConfirm_Test_VConfirm();
-    $mart = $this->getMock('MArtikel');
+    $m = $this->getMock('MPost');
     $get = array(
       'pid' => 1,
       'code' => ''
     );
     $post = array();
-    $c = new CConfirm(array('MArtikel' => $mart,'VConfirm' => $v));
+    $c = new CConfirm(array('MPost' => $m,'VConfirm' => $v));
     $c->work($get, $post, 0);
     $this->assertSame('', $v->errmsg);
     $this->assertSame('Es wurde kein Bestätigungs-Code angegeben.', $v->msg);
