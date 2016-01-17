@@ -1,24 +1,26 @@
 <?
-require_once 'config.php';
+require_once 'C/CController.php';
 
-class CArtikel {
+class CArtikel extends CController {
   
-  public function work($get, $post, $mart, $view) {
+  public function work($get, $post, $files) {
     $errmsg = $artikel = $navi_arts = '';
     try {
+      $mart = $this->getObject('MArtikel');
+      $view = $this->getObject('VArtikel');
       if (isset($get['aid']) && $aid = (int) $get['aid']) {
         // call by article id
-        $artikel = $mart->get_artikel_komplett($aid);
+        $artikel = $mart->getArtikelKomplett($aid);
         
       } elseif (isset($get['url']) && strlen($fakeurl = trim($get['url']))) {
         // call by (faked) url?
-        $artikel = $mart->get_artikel_komplett_by_url($fakeurl);
+        $artikel = $mart->getArtikelKomplettByUrl($fakeurl);
       } else {
         throw new Exception('incorrect call');
       }
 
       // navi_arts werden in jedem Fall gebraucht
-      $navi_arts = $mart->get_top(3);
+      $navi_arts = $mart->getTop(3);
       
     } catch (Exception $e) {
       $errmsg = $e->getMessage();
@@ -28,8 +30,7 @@ class CArtikel {
       }
     }
   
-    $view->display(array(
-      'errmsg' => $errmsg,
+    $view->display($errmsg, array(
       'artikel' => $artikel,
       'navi_arts' => $navi_arts
     ));
