@@ -1,4 +1,6 @@
 <?
+require_once 'fslib.php';
+
 require_once 'Testcase.php';
 require_once 'M/MArtikel.php';
 
@@ -56,7 +58,7 @@ class MArtikel_Test extends Testcase {
   public function test_gt01() {
     // without text
     $m = new MArtikel();
-    $res = $m->get_top(3);
+    $res = $m->getTop(3);
     $this->assertSame(3, count($res));
     $this->assertFalse(isset($res[0]['text']));
   }
@@ -64,20 +66,20 @@ class MArtikel_Test extends Testcase {
   public function test_gt02() {
     // with text
     $m = new MArtikel();
-    $res = $m->get_top(2, true);
+    $res = $m->getTop(2, true);
     $this->assertSame(2, count($res));
     $this->assertTrue(isset($res[0]['text']));
   }
   
   
   /**
-   * testing get_artikel_komplett_by_url()
+   * testing getArtikelKomplettByUrl()
    */
   public function test_gu01() {
     // all ok
     $this->prep_artikel(1);
     $m = new MArtikel();
-    $res = $m->get_artikel_komplett_by_url('testurl');
+    $res = $m->getArtikelKomplettByUrl('testurl');
     $this->check_artikel_komplett($res);
   }
   
@@ -86,7 +88,7 @@ class MArtikel_Test extends Testcase {
     $this->prep_artikel(1);
     $_SESSION['ok'] = '';
     $m = new MArtikel();
-    $res = $m->get_artikel_komplett_by_url('testurl');
+    $res = $m->getArtikelKomplettByUrl('testurl');
     $this->check_artikel_komplett($res);
   }
   
@@ -95,7 +97,7 @@ class MArtikel_Test extends Testcase {
     $this->prep_artikel(0);
     $_SESSION['ok'] = true;
     $m = new MArtikel();
-    $res = $m->get_artikel_komplett_by_url('testurl');
+    $res = $m->getArtikelKomplettByUrl('testurl');
     $this->check_artikel_komplett($res);
   }
   
@@ -106,7 +108,7 @@ class MArtikel_Test extends Testcase {
     $m = new MArtikel();
     $msg = '';
     try {
-      $res = $m->get_artikel_komplett_by_url('testurl');
+      $res = $m->getArtikelKomplettByUrl('testurl');
       $msg = 'error not thrown';
     } catch (Exception $e) {
       $this->assertSame('Dieser Artikel ist nicht freigeschaltet.', $e->getMessage());
@@ -123,7 +125,7 @@ class MArtikel_Test extends Testcase {
     // all ok
     $this->prep_artikel(1);
     $m = new MArtikel();
-    $res = $m->get_artikel_komplett(1);
+    $res = $m->getArtikelKomplett(1);
 
     $this->check_artikel_komplett($res);
   }
@@ -198,7 +200,7 @@ class MArtikel_Test extends Testcase {
       "DELETE FROM posts WHERE aid=1"
     ));
     $m = new MArtikel();
-    $m->  create_post(1, 'Fritz', 'fsmail.de', 'text');
+    $m->createPost(1, 'Fritz', 'fsmail.de', 'text');
     $this->check_db(
       "SELECT count(*) anz FROM posts WHERE aid=1",
       array('anz' => '1')
@@ -208,7 +210,6 @@ class MArtikel_Test extends Testcase {
       array('lfnr' => '1', 'username' => 'Fritz', 'usermail' => 'fsmail.de',
         'text' => 'text', 'status' => '0', 'ymd' => Date('Ymd'))
     );
-    
   }
   
   
@@ -223,7 +224,7 @@ class MArtikel_Test extends Testcase {
       ." VALUES(          1,  1,   1,'fs', 'Fritz', 'fs@de',SYSDATE(),'tt1',     0)"
     ));
     $m = new MArtikel();
-    $m->confirm_post(1, 'fs');
+    $m->confirmPost(1, 'fs');
     $this->check_db(
       "SELECT * FROM posts WHERE aid=1",
       array('lfnr' => '1', 'username' => 'Fritz', 'usermail' => 'fs@de',
@@ -239,7 +240,7 @@ class MArtikel_Test extends Testcase {
       ." VALUES(          1,  1,   1,'fs', 'Fritz', 'fs@de',SYSDATE(),'tt1',     1)"
     ));
     $m = new MArtikel();
-    $m->confirm_post(1, 'fs');
+    $m->confirmPost(1, 'fs');
     $this->check_db(
       "SELECT * FROM posts WHERE aid=1",
       array('lfnr' => '1', 'username' => 'Fritz', 'usermail' => 'fs@de',
@@ -257,7 +258,7 @@ class MArtikel_Test extends Testcase {
     $m = new MArtikel();
     $msg = '';
     try {
-      $m->confirm_post(1, 'fs');
+      $m->confirmPost(1, 'fs');
       $msg = 'expected error not thrown';
     } catch (Exception $e) {
       $this->assertSame('Dieser Beitrag darf nicht freigeschaltet werden.', $e->getMessage());
@@ -295,3 +296,4 @@ class MArtikel_Test extends Testcase {
   }
   
 }
+
