@@ -2,7 +2,7 @@
 // muss schon während der include-Phase laufen
 set_include_path(get_include_path().PATH_SEPARATOR.'/home/fs/vw/blog');
 
-require_once 'M/Model.php';
+require_once 'D/DArtikel.php';
 
 class Testcase extends PHPUnit_Framework_TestCase {
 
@@ -10,8 +10,8 @@ class Testcase extends PHPUnit_Framework_TestCase {
   
   protected function setUp() {
     parent::setUp();
-    $m = new Model();
-    $this->pdo = $m->get_pdo();
+    $m = new DArtikel();
+    $this->pdo = $m->getPdo();
   }
   
   protected function exec_sqls($sqls) {
