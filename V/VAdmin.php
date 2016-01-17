@@ -2,9 +2,11 @@
 /**
  * Basisklasse für das ganze Backend
  */
-class VAdmin {
+require_once 'V/View.php';
 
-  public function displayHead($errmsg, $data) {
+abstract class VAdmin extends View {
+
+  protected function displayHead($errmsg, $data) {
     ?><html>
     <body>
     <head>
@@ -27,8 +29,10 @@ class VAdmin {
     }
   }
   
-  public function displayFoot() {
+  protected function displayFoot() {
     ?>
+    <a href="<?= BASEURL ?>index.php">FS-Blog Startseite</a>
+    
     </div>
     </body>
     </html>
