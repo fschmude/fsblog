@@ -1,7 +1,7 @@
 <?
-require_once 'C/CController.php';
+require_once 'C/Controller.php';
 
-class CMailtext extends CController {
+class CMailtext extends Controller {
   
   public function work($get, $post, $files) {
     $data = '';
