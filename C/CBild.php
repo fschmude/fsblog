@@ -2,9 +2,9 @@
 /**
  * Controller für Bilder-Auslieferung
  */
-require_once 'C/CController.php';
+require_once 'C/Controller.php';
 
-class CBild extends CController {
+class CBild extends Controller {
   
   public function work($get, $post, $files) {
     try {
