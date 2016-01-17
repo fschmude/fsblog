@@ -2,4 +2,5 @@ RewriteEngine on
 RewriteRule imga\/([\w,\-]+)\.[jpg|png|gif] bild.php?iurl=$1
 RewriteRule artikel\/([\w,\-]+)\.htm artikel.php?url=$1
 RewriteRule zettel\.php artikel.php?aid=1
+RewriteRule alle\.php index.php?list=alle
 
