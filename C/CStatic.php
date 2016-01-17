@@ -1,7 +1,7 @@
 <?
-require_once 'C/CController.php';
+require_once 'C/Controller.php';
 
-class CStatic extends CController {
+class CStatic extends Controller {
   
   public function work($get, $post, $files) {
   //public function work($mart, $view, $page) {
