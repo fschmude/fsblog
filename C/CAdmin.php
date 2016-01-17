@@ -3,7 +3,7 @@ require_once 'C/CController.php';
 
 class CAdmin extends CController {
   
-  public function run($get, $post, $files) {
+  public function work($get, $post, $files) {
     $data = '';
     $errmsg = '';
     try {
@@ -71,7 +71,7 @@ class CAdmin extends CController {
             break;
             
           case 'up':
-            $model->edit($post, $files);
+            $model->edit($post, isset($files['datei']) ? $files['datei'] : array());
             // fallthrough
           case 'up1':
             $data = $model->getItem($post['id']);
