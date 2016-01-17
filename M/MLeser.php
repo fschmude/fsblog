@@ -1,24 +1,37 @@
 <?
+require_once 'D/DArtikel.php';
+require_once 'D/DLeser.php';
 require_once 'M/Model.php';
 require_once 'M/Email.php';
 require_once 'M/MHelper.php';
 
 class MLeser extends Model {
   
+  private $dobj = null;
+  
+  /**
+   * Konstruktor
+   */
+  public function __construct() {
+    $this->dobj = new DLeser;
+  }
+  
+
   /**
    * Eine Leseradresse eintragen
    */
-  public function create_leser($lmail) {
-    $stmt = $this->get_pdo()->prepare(
-      "INSERT INTO leser(lmail,code,datum,status) VALUES(:lmail,:code,SYSDATE(),0)"
-    );
-    $stmt->bindParam(':lmail', $lmail);
-    $Helper = new MHelper();
-    $code = $Helper->make_code();
-    $stmt->bindParam(':code', $code);
-    if (!$stmt->execute()) {
-      throw new Exception('Fehler beim Einfügen der Mailadresse "'.$lmail.'"');
+  public function createLeser($lmail) {
+    if (!$lmail = trim($lmail)) {
+      throw new Exception('Keine E-Mail-Adresse angegeben.');
     }
+    $Helper = new MHelper();
+    $code = $Helper->makeCode();
+    $this->dobj->createValues(array(
+      'lmail' => $lmail,
+      'code' => $code,
+      'datum' => date('Y-m-d H:i:s'),
+      'status' => 0
+    ));
     
     // Noch das Mail verschicken
     $mtext = 'Sehr geehrte/r Leser/in,'."\n\n"
@@ -39,23 +52,12 @@ class MLeser extends Model {
    */
   public function confirm($code) {
     // code suchen
-    $stmt = $this->get_pdo()->prepare("SELECT id, lmail, code, status FROM leser WHERE code=:code");
-    $stmt->bindParam(':code', $code);
-    if (!$stmt->execute()) {
-      throw new Exception('Fehler beim Suchen nach code="'.$code.'"');
-    }
-    $leser = $stmt->fetch(PDO::FETCH_ASSOC);
-    if (!isset($leser['lmail'])) {
-      throw new Exception('Es existiert kein Eintrag mit code="'.$code.'"');
-    }
+    $leser = $this->dobj->getRowByCode($code);
+
     switch ($leser['status']) {
     case 0:
       // freischalten
-      $stmt = $this->get_pdo()->prepare("UPDATE leser SET status=1 WHERE code=:code");
-      $stmt->bindParam(':code', $code);
-      if (!$stmt->execute()) {
-        throw new Exception('Fehler beim Freischalten von code="'.$code.'"');
-      }
+      $this->dobj->setField($leser['id'], 'status', 1);
       break;
       
     case 1:
@@ -73,35 +75,21 @@ class MLeser extends Model {
   /**
    * Leserliste und Hinweistext für Mailing erzeugen
    */
-  public function getTeaser($aid) {
+  public function getMaildata($aid) {
     if (!$aid) {
       throw new Exception('Keine aid angegeben');
     }
     
     // go
-    $stmt = $this->get_pdo()->prepare("SELECT * FROM artikel WHERE id=:aid");
-    if (!$stmt->execute(array(':aid' => $aid))) {
-      throw new Exception('Fehler beim Suchen von Artikel mit aid='.$aid);
-    }
-    $art = $stmt->fetch(PDO::FETCH_ASSOC);
-    if (!isset($art['status'])) {
-      throw new Exception('Es existiert kein Artikel mit aid='.$aid);
-    }
+    $dart = new DArtikel;
+    $art = $dart->getRow($aid);
     
     // add leser
-    $stmt = $this->get_pdo()->prepare("SELECT lmail FROM leser WHERE status=1");
-    if (!$stmt->execute()) {
-      throw new Exception('Fehler beim Suchen der Leser');
-    }
-    $leser = array();
-    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-      $leser[] = $row['lmail'];
-    }
-    $art['leser'] = implode(', ', $leser);
-    
+    $leser = $this->dobj->getReaders();
+    $art['leser'] = implode(',', $leser);
+
     return $art;
   }
-  
-  
+    
 }
 
