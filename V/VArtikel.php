@@ -3,9 +3,8 @@ require_once 'V/View.php';
 
 class VArtikel extends View {
 
-  public function display($ddata) {
+  public function display($errmsg, $ddata) {
     try {
-      $errmsg = $ddata['errmsg'];
       $art = $ddata['artikel'];
       $canonical = BASEURL.'artikel/'.$art['url'].'.htm';
       $this->head($art['titel'], $canonical, $art['datum'], $art['metadesc']);
