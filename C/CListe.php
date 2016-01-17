@@ -1,7 +1,7 @@
 <?
-require_once 'C/CController.php';
+require_once 'C/Controller.php';
 
-class CListe extends CController {
+class CListe extends Controller {
   
   public function work($get, $post, $files) {
     try {
