@@ -2,8 +2,7 @@
 /**
  * Controller für alle Leser-Interaktionen 
  */
-require_once 'C/CController.php';
-require_once 'M/MLeser.php';
+require_once 'C/Controller.php';
 
 define('CONFIRM_DISPLAYMODE_NOTHING', 0);
 define('CONFIRM_DISPLAYMODE_POSTMAIL', 1);
@@ -11,7 +10,7 @@ define('CONFIRM_DISPLAYMODE_POSTCONFIRM', 2);
 define('CONFIRM_DISPLAYMODE_LMAIL', 3);
 define('CONFIRM_DISPLAYMODE_LCONFIRM', 4);
 
-class CConfirm extends CController {
+class CConfirm extends Controller {
   
   public function work($get, $post, $files) {
     $errmsg = $msg = $lmail = $usermail = $aurl = '';
@@ -21,8 +20,9 @@ class CConfirm extends CController {
       $b_input_wellformed = false;
       $titel = '';
       $displaymode = CONFIRM_DISPLAYMODE_NOTHING;
-      $Mail = new Email();
+      $Mail = $this->getObject('MEmail');
       $mart = $this->getObject('MArtikel');
+      $mpost = $this->getObject('MPost');
       $mleser = $this->getObject('MLeser');
       
       // new post?
@@ -41,7 +41,7 @@ class CConfirm extends CController {
           $msg = 'Es wurde kein Posting eingetippt.';
         } else {
           // ok, do something
-          if ($mart->createPost($aid, trim($post['username']), $usermail, $ptext)) {
+          if ($mpost->createPost($aid, trim($post['username']), $usermail, $ptext)) {
             $displaymode = CONFIRM_DISPLAYMODE_POSTMAIL;
           }
         }
@@ -55,7 +55,7 @@ class CConfirm extends CController {
         if (!strlen($code = trim($get['code']))) {
           $msg = 'Es wurde kein Bestätigungs-Code angegeben.';
         } else {
-          $pinfo = $mart->confirmPost($pid, $code);
+          $pinfo = $mpost->confirmPost($pid, $code);
           $displaymode = CONFIRM_DISPLAYMODE_POSTCONFIRM;
           $aurl = $mart->getUrl($pinfo['aid']);
           $usermail = $pinfo['usermail'];
