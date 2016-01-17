@@ -3,9 +3,9 @@ require_once 'V/View.php';
 
 class VListe extends View {
 
-  public function display($errmsg, $arts, $page) {
+  public function display($errmsg, $vdata) {
     try {
-      switch ($page) {
+      switch ($vdata['page']) {
       case 'index':
         $titel = 'Willkommen';
         $desc = 'Ein freisinniges Blog. Der allgemeinen Verteufelung alles Liberalen eine Stimme der Vernunft, eine Stimme für die Freiheit entgegensetzen.';
@@ -35,15 +35,15 @@ class VListe extends View {
         break;
         
       default:
-        throw new Exception('Ungültige page: "'.$page.'"');
+        throw new Exception('Ungültige page: "'.$vdata['page'].'"');
       }
       
       // page is ok, so canonical must be, too
-      $canonical = BASEURL.$page.'.php';
+      $canonical = BASEURL.$vdata['page'].'.php';
       
       $naviarts = array();
       $i = 0;
-      foreach ($arts as $art) {
+      foreach ($vdata['arts'] as $art) {
         if ($i<3) {
           $naviarts[] = $art;
         }
@@ -61,7 +61,7 @@ class VListe extends View {
     } else {
       echo $vorher;
       //echo '<br><br>'."\n";
-      foreach ($arts as $art) {
+      foreach ($vdata['arts'] as $art) {
         echo Date('Y-m-d', strtotime($art['datum'])).': '."\n";
         $url = BASEURL.'artikel/'.$art['url'].'.htm';
         echo '<a href="'.$url.'">'.$art['titel'].'</a><br>'."\n";
