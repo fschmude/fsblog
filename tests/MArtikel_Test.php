@@ -1,6 +1,4 @@
 <?
-require_once 'fslib.php';
-
 require_once 'Testcase.php';
 require_once 'M/MArtikel.php';
 
