@@ -1,17 +1,19 @@
 <?
-require_once 'config.php';
+require_once 'C/CController.php';
 
-class CRss {
+class CRss extends CController {
   
-  public function work($mart, $view) {
+  public function work($get, $post, $files) {
     $errmsg = '';
+    $arts = array();
     try {
-      $arts = $mart->get_top(10, true);
+      $arts = $this->getObject('MArtikel')->getTop(10, true);
     } catch (Exception $e) {
       $errmsg = $e->getMessage();
     }
     
-    $view->display($errmsg, $arts);
+    $this->getObject('VRss')->display($errmsg, $arts);
   }
   
 }
+
