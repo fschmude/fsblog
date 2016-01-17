@@ -40,23 +40,6 @@ class DPosts extends DB {
 
 
   /**
-   * Set status field for 1 posting
-   * @param int $pid = posting id
-   * @param int $status = new status number
-   */
-  public function setStatus($pid, $status) {
-    if (!$pid = (int) $pid) {
-      throw new Exception('No valid posting id given');
-    }
-    
-    $stmt = $this->getPdo()->prepare("UPDATE posts SET status=:status WHERE id=:pid" );
-    if (!$stmt->execute(array(':pid' => $pid, ':status' => $status))) {
-      throw new Exception('Fehler beim Bearbeiten von Posting Nr. '.$pid);
-    }
-  }
-  
-  
-  /**
    * Höchste Lfnr der Postings zu einem Artikel
    */
   public function getMaxLfnr($aid) {
