@@ -2,7 +2,7 @@
 require_once 'D/DArtikel.php';
 require_once 'D/DLeser.php';
 require_once 'M/Model.php';
-require_once 'M/Email.php';
+require_once 'M/MEmail.php';
 require_once 'M/MHelper.php';
 
 class MLeser extends Model {
@@ -43,7 +43,7 @@ class MLeser extends Model {
       .'Viele Grüße'."\n\n"
       .'fs'
     ;
-    $e = new Email();
+    $e = new MEmail();
     $e->mailen($lmail, 'fs-blog.de: Adresse bestätigen', $mtext);
   }
   
