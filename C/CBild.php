@@ -6,7 +6,7 @@ require_once 'C/CController.php';
 
 class CBild extends CController {
   
-  public function run($get, $post, $files) {
+  public function work($get, $post, $files) {
     try {
       // get data
       $iurl = isset($get['iurl']) ? $get['iurl'] : '';
