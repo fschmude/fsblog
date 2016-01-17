@@ -49,7 +49,7 @@ class VAdminArtikel extends VAdmin {
     <br>
     &lt;wiki href="wiki-Seitenname"&gt;verlinkter Text&lt;/wiki&gt;
     <br>
-    &lt;imga id="bid"&gt; -&gt; <a href="b_list.php" target="_blank">Bilder verwalten</a>
+    &lt;imga id="bid"&gt;
     <br>
     &lt;h2&gt;Zwischenüberschrift&lt;/h2&gt; 
     <br>
@@ -82,12 +82,18 @@ class VAdminArtikel extends VAdmin {
     }
 
     ?>
+    <div align="center">
     <form action="admin.php" method="post">
     <input type="hidden" value="Bild_list" name="mode"></input>
-    <div align="center">
     <input type="submit" value="Bilder verwalten">
-    </div>
     </form>
+
+    <form action="admin.php" method="post">
+    <input type="hidden" value="Artikel_list" name="mode"></input>
+    <input type="submit" value="Artikel verwalten">
+    </form>
+
+    </div>
     
     <?
     $this->displayFoot();
