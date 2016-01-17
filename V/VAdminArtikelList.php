@@ -28,32 +28,38 @@ class VAdminArtikelList extends VAdmin {
     
     } else {
       ?>
-      <table class="edittable">
+      <table class="tded">
       <tr>
-      <td class="edittable">ID</td>
-      <td class="edittable">Erscheinungsdatum</td>
-      <td class="edittable">URL (click to view)</td>
-      <td class="edittable">Status</td>
-      <td class="edittable">edit</td>
-      <td class="edittable">delete</td>
-      <td class="edittable">Mailtext</td>
+      <td class="tded">ID</td>
+      <td class="tded">Erscheinungsdatum</td>
+      <td class="tded">URL (click to view)</td>
+      <td class="tded">Status</td>
+      <td class="tded">edit</td>
+      <td class="tded">delete</td>
+      <td class="tded">Mailtext</td>
       </tr>
       <?
       foreach ($data as $artikel) {
         ?>
         <tr>
-        <td class="edittable"><?= $artikel['id'] ?></td>
-        <td class="edittable"><?= $artikel['datum'] ?></td>
-        <td class="edittable"><a href="artikel/<?= $artikel['url'] ?>.htm" target="_blank"><?= $artikel['url'] ?></a></td>
-        <td class="edittable"><?= $artikel['status'] ?></td>
-        <td class="edittable" style="text-align:center;">
+        <td class="tded"><?= $artikel['id'] ?></td>
+        <td class="tded"><?= $artikel['datum'] ?></td>
+        <td class="tded"><a href="artikel/<?= $artikel['url'] ?>.htm" target="_blank"><?= $artikel['url'] ?></a></td>
+        <td class="tded"><?= $artikel['status'] ?></td>
+        <td class="tded" style="text-align:center;">
           <a href="javascript:launchEdit(<?= $artikel['id'] ?>);"><img src="img/icon_edit.png" width="16" height="16"></a>
         </td>
-        <td class="edittable" style="text-align:center;">
+        <td class="tded" style="text-align:center;">
           <a href="javascript:launchDel(<?= $artikel['id'] ?>,'Wollen Sie den Artikel mit ID=<?= $artikel['id'] ?> wirklich löschen?');"><img src="img/icon_delete.png" width="16" height="16"></a>
         </td>
-        <td class="edittable">
-          <a href="mailtext.php?aid=<?= $artikel['id'] ?>" target="_blank">Mailtext</a>
+        <td class="tded">
+          <?
+          if ($artikel['status'] == 1) {
+            echo '<a href="mailtext.php?aid='.$artikel['id'].'" target="_blank">Mailtext</a>';
+          } else {
+            echo 'Status != 1';
+          }
+          ?>
         </td>
         </tr>
         <?
