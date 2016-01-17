@@ -23,27 +23,31 @@ class VAdminBildList extends VAdmin {
     
     } else {
       ?>
-      <table class="edittable">
+      <table class="tded">
       <tr>
-      <td class="edittable">ID</td>
-      <td class="edittable">width</td>
-      <td class="edittable">height</td>
-      <td class="edittable">ext</td>
-      <td class="edittable">edit</td>
-      <td class="edittable">delete</td>
+      <td class="tded">ID</td>
+      <td class="tded">width</td>
+      <td class="tded">height</td>
+      <td class="tded">url</td>
+      <td class="tded">ext</td>
+      <td class="tded">alt</td>
+      <td class="tded">edit</td>
+      <td class="tded">delete</td>
       </tr>
       <?
       foreach ($data as $bild) {
         ?>
         <tr>
-        <td class="edittable"><?= $bild['id'] ?></td>
-        <td class="edittable"><?= $bild['width'] ?></td>
-        <td class="edittable"><?= $bild['height'] ?></td>
-        <td class="edittable"><?= $bild['ext'] ?></td>
-        <td class="edittable" style="text-align:center;">
+        <td class="tded"><?= $bild['id'] ?></td>
+        <td class="tded"><?= $bild['width'] ?></td>
+        <td class="tded"><?= $bild['height'] ?></td>
+        <td class="tded"><?= $bild['url'] ?></td>
+        <td class="tded"><?= $bild['ext'] ?></td>
+        <td class="tded"><?= $bild['alt'] ?></td>
+        <td class="tded" style="text-align:center;">
           <a href="javascript:launchEdit(<?= $bild['id'] ?>);"><img src="img/icon_edit.png" width="16" height="16"></a>
         </td>
-        <td class="edittable" style="text-align:center;">
+        <td class="tded" style="text-align:center;">
           <a href="javascript:launchDel(<?= $bild['id'] ?>,'Wollen Sie das Bild mit ID=<?= $bild['id'] ?> wirklich löschen?');"><img src="img/icon_delete.png" width="16" height="16"></a>
         </td>
         </tr>
