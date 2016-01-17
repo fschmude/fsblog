@@ -44,7 +44,7 @@ class VAdminBild extends VAdmin {
 
     Aktuelles Bild:
     <br>
-    <img width="100" height="100" src="imga/<?= $data['id'] ?>.<?= $data['ext'] ?>">
+    <img width="100" height="100" src="<?= BASEURL ?>imga/<?= $data['url'] ?>.<?= $data['ext'] ?>">
     
     <form action="admin.php" method="post">
     <input type="hidden" value="Bild_list" name="mode"></input>
