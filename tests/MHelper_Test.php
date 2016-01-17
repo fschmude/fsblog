@@ -5,15 +5,16 @@ require_once 'M/MArtikel.php';
 class MHelper_Test extends Testcase {
   
   /**
-   * testing make_code()
+   * testing makeCode()
    */
   public function test_mc01() {
     $m = new MHelper();
     $this->assertNotNull($m);
     
-    $code = $m->make_code();
+    $code = $m->makeCode();
     
     $this->assertSame(15, strlen($code));
   }
  
 }
+
