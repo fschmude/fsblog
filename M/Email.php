@@ -34,7 +34,7 @@ class Email {
   }
   
   // Adresse validieren
-  public function validate_address($eadr) {
+  public function validateAddress($eadr) {
     $regex = '/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.([a-z]{2,4}|museum))$/i';
     $b_ok = preg_match($regex, $eadr);
     return $b_ok;
