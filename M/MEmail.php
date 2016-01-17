@@ -5,7 +5,7 @@
 define('EMAIL_ADMIN', 'mail@fritz-schmude.de');
 define('EMAIL_OFFIZIELL', 'mail@fs-blog.de');
 
-class Email {
+class MEmail {
   
   /**
    * Constructor
@@ -41,3 +41,4 @@ class Email {
   }
 
 }
+
