@@ -85,8 +85,7 @@ class CAdmin extends Controller {
       }
       
     } catch (Exception $e) {
-      $errmsg = $e->getMessage();
-      $data = 'Sonstiger Fehler';
+      $errmsg = $this->handleError($e);
       $v = $this->getObject('VAdminStart');
     }
     
