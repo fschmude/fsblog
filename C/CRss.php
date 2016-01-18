@@ -9,7 +9,7 @@ class CRss extends Controller {
     try {
       $arts = $this->getObject('MArtikel')->getTop(10, true);
     } catch (Exception $e) {
-      $errmsg = $e->getMessage();
+      $errmsg = $this->handleError($e);
     }
     
     $this->getObject('VRss')->display($errmsg, $arts);
