@@ -15,12 +15,12 @@ class MLeser_Test extends Testcase {
    */
   public function test_cl_01() {
     // create "mail address" huhu 
-    $this->exec_sqls(array(
+    $this->execSqls(array(
       "DELETE FROM leser WHERE lmail='huhu'"
     ));
     $m = new MLeser();
     $m->createLeser('huhu');
-    $row = $this->check_db(
+    $row = $this->checkDb(
       "SELECT DATE_FORMAT(datum, '%Y%m%d') datum, status FROM leser WHERE lmail='huhu'",
       array('datum' => Date('Ymd'), 'status' => '0')
     );
@@ -32,7 +32,7 @@ class MLeser_Test extends Testcase {
    */
   public function test_cfm_01() {
     // code doesnt exist
-    $this->exec_sqls(array(
+    $this->execSqls(array(
       "DELETE FROM leser WHERE code='12a'"
     ));
     $msg = '';
@@ -50,7 +50,7 @@ class MLeser_Test extends Testcase {
   
   public function test_cfm_02() {
     // status is 2 (whatever that means)
-    $this->exec_sqls(array(
+    $this->execSqls(array(
       "DELETE FROM leser WHERE code='12a'",
       "INSERT INTO leser(lmail,    datum, code,status)"
       ." VALUES(        'huhu',SYSDATE(),'12a',     2)"
@@ -71,14 +71,14 @@ class MLeser_Test extends Testcase {
   public function test_cfm_03() {
     // everything ok, confirm address, change status
     $m = new MLeser();
-    $this->exec_sqls(array(
+    $this->execSqls(array(
       "DELETE FROM leser WHERE lmail='huhu' OR code='12a'",
       "INSERT INTO leser(lmail,    datum, code,status)"
       ." VALUES(        'huhu',SYSDATE(),'12a',     0)"
     ));
     $ret = $m->confirm('12a');
     $this->assertSame('huhu', $ret);
-    $row = $this->check_db(
+    $row = $this->checkDb(
       "SELECT status FROM leser WHERE lmail='huhu'",
       array('status' => '1')
     );
@@ -90,7 +90,7 @@ class MLeser_Test extends Testcase {
    */
   public function test_gt1() {
     $m = new MLeser();
-    $this->exec_sqls(array(
+    $this->execSqls(array(
       "DELETE FROM artikel WHERE id=1"
     ));
     $msg = '';
@@ -106,7 +106,7 @@ class MLeser_Test extends Testcase {
   public function test_gt2() {
     // all ok
     $m = new MLeser();
-    $this->exec_sqls(array(
+    $this->execSqls(array(
       "DELETE FROM artikel WHERE id=1",
       "INSERT INTO artikel(id,titel,text,status) VALUES(1,'Testtitel', 'Dies ist ein Testartikel',1)",
       "DELETE FROM leser WHERE id IN(1,2) OR lmail IN('m1','m2')",
