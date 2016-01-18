@@ -7,7 +7,8 @@ class MBild_Test extends Testcase {
   /**
    * test editing
    */
-  public function test_01() {
+  public function test_e01() {
+    // nur Datenänderung, ohne upload
     $m = new MBild;
     $id = $m->create();
     $row = array(
@@ -18,11 +19,47 @@ class MBild_Test extends Testcase {
       'ext' => 'tst',
       'alt' => 'Haha'
     );
-    $upfile = array('size' => 100, 'tmp_name' => '1.tst');
-    $m->edit($row, $upfile);
+    $m->edit($row, 0);
     $this->checkDb(
       "SELECT * FROM bilder WHERE id=".$id,
       $row
+    );
+  }
+  
+  public function test_e02() {
+    // mit upload, daten müssen aus dem upload übernommen werden
+
+    // Testbild erzeugen (gif, 10x10 Pixel)
+    $base64 = 'R0lGODlhCgAKAKECAAAAAP//AP///////yH+CGZzIGZlY2l0ACwAAAAACgAKAAACGpSPAsurEKIEKsIAmdz4NrtM3nOBh+YgjVEAADs=';
+    file_put_contents('imga/testbild', base64_decode($base64));
+    
+    $m = new MBild;
+    $id = $m->create();
+    $row = array(
+      'id' => $id,
+      'ext' => 0,
+      'alt' => 'Haha',
+      'url' => 0,
+      'width' => 0,
+      'height' => 0
+    );
+    $upfile = array(
+      'size' => 100, 
+      'tmp_name' => 'imga/testbild',
+      'error' => '0',
+      'type' => 'image/gif'
+    );
+    $m->edit($row, $upfile);
+    $soll = array(
+      'ext' => 'gif',
+      'alt' => 'Haha',
+      'url' => $id,
+      'width' => '10',
+      'height' => '10'
+    );
+    $this->checkDb(
+      "SELECT * FROM bilder WHERE id=".$id,
+      $soll
     );
   }
   
