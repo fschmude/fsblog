@@ -27,13 +27,8 @@ class CBild extends Controller {
       readfile($file);
       
     } catch (Exception $e) {
-      $errmsg = $e->getMessage();
-      $f = fopen(LOG_FILE, 'a');
-      fwrite($f, date('Y-m-d H:i:s').': '.$e->getFile().'('.$e->getLine().'): '.$errmsg."\n");
-      fwrite($f, $e->getTraceAsString()."\n");
-      fclose($f);
-      
-      echo 'Error, see log file.';
+      $errmsg = $this->handleError($e);
+      echo $errmsg;
     }
   }
 
