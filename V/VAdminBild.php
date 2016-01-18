@@ -16,6 +16,8 @@ class VAdminBild extends VAdmin {
     $this->displayHead($errmsg, 'Bild editieren');
     ?>
     Bild id = <?= $data['id'] ?>
+    <br>
+    Möglichst nicht editieren:
     <form method="post" action="admin.php" enctype="multipart/form-data">
     <input type="hidden" name="mode" value="Bild_up">
     <input type="hidden" name="id" value="<?= $data['id'] ?>">
@@ -25,16 +27,19 @@ class VAdminBild extends VAdmin {
     Höhe:
     <input type="text" name="height" value="<?= $data['height'] ?>" style="width:100px">
     <br>
-    URL (ohne Endung):
-    <input type="text" name="url" value="<?= $data['url'] ?>" style="width:100px">
-    <br>
     Extension (Dateinamen-Endung):
     <input type="text" name="ext" value="<?= $data['ext'] ?>" style="width:100px">
     <br>
-    Beschreibung (für alt-Attribut):
-    <input type="text" name="alt" value="<?= $data['alt'] ?>" style="width:100px">
+
+    Ab hier editieren:
     <br>
-    Bilddatei:
+    URL (ohne Endung):
+    <input type="text" name="url" value="<?= $data['url'] ?>" style="width:200px">
+    <br>
+    Beschreibung (für alt-Attribut):
+    <input type="text" name="alt" value="<?= $data['alt'] ?>" style="width:200px">
+    <br>
+    Bilddatei ändern, falls nötig:
     <input type="file" name="datei" value="" style="width:300px">
     <br>
     
@@ -42,9 +47,9 @@ class VAdminBild extends VAdmin {
     
     </form>
 
-    Aktuelles Bild:
+    Aktuelles Bild (hier evtl. verkleinert):
     <br>
-    <img width="100" height="100" src="<?= BASEURL ?>imga/<?= $data['url'] ?>.<?= $data['ext'] ?>">
+    <img width="<?= $data['t_width'] ?>" height="<?= $data['t_height'] ?>" src="<?= BASEURL ?>imga/<?= $data['url'] ?>.<?= $data['ext'] ?>">
     
     <form action="admin.php" method="post">
     <input type="hidden" value="Bild_list" name="mode"></input>
