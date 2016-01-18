@@ -14,16 +14,16 @@ class MPost_Test extends Testcase {
    * testing create_post()
    */
   public function test_cp01() {
-    $this->exec_sqls(array(
+    $this->execSqls(array(
       "DELETE FROM posts WHERE aid=1"
     ));
     $m = new MPost();
     $m->createPost(1, 'Fritz', 'fsmail.de', 'text');
-    $this->check_db(
+    $this->checkDb(
       "SELECT count(*) anz FROM posts WHERE aid=1",
       array('anz' => '1')
     );
-    $this->check_db(
+    $this->checkDb(
       "SELECT *, DATE_FORMAT(datum, '%Y%m%d') ymd FROM posts WHERE aid=1",
       array('lfnr' => '1', 'username' => 'Fritz', 'usermail' => 'fsmail.de',
         'text' => 'text', 'status' => '0', 'ymd' => Date('Ymd'))
@@ -36,14 +36,14 @@ class MPost_Test extends Testcase {
    */
   public function test_cfp01() {
     // ok, update status to 1
-    $this->exec_sqls(array(
+    $this->execSqls(array(
       "DELETE FROM posts WHERE aid=1 OR id=1",
       "INSERT INTO posts(id,aid,lfnr,code,username,usermail, datum   ,text ,status)"
       ." VALUES(          1,  1,   1,'fs', 'Fritz', 'fs@de',SYSDATE(),'tt1',     0)"
     ));
     $m = new MPost();
     $m->confirmPost(1, 'fs');
-    $this->check_db(
+    $this->checkDb(
       "SELECT * FROM posts WHERE aid=1",
       array('lfnr' => '1', 'username' => 'Fritz', 'usermail' => 'fs@de',
         'text' => 'tt1', 'status' => '1')
@@ -52,14 +52,14 @@ class MPost_Test extends Testcase {
   
   public function test_cfp02() {
     // already 1, leave it there
-    $this->exec_sqls(array(
+    $this->execSqls(array(
       "DELETE FROM posts WHERE aid=1 OR id=1",
       "INSERT INTO posts(id,aid,lfnr,code,username,usermail, datum   ,text ,status)"
       ." VALUES(          1,  1,   1,'fs', 'Fritz', 'fs@de',SYSDATE(),'tt1',     1)"
     ));
     $m = new MPost();
     $m->confirmPost(1, 'fs');
-    $this->check_db(
+    $this->checkDb(
       "SELECT * FROM posts WHERE aid=1",
       array('lfnr' => '1', 'username' => 'Fritz', 'usermail' => 'fs@de',
         'text' => 'tt1', 'status' => '1')
@@ -68,7 +68,7 @@ class MPost_Test extends Testcase {
   
   public function test_cfp03() {
     // status = 2 => error, leave status alone
-    $this->exec_sqls(array(
+    $this->execSqls(array(
       "DELETE FROM posts WHERE aid=1 OR id=1",
       "INSERT INTO posts(id,aid,lfnr,code,username,usermail, datum   ,text ,status)"
       ." VALUES(          1,  1,   1,'fs', 'Fritz', 'fs@de',SYSDATE(),'tt1',     2)"
@@ -84,7 +84,7 @@ class MPost_Test extends Testcase {
     if ($msg) {
       $this->fail($msg);
     }
-    $this->check_db(
+    $this->checkDb(
       "SELECT * FROM posts WHERE aid=1",
       array('lfnr' => '1', 'username' => 'Fritz', 'usermail' => 'fs@de',
         'text' => 'tt1', 'status' => '2')
