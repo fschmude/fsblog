@@ -19,7 +19,7 @@ class CStatic extends Controller {
       $navi_arts = $mart->getTop(3);
       
     } catch (Exception $e) {
-      $errmsg = $e->getMessage();
+      $errmsg = $this->handleError($e);
     }
     
     // display
