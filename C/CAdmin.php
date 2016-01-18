@@ -1,4 +1,7 @@
 <?
+/**
+ * Controller für das gesamte Backend
+ */
 require_once 'C/Controller.php';
 
 class CAdmin extends Controller {
