@@ -11,46 +11,6 @@ class MArtikel_Test extends Testcase {
   
   
   /**
-   * Testing get_all()
-   */
-  public function ga01() {
-    // count must be ok, one row must match exactly
-    $this->exec_sqls(array(
-      "DELETE FROM artikel WHERE id IN(1,2)",
-      "INSERT INTO artikel(id, titel,metadesc,    datum,   text,status)"
-      ." VALUES(            1,'tit1',  desc1',SYSDATE(),'text1',     1)",
-      "INSERT INTO artikel(id, titel,metadesc,    datum,   text,status)"
-      ." VALUES(            2,'tit2',  desc2',SYSDATE(),'text2',     0)"
-    ));
-    $stmt = $this->pdo->prepare(
-      "SELECT count(*) anz FROM artikel"
-      ." WHERE status=1"
-    );
-    if (!$stmt->execute()) {
-      $this->fail('preparation not working');
-    }
-    $res = $stmt->fetch(PDO::FETCH_ASSOC);
-    $anz = $res['anz'];
-
-    $m = new MArtikel();
-    $erg = $m->get_all();
-    $this->assertSame($anz, count($erg));
-    $b_found = false;
-    foreach ($erg as $row) {
-      if ($row['id'] == 1) {
-        $b_found = true;
-        $this->assertSame('tit1', $row['titel']);
-        $this->assertSame('desc1', $row['metadesc']);
-      }
-      if ($row['id'] == 2) {
-        $this->fail('row 2 must not turn up in the result');
-      }
-    }
-    $this->assertTrue($b_found);
-  }
-  
-  
-  /**
    * testing get_top()
    */
   public function test_gt01() {
@@ -130,7 +90,7 @@ class MArtikel_Test extends Testcase {
   
   // helper for gk
   private function prep_artikel($status) {
-    $this->exec_sqls(array(
+    $this->execSqls(array(
       "DELETE FROM artikel WHERE id=1"
     ));
     $stmt = $this->pdo->prepare(
@@ -144,7 +104,7 @@ class MArtikel_Test extends Testcase {
       $this->fail('Fehler beim Anlegen des Artikels');
     }
     // abhängige Datensätze anlegen
-    $this->exec_sqls(array(
+    $this->execSqls(array(
       "DELETE FROM bilder WHERE id=1",
       "INSERT INTO bilder(id,width,height,url   ,  ext,   alt)"
       ." VALUES(           1,  150,   100,'test','jpg','Test')",
@@ -194,18 +154,18 @@ class MArtikel_Test extends Testcase {
    * tests for delete()
    */
   public function test_d1() {
-    $this->exec_sqls(array(
+    $this->execSqls(array(
       "DELETE FROM artikel WHERE id=1",
       "INSERT INTO artikel(id)"
       ." VALUES(            1)"
     ));
-    $this->check_db(
+    $this->checkDb(
       "SELECT count(*) cnt FROM artikel WHERE id=1",
       array('cnt' => '1')
     );
     $m = new MArtikel();
     $m->delete(1);
-    $this->check_db(
+    $this->checkDb(
       "SELECT count(*) cnt FROM artikel WHERE id=1",
       array('cnt' => '0')
     );
