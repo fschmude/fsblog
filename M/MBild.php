@@ -92,7 +92,7 @@ class MBild extends Model {
    */
   public function getImageInfo($url) {
     // Zahl oder Text-Url
-    if (is_int($url)) {
+    if (is_numeric($url)) {
       $ret = $this->dobj->getRow($url);
     } else {
       $ret = $this->dobj->getByUrl($url);
