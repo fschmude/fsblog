@@ -208,6 +208,7 @@ class MArtikel extends Model {
       'status' => 0,
       'titel' => '',
       'text' => '',
+      'url' => '',
       'metadesc' => ''
     ));
     return $aid;
