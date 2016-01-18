@@ -23,11 +23,7 @@ class CArtikel extends Controller {
       $navi_arts = $mart->getTop(3);
       
     } catch (Exception $e) {
-      $errmsg = $e->getMessage();
-      if (DISPLAY_ERRORS) {
-        echo $errmsg;
-        echo $e->getTraceAsString();
-      }
+      $errmsg = $this->handleError($e);
     }
   
     $view->display($errmsg, array(
