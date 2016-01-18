@@ -13,7 +13,7 @@ class CConfirm_Test extends Testcase {
     $post = array();
     $c = new CConfirm(array('VConfirm' => $v));
     $c->work($get, $post, 0);
-    $this->assertSame('Input-Variablen stimmen nicht...', $v->errmsg);
+    $this->assertSame('Fehler, siehe Logfile.', $v->errmsg);
     $this->assertSame('', $v->titel);
     $this->assertSame(0, $v->displaymode);
   }
