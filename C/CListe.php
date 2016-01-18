@@ -20,13 +20,7 @@ class CListe extends Controller {
       }
       
     } catch (Exception $e) {
-      $errmsg = $e->getMessage();
-      $errtrace = $e->getTraceAsString();
-      
-      if (!DISPLAY_ERRORS) {
-        $errmsg = 'Ein Fehler ist aufgetreten, siehe Error-Log.';
-      }
-      
+      $errmsg = $this->handleError($e);
     }
     
     // display
