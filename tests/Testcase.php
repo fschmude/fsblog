@@ -14,7 +14,7 @@ class Testcase extends PHPUnit_Framework_TestCase {
     $this->pdo = $m->getPdo();
   }
   
-  protected function exec_sqls($sqls) {
+  protected function execSqls($sqls) {
     if (is_array($sqls)) {
       foreach ($sqls as $sql) {
         $stmt = $this->pdo->prepare($sql);
@@ -25,7 +25,7 @@ class Testcase extends PHPUnit_Framework_TestCase {
     }
   }
 
-  protected function check_db($sql, $asserts) {
+  protected function checkDb($sql, $asserts) {
     $stmt = $this->pdo->prepare($sql);
     if (!$stmt->execute()) {
       echo 'Fehler bei "'.$sql.'"!';
@@ -45,3 +45,4 @@ class Testcase extends PHPUnit_Framework_TestCase {
   }
   
 }
+
