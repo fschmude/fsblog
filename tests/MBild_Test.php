@@ -20,12 +20,37 @@ class MBild_Test extends Testcase {
     );
     $upfile = array('size' => 100, 'tmp_name' => '1.tst');
     $m->edit($row, $upfile);
-    $this->check_db(
+    $this->checkDb(
       "SELECT * FROM bilder WHERE id=".$id,
       $row
     );
   }
   
+  
+  /**
+   * getImageInfo
+   */
+  public function test_gi01() {
+    // by id
+    $this->execSqls(array(
+      "DELETE FROM bilder WHERE id=1 OR url='huhu'",
+      "INSERT INTO bilder(id,url,width) VALUES(1,'huhu',99)"
+    ));
+    $m = new MBild;
+    $row = $m->getImageInfo('1');
+    $this->assertSame('99', $row['width']);
+  }
+  
+  public function test_gi02() {
+    // by url
+    $this->execSqls(array(
+      "DELETE FROM bilder WHERE id=1 OR url='huhu'",
+      "INSERT INTO bilder(id,url,width) VALUES(1,'huhu',99)"
+    ));
+    $m = new MBild;
+    $row = $m->getImageInfo('huhu');
+    $this->assertSame('99', $row['width']);
+  }
   
 }
 
