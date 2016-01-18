@@ -21,7 +21,7 @@ class CMailtext extends Controller {
       $data = $m->getMaildata($get['aid']);
       
     } catch (Exception $e) {
-      $errmsg = $e->getMessage();
+      $errmsg = $this->handleError($e);
       $data = 'Sonstiger Fehler';
     }
     
