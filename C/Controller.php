@@ -20,6 +20,31 @@ abstract class Controller implements IController {
   
   /**
    * Get an object of a given class
+   * @param object $e Error-Object
+   * @return string safe, displayable message
+   */
+  protected function handleError($e) {
+    // in jedem Fall loggen
+    $errmsg = $e->getMessage();
+    $abschnitt = '--'."\n"
+      .date('Y-m-d H:i:s').': '.$e->getFile().'('.$e->getLine().'):'."\n"
+      .$errmsg."\n"
+      .$e->getTraceAsString()."\n"
+      .'--'."\n"
+    ;
+    $f = file_put_contents(LOG_FILE, $abschnitt, FILE_APPEND);
+    
+    // return only safe, displayable string
+    if (DISPLAY_ERRORS) {
+      return $errmsg;
+    } else {
+      return 'Fehler, siehe Logfile.';
+    }
+  }
+  
+  
+  /**
+   * Get an object of a given class
    * @param string $key (class name)
    * @return object - either the injected object, the freshly created object otherwise
    */
@@ -37,6 +62,6 @@ abstract class Controller implements IController {
     
     return $this->objs[$key];
   }
-
+  
 }
 
