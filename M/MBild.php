@@ -17,7 +17,22 @@ class MBild extends Model {
    * Genau ein Bild anhand der ID holen
    */
   public function getItem($id) {
-    return $this->dobj->getRow($id);
+    $row = $this->dobj->getRow($id);
+    
+    // für thumbnail-Ausgabe
+    $row['t_width'] = $row['width'];
+    $row['t_height'] = $row['height'];
+    if ($row['width'] > 100 || $row['height'] > 100) {
+      if ($row['width'] > $row['height']) {
+        $shrink = 100 / $row['width'];
+      } else {
+        $shrink = 100 / $row['height'];
+      }
+      $row['t_width'] = (int) ($row['width'] * $shrink);
+      $row['t_height'] = (int) ($row['height'] * $shrink);
+    }
+    
+    return $row;
   }
   
   
@@ -34,13 +49,41 @@ class MBild extends Model {
    * Ein Bild-Datensatz editieren
    */
   public function edit($row, $upfile) {
+    // Bild analysieren und speichern, falls upgeloadet
+    if ((int) $upfile['size']) {
+      if ((int) $upfile['error']) {
+        throw new Exception('Fehler No. '.$upfile['error'].' beim Bild-Upload');
+      }
+      if ($type = trim($upfile['type'])) {
+        $aType = explode('/', $type);
+        $ext = $aType[1];
+        if ($ext == 'jpeg') {
+          $ext = 'jpg';
+        }
+        if (!in_array($ext, array('gif', 'jpg', 'png'))) {
+          throw new Exception('"'.$ext.'" ist ein ungültiger Dateityp');
+        }
+        $row['ext'] = $ext;
+      }
+      
+      // width, height ermitteln
+      $isize = getimagesize($upfile['tmp_name']);
+      $row['width'] = $isize[0]; 
+      $row['height'] = $isize[1]; 
+
+      // save file
+      move_uploaded_file($upfile['tmp_name'], 'imga/'.$row['id'].'.'.$row['ext']);
+    }
+    
+    // url nicht leer lassen
+    if (!$url = trim($row['url'])) {
+      $url = $row['id'];
+    }
+    $row['url'] = $url;
+      
     // edit record
     $this->dobj->edit($row);
 
-    // handle file
-    if ($upfile['size']) {
-      move_uploaded_file($upfile['tmp_name'], 'imga/'.$row['id'].'.'.$row['ext']);
-    }
     return true;
   }
   
