@@ -73,7 +73,7 @@ abstract class View implements IView {
       <td width="50%">
         <h2><?= $titel ?></h2>
       </td>
-      <td class="normal" style="text-align:right">
+      <td style="text-align:right">
         <?
         if ($datum) {
           echo date('Y-m-d H:i', strtotime($datum));
