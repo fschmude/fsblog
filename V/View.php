@@ -31,6 +31,7 @@ abstract class View implements IView {
     }
     echo '<link rel="alternate" type="application/rss+xml" title="RSS" href="'.BASEURL.'rss.php" />'."\n";
     ?>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>                                                   
     <?
