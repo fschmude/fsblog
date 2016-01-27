@@ -6,7 +6,7 @@ class VArtikel extends View {
   public function display($errmsg, $ddata) {
     try {
       $art = $ddata['artikel'];
-      $canonical = BASEURL.'artikel/'.$art['url'].'.htm';
+      $canonical = $this->completeUrl($art['url']);
       $this->head($art['titel'], $canonical, $art['datum'], $art['metadesc']);
       $text_html = $this->parse_artikel($art['text'], $art['bilder']);
       
