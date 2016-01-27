@@ -14,13 +14,13 @@ class CArtikel_Test extends Testcase {
   public function test_w01() {
     $mart = $this->getMockBuilder('MArtikel')->getMock();
     $mart->expects($this->any())
-      ->method('getArtikelKomplett')
+      ->method('getUrl')
       ->will($this->returnValue(23))
     ;
     $v = new CArtikel_Test_V;
-    $c = new CArtikel(array('MArtikel' => $mart, 'VArtikel' => $v));
+    $c = new CArtikel(array('MArtikel' => $mart, 'VRedirect' => $v));
     $c->work(array('aid' => 1), '', '');
-    $this->assertSame(23, $v->vdata['artikel']);
+    $this->assertSame(23, $v->vdata);
   }
   
   public function test_w02() {
