@@ -1,5 +1,7 @@
 <?
-class VMailtext {
+require_once 'V/View.php';
+
+class VMailtext extends View {
 
   public function display($errmsg, $data) {
     if ($errmsg) {
@@ -34,7 +36,7 @@ class VMailtext {
               
     Sie finden ihn unter dem Link
     <br>
-    <?= BASEURL ?>artikel/<?= $data['url'] ?>.htm
+    <?= $this->completeUrl($data['url']) ?>
     <br><br>
     
     Wenn Sie diese Mails nicht mehr erhalten wollen, antworten Sie einfach auf diese Mail und schreiben irgendwo in den Text "unsubscribe".
