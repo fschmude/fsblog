@@ -61,28 +61,6 @@ class DArtikel extends DB {
   
   
   /**
-   * URL zu einer aid holen
-   */
-  public function getUrl($aid) {
-    // check
-    if (!$aid = (int) $aid) {
-      throw new Exception('No aid given');
-    }
-    
-    // go
-    $st = $this->getPdo()->prepare(
-      "SELECT url FROM artikel"
-      ." WHERE id=:aid"
-    );
-    if (!$st->execute(array(':aid' => $aid))) {
-      throw new Exception('Fehler beim Holen der URL zu Artikel Nr. '.$aid);
-    }
-    $row = $st->fetch(PDO::FETCH_ASSOC);
-    return $row['url'];
-  }
-  
-  
-  /**
    * Liste für alle.php
    */
   public function getAllLive() {
