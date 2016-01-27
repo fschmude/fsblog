@@ -1,5 +1,7 @@
 <?
-class VRss {
+require_once 'V/View.php';
+
+class VRss extends View {
 
   public function display($errmsg, $arts) {
     if ($errmsg) {
@@ -32,9 +34,10 @@ class VRss {
       echo '<item>'."\n";
       echo '<title>'.$art['titel'].'</title>'."\n";
       echo '<description><![CDATA['.$teaser.'...]]></description>'."\n";
-      echo '<link>'.BASEURL.'artikel/'.$art['url'].'.htm</link>'."\n";
+      $url = $this->completeUrl($art['url']);
+      echo '<link>'.$url.'</link>'."\n";
+      echo '<guid>'.$url.'</guid>'."\n";
       echo '<author>mail@fs-blog.de (fs)</author>'."\n";
-      echo '<guid>'.BASEURL.'artikel.php?aid='.$art['aid'].'</guid>'."\n";
       echo '<pubDate>'.Date( 'D, d M Y H:i:s O', strtotime($art['datum']) ).'</pubDate>'."\n";
       echo '</item>'."\n";
       echo "\n";
@@ -46,3 +49,4 @@ class VRss {
   }
 
 }
+
