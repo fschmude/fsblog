@@ -75,7 +75,7 @@ class VAdminArtikel extends VAdmin {
     <?
     if ($data['url']) {
       ?>
-      <a href="<?= BASEURL.'artikel/'.$data['url'].'.htm' ?>" target="_blank">Preview</a>
+      <a href="<?= $this->completeUrl($data['url']) ?>" target="_blank">Preview</a>
       <?
     } else {
       echo 'Kein Preview-Link, da noch kein URL vergeben.';
