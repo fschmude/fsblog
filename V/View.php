@@ -12,7 +12,7 @@ abstract class View implements IView {
     $this->hinweis = 'VERSION = '.VERSION;
   }
 
-  public function head($titel, $canonical = '', $datum = '', $desc = '') {
+  protected function head($titel, $canonical = '', $datum = '', $desc = '') {
     header("Content-Type: text/html; charset=utf-8");
     ?><!DOCTYPE HTML>
     <html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml"> 
@@ -86,7 +86,7 @@ abstract class View implements IView {
     <?
   }
 
-  public function foot($navi_arts = array()){
+  protected function foot($navi_arts = array()){
     ?>
     </div>
     </div><!-- inside -->
@@ -102,7 +102,7 @@ abstract class View implements IView {
       // Artikelliste
       echo 'Neuere Artikel:<br>'."\n";
       foreach ($navi_arts as $art) {
-        echo '<a href="'.BASEURL.'artikel/'.$art['url'].'.htm">'.Date('Y-m-d', strtotime($art['datum'])).':<br>'.$art['titel'].'</a>';
+        echo '<a href="'.$this->completeUrl($art['url']).'">'.Date('Y-m-d', strtotime($art['datum'])).':<br>'.$art['titel'].'</a>';
         echo '<br><br>'."\n";
       }
       
@@ -146,7 +146,17 @@ abstract class View implements IView {
     <?
   }
 
-  public function errmsg( $message ) {
+  
+  /** 
+   * @param string $url = titel
+   * @return string http:/...titel.htm
+   */
+  protected function completeUrl($url) {
+    return BASEURL.'artikel/'.$url.'.htm';
+  }
+
+  
+  protected function errmsg( $message ) {
     ?>
     <div style="position:absolute; left:300px; top:200px;">
     <table width="80%" align="center" border="2" bordercolor="#ff0000" cellpadding="5" bgcolor="#ccffff">
@@ -168,3 +178,4 @@ abstract class View implements IView {
   }
 
 }
+
