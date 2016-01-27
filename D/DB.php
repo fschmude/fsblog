@@ -202,6 +202,32 @@ abstract class DB {
     
   
   /**
+   * Get one field of one row
+   * @param int $id = Wert der ID-Spalte
+   * @param string $fname = Name der Spalte
+   */
+  public function getField($id, $fname) {
+    // checks
+    if (!$id = (int) $id) {
+      throw new Exception('No id given.');
+    }
+    
+    // go
+    $sql = "SELECT ".$fname." FROM ".$this->table." WHERE id=:id";
+    $q = $this->getPdo()->prepare($sql);
+    if (!$q->execute(array(':id' => $id))) {
+      throw new Exception('Fehler bei '.$sql);
+    }
+    $row = $q->fetch(PDO::FETCH_ASSOC);
+    if (!$row) {
+      throw new Exception('Kein Datensatz Nr. '.$id.' in '.$this->table);
+    }
+    
+    return $row[$fname];
+  }
+    
+  
+  /**
    * Get a row
    */
   public function getRow($id) {
