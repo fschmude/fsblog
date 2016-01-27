@@ -44,7 +44,7 @@ class VAdminArtikelList extends VAdmin {
         <tr>
         <td class="tded"><?= $artikel['id'] ?></td>
         <td class="tded"><?= $artikel['datum'] ?></td>
-        <td class="tded"><a href="artikel/<?= $artikel['url'] ?>.htm" target="_blank"><?= $artikel['url'] ?></a></td>
+        <td class="tded"><a href="<?= $this->completeUrl($artikel['url']) ?>" target="_blank"><?= $artikel['url'] ?></a></td>
         <td class="tded"><?= $artikel['status'] ?></td>
         <td class="tded" style="text-align:center;">
           <a href="javascript:launchEdit(<?= $artikel['id'] ?>);"><img src="img/icon_edit.png" width="16" height="16"></a>
