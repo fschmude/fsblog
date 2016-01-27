@@ -194,7 +194,7 @@ class MArtikel extends Model {
    * @return string
    */
   public function getUrl($aid) {
-    return $this->dobj->getUrl($aid);
+    return $this->dobj->getField($aid, 'url');
   }
   
   
