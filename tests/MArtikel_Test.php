@@ -97,12 +97,20 @@ class MArtikel_Test extends Testcase {
       "INSERT INTO artikel(id, titel,metadesc,    datum, text, status,      url)"
       ." VALUES(            1,'tit1', 'desc1',SYSDATE(),:text,:status,'testurl')"
     );
-    $text = 'Text mit <imga id="1"> usw.';
+    $text = 'Text mit <imga id="1"> <video id="2"> usw.';
     $stmt->bindParam(':text', $text);
     $stmt->bindParam(':status', $status);
     if (!$stmt->execute()) {
       $this->fail('Fehler beim Anlegen des Artikels');
     }
+    
+    // "videos" anlegen
+    exec('date > imga/fsv.mp4');
+    $oggf = 'imga/fsv.ogg';
+    if (file_exists($oggf)) {
+      unlink($oggf);
+    }
+    
     // abhängige Datensätze anlegen
     $this->execSqls(array(
       "DELETE FROM bilder WHERE id=1",
@@ -116,7 +124,10 @@ class MArtikel_Test extends Testcase {
       "INSERT INTO posts(id,aid,lfnr,code,username,  usermail,    datum,text,status)"
       ." VALUES(          3,  1,   9,'a3',    'ls','ls@fs.de',SYSDATE(),'t3',     2)",
       "INSERT INTO posts(id,aid,lfnr,code,username,  usermail,    datum,text,status)"
-      ." VALUES(          4,  1,  10,'a4',    'rs','rs@fs.de',SYSDATE(),'t4',     3)"
+      ." VALUES(          4,  1,  10,'a4',    'rs','rs@fs.de',SYSDATE(),'t4',     3)",
+      "DELETE FROM videos WHERE id=2",
+      "INSERT INTO videos(id,width,height,vname)"
+      ." VALUES(           2,  100,    80,'fsv')"
     ));
   }
   
@@ -124,7 +135,7 @@ class MArtikel_Test extends Testcase {
     $this->assertSame('1', $res['id']);
     $this->assertSame('tit1', $res['titel']);
     $this->assertSame('desc1', $res['metadesc']);
-    $this->assertSame('Text mit <imga id="1"> usw.', $res['text']);
+    $this->assertSame('Text mit <imga id="1"> <video id="2"> usw.', $res['text']);
     $this->assertSame(1, count($res['bilder']));
     $this->assertEquals(array(
       'id' => '1',
@@ -147,6 +158,13 @@ class MArtikel_Test extends Testcase {
       'text' => 't3',
       'status' => '2'
     ), $post);  
+    $this->assertEquals(array(
+      'id' => '2',
+      'width' => '100',
+      'height' => '80',
+      'vname' => 'fsv',
+      'sources' => 1
+    ), $res['videos'][0]);
   }
   
   
