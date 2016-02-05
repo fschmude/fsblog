@@ -163,7 +163,7 @@ class VArtikel extends View {
           $repl = '[Keine Video-Dateien zu "'.$video['vname'].'" gefunden.]<br>'."\n";
         } else {
           $repl = '<video width="'.$video['width'].'" height="'.$video['height'].'" controls>'."\n";
-          if ($sources == 1 || $sources == 2) {
+          if ($sources == 1 || $sources == 3) {
             $repl .= ' <source src="'.BASEURL.'imga/'.$video['vname'].'.mp4" type="video/mp4">'."\n";
           }
           if ($sources == 2 || $sources == 3) {
