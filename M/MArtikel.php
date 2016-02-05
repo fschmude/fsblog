@@ -5,6 +5,7 @@ require_once 'D/DPosts.php';
 require_once 'M/Model.php';
 require_once 'M/MEmail.php';
 require_once 'M/MHelper.php';
+require_once 'M/MVideo.php';
 
 define('TEASER_LENGTH', 300);
 
@@ -151,6 +152,7 @@ class MArtikel extends Model {
    *    'text' =>
    *    'posts' => array()
    *    'bilder' => array()
+   *    'vids' => array()
    * );
    */
   private function addDependentRows($art) {
@@ -162,18 +164,19 @@ class MArtikel extends Model {
     while ($pos = strpos($art['text'], $search, $pos)) {
       $pos_e = strpos($art['text'], '>', $pos + 10);
       $bid = substr($art['text'], $pos + 10, $pos_e - $pos - 11);
-      //$st_b->bindParam(':bid', $bid);
-      $bild = $dbilder->getRow($bid);
-      if (!isset($bild['ext']) || !strlen($bild['ext'])) {
-        // Fehlerbild ausliefern
-        $bild = array(
-          'id' => $bid,
-          'width' => '100',
-          'height' => '50',
-          'url' => 'fehler',
-          'alt' => 'Kein Bild-Datensatz!',
-          'ext' => 'gif'
-        );
+      $bild = array(
+        'id' => $bid,
+        'width' => '100',
+        'height' => '50',
+        'url' => 'fehler',
+        'alt' => 'Kein Bild-Datensatz!',
+        'ext' => 'gif'
+      );
+      if ($bid = (int) $bid) {
+        $row = $dbilder->getRow($bid);
+        if (isset($row['ext']) && strlen($row['ext'])) {
+          $bild = $row;
+        }
       }
       $art['bilder'][] = $bild;
       $pos++;
@@ -183,6 +186,19 @@ class MArtikel extends Model {
     $dposts = new DPosts;
     $posts = $dposts->getPostsForAid($art['id']);
     $art['posts'] = $posts;
+    
+    // vids
+    $mv = new MVideo;
+    $art['videos'] = array();
+    $pos = 0;
+    $search = '<video id="';
+    while ($pos = strpos($art['text'], $search, $pos)) {
+      
+      $pos_e = strpos($art['text'], '>', $pos + 11);
+      $vid = substr($art['text'], $pos + 11, $pos_e - $pos - 12);
+      $art['videos'][] = $mv->getInfo($vid);
+      $pos++;
+    }
     
     return $art;
   }
