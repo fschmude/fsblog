@@ -8,7 +8,7 @@ class VArtikel extends View {
       $art = $ddata['artikel'];
       $canonical = $this->completeUrl($art['url']);
       $this->head($art['titel'], $canonical, $art['datum'], $art['metadesc']);
-      $text_html = $this->parse_artikel($art['text'], $art['bilder']);
+      $text_html = $this->parseArtikel($art['text'], $art['bilder'], $art['videos']);
       
     } catch (Exception $e) {
       $errmsg = $e->getMessage();
@@ -122,10 +122,11 @@ class VArtikel extends View {
   
   /**
    * Artikel für die Web-Anzeige parsen
+   * @access public for tests
    */
-  private function parse_artikel($text, $bilder) {
+  public function parseArtikel($text, $bilder, $videos) {
     // Zeilenumbrüche
-    $text = $this->parse_rn($text);
+    $text = $this->parseRN($text);
     
     // Wiki-Links
     $text = str_replace( '<wiki href="', '<a target="_blank" href="http://de.wikipedia.org/wiki/', $text );
@@ -142,10 +143,38 @@ class VArtikel extends View {
           $url = $bild['id'];
         }
         $repl =
-          '<div align="center">'
-          .'<img src="'.BASEURL.'imga/'.$url.'.'.$bild['ext'].'" width="'.$bild['width'].'" height="'.$bild['height'].'" alt="'.$bild['alt'].'">'
-          .'</div>'
+          '<div align="center">'."\n"
+          .'<img src="'.BASEURL.'imga/'.$url.'.'.$bild['ext'].'" width="'.$bild['width'].'" height="'.$bild['height'].'" alt="'.$bild['alt'].'">'."\n"
+          .'</div>'."\n"
         ;
+        $text = str_replace($search, $repl, $text);
+      }
+    }
+    
+    // Videos
+    if (count($videos)) {
+      foreach ($videos as $video) {
+        $search = '<video id="'.$video['id'].'">';
+        $pos = strpos($text, $search);
+        
+        // Was soll angezeigt werden
+        $sources = (int) $video['sources'];
+        if (!$sources) {
+          $repl = '[Keine Video-Dateien zu "'.$video['vname'].'" gefunden.]<br>'."\n";
+        } else {
+          $repl = '<video width="'.$video['width'].'" height="'.$video['height'].'" controls>'."\n";
+          if ($sources == 1 || $sources == 2) {
+            $repl .= ' <source src="'.BASEURL.'imga/'.$video['vname'].'.mp4" type="video/mp4">'."\n";
+          }
+          if ($sources == 2 || $sources == 3) {
+            $repl .= ' <source src="'.BASEURL.'imga/'.$video['vname'].'.ogg" type="video/ogg">'."\n";
+          }
+          $repl .= ' Ihr Browser unterstützt den Tag "video" nicht.'."\n"
+            .'</video>'."\n"
+          ;
+        }
+        
+        // Jetzt Text einfügen
         $text = str_replace($search, $repl, $text);
       }
     }
@@ -160,12 +189,12 @@ class VArtikel extends View {
   private function parse_post( $text ) {
     $text = str_replace( '<', '&lt;', $text );
     $text = str_replace( '>', '&gt;', $text );
-    $text = $this->parse_rn( $text );
+    $text = $this->parseRN( $text );
     return $text;
   }
   
   // Zeilenumbrüche
-  private function parse_rn( $text ) {
+  private function parseRN( $text ) {
     $text = str_replace( "\r\n", "\n", $text );
     $text = str_replace( "\n", "\n<br>\n", $text );
     return $text;
