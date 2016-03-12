@@ -12,8 +12,9 @@ class MPost extends Model {
   /**
    * Konstruktor
    */
-  public function __construct() {
+  public function __construct($objs = array()) {
     $this->dobj = new DPosts;
+    parent::__construct($objs);
   }
   
 
@@ -52,7 +53,7 @@ class MPost extends Model {
       .'fs'."\n\n"
     ;
     
-    $e = new MEmail();
+    $e = $this->getObject('MEmail');
     $e->mailen($usermail, 'Ihr Beitrag auf fs-blog.de', $mtext);
     return $pid;
   }
@@ -80,7 +81,7 @@ class MPost extends Model {
         .'Beitrag freischalten:'."\n\n"
         .BASEURL.'admin.php'."\n\n"
       ;
-      $e = new MEmail();
+      $e = $this->getObject('MEmail');
       $e->mailen(EMAIL_ADMIN, 'fs-blog.de: Freischaltung', $mtext);
       break;
       
