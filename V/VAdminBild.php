@@ -17,7 +17,16 @@ class VAdminBild extends VAdmin {
     ?>
     Bild id = <?= $data['id'] ?>
     <br>
-    Möglichst nicht editieren:
+    Aktuelles Bild (hier evtl. verkleinert):
+    <br>
+    <img width="<?= $data['t_width'] ?>" height="<?= $data['t_height'] ?>" src="<?= BASEURL ?>imga/<?= $data['url'] ?>.<?= $data['ext'] ?>">
+    <br>
+    Bilddatei uploaden, bzw. ändern:
+    <input type="file" name="datei" value="" style="width:300px">
+    
+    <hr>
+    
+    Möglichst nicht editieren (wird aus upload berechnet):
     <form method="post" action="admin.php" enctype="multipart/form-data">
     <input type="hidden" name="mode" value="Bild_up">
     <input type="hidden" name="id" value="<?= $data['id'] ?>">
@@ -29,7 +38,8 @@ class VAdminBild extends VAdmin {
     <br>
     Extension (Dateinamen-Endung):
     <input type="text" name="ext" value="<?= $data['ext'] ?>" style="width:100px">
-    <br>
+    
+    <hr>
 
     Ab hier editieren:
     <br>
@@ -39,18 +49,10 @@ class VAdminBild extends VAdmin {
     Beschreibung (für alt-Attribut):
     <input type="text" name="alt" value="<?= $data['alt'] ?>" style="width:200px">
     <br>
-    Bilddatei ändern, falls nötig:
-    <input type="file" name="datei" value="" style="width:300px">
-    <br>
     
     <input type="submit" value="Bilddaten ändern">
-    
     </form>
 
-    Aktuelles Bild (hier evtl. verkleinert):
-    <br>
-    <img width="<?= $data['t_width'] ?>" height="<?= $data['t_height'] ?>" src="<?= BASEURL ?>imga/<?= $data['url'] ?>.<?= $data['ext'] ?>">
-    
     <form action="admin.php" method="post">
     <input type="hidden" value="Bild_list" name="mode"></input>
     <div align="center">
