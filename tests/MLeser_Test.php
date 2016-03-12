@@ -18,12 +18,14 @@ class MLeser_Test extends Testcase {
     $this->execSqls(array(
       "DELETE FROM leser WHERE lmail='huhu'"
     ));
-    $m = new MLeser();
+    $mail = new MLeser_Test_MEmail;
+    $m = new MLeser(array('MEmail' => $mail));
     $m->createLeser('huhu');
     $row = $this->checkDb(
       "SELECT DATE_FORMAT(datum, '%Y%m%d') datum, status FROM leser WHERE lmail='huhu'",
       array('datum' => Date('Ymd'), 'status' => '0')
     );
+    $this->assertTrue($mail->mailenCalled);
   }
   
   
@@ -129,5 +131,18 @@ class MLeser_Test extends Testcase {
     $this->assertFalse($b2Found, 'Unbestätigter Leser in Ergebnismenge!');
   }
   
+}
+
+/**
+ * Mock objects
+ */
+class MLeser_Test_MEmail {
+  
+  public $mailenCalled = false;
+  
+  public function mailen() {
+    $this->mailenCalled = true;
+  }
+
 }
 
