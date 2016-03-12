@@ -17,7 +17,8 @@ class MPost_Test extends Testcase {
     $this->execSqls(array(
       "DELETE FROM posts WHERE aid=1"
     ));
-    $m = new MPost();
+    $mail = new MPost_Test_MEmail;
+    $m = new MPost(array('MEmail' => $mail));
     $m->createPost(1, 'Fritz', 'fsmail.de', 'text');
     $this->checkDb(
       "SELECT count(*) anz FROM posts WHERE aid=1",
@@ -28,6 +29,7 @@ class MPost_Test extends Testcase {
       array('lfnr' => '1', 'username' => 'Fritz', 'usermail' => 'fsmail.de',
         'text' => 'text', 'status' => '0', 'ymd' => Date('Ymd'))
     );
+    $this->assertTrue($mail->mailenCalled);
   }
   
   
@@ -41,13 +43,15 @@ class MPost_Test extends Testcase {
       "INSERT INTO posts(id,aid,lfnr,code,username,usermail, datum   ,text ,status)"
       ." VALUES(          1,  1,   1,'fs', 'Fritz', 'fs@de',SYSDATE(),'tt1',     0)"
     ));
-    $m = new MPost();
+    $mail = new MPost_Test_MEmail;
+    $m = new MPost(array('MEmail' => $mail));
     $m->confirmPost(1, 'fs');
     $this->checkDb(
       "SELECT * FROM posts WHERE aid=1",
       array('lfnr' => '1', 'username' => 'Fritz', 'usermail' => 'fs@de',
         'text' => 'tt1', 'status' => '1')
     );
+    $this->assertTrue($mail->mailenCalled);
   }
   
   public function test_cfp02() {
@@ -91,5 +95,18 @@ class MPost_Test extends Testcase {
     );
   }
   
+}
+
+/**
+ * Mock objects
+ */
+class MPost_Test_MEmail {
+  
+  public $mailenCalled = false;
+  
+  public function mailen() {
+    $this->mailenCalled = true;
+  }
+
 }
 
