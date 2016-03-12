@@ -2,6 +2,7 @@
 require_once 'Testcase.php';
 require_once 'C/CConfirm.php';
 require_once 'M/MArtikel.php';
+//require_once 'M/MLeser.php';
 require_once 'M/MPost.php';
 require_once 'V/VConfirm.php';
 
@@ -14,7 +15,7 @@ class CConfirm_Test extends Testcase {
     $post = array();
     $c = new CConfirm(array('VConfirm' => $v));
     $c->work($get, $post, 0);
-    $this->assertSame('Fehler, siehe Logfile.', $v->errmsg);
+    $this->assertSame('Input-Variablen stimmen nicht...', $v->errmsg);
     $this->assertSame('', $v->titel);
     $this->assertSame(0, $v->displaymode);
   }
@@ -137,7 +138,6 @@ class CConfirm_Test extends Testcase {
     // create leser, email invalid
     $v = new CConfirm_Test_VConfirm();
     $mart = $this->getMock('MArtikel');
-    $mleser = $this->getMock('MLeser');
     $get = array();
     $post = array('lmail' => 'abc');
     $c = new CConfirm(array('MArtikel' => $mart,'VConfirm' => $v));
@@ -152,17 +152,31 @@ class CConfirm_Test extends Testcase {
     // create leser, email ok
     $v = new CConfirm_Test_VConfirm();
     $mart = $this->getMock('MArtikel');
-    $mleser = $this->getMock('MLeser');
+    $mleser = new CConfirm_Test_MLeser;
     $get = array();
     $post = array('lmail' => 'fs@fs.de');
-    $c = new CConfirm(array('MArtikel' => $mart,'VConfirm' => $v));
+    $c = new CConfirm(array('MArtikel' => $mart,'VConfirm' => $v, 'MLeser' => $mleser));
     $c->work($get, $post, 0);
+    $this->assertTrue($mleser->createCalled);
     $this->assertSame('', $v->errmsg);
     $this->assertSame('', $v->msg);
     $this->assertSame('Erfassung Mail-Adresse', $v->titel);
     $this->assertSame(CONFIRM_DISPLAYMODE_LMAIL, $v->displaymode);
   }
   
+}
+
+/**
+ * Mock a Leser object
+ */
+class CConfirm_Test_MLeser {
+  
+  public $createCalled = false;
+  
+  public function createLeser() {
+    $this->createCalled = true;
+  }
+
 }
 
 /**
