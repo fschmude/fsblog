@@ -12,8 +12,9 @@ class MLeser extends Model {
   /**
    * Konstruktor
    */
-  public function __construct() {
+  public function __construct($objs = array()) {
     $this->dobj = new DLeser;
+    parent::__construct($objs);
   }
   
 
@@ -43,7 +44,7 @@ class MLeser extends Model {
       .'Viele Grüße'."\n\n"
       .'fs'
     ;
-    $e = new MEmail();
+    $e = $this->getObject('MEmail');
     $e->mailen($lmail, 'fs-blog.de: Adresse bestätigen', $mtext);
   }
   
