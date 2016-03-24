@@ -44,7 +44,7 @@ class CAdmin_Test extends Testcase {
     $res = $stmt->fetch(PDO::FETCH_ASSOC);
     $cnt = $res['cnt'];
     $this->assertSame('', $v->errmsg);
-    $this->assertEquals($cnt, count($v->data));
+    $this->assertEquals($cnt, count($v->data['rows']));
   }
   
   
