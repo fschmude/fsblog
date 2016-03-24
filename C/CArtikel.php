@@ -16,7 +16,7 @@ class CArtikel extends Controller {
       } elseif (isset($get['url']) && strlen($fakeurl = trim($get['url']))) {
         // call by (faked) url?
         $artikel = $mart->getArtikelKomplettByUrl($fakeurl);
-        $navi_arts = $mart->getTop(3);
+        $navi_arts = $mart->getTop(5);
         $vdata = array(
           'artikel' => $artikel,
           'navi_arts' => $navi_arts
