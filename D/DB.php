@@ -252,7 +252,7 @@ abstract class DB {
   
   
   /**
-   * Get all (select *)
+   * Get all (select *), neuestes zuerst
    */
   public function getAll() {
     $sql = "SELECT * FROM ".$this->table
@@ -263,12 +263,8 @@ abstract class DB {
       throw new Exception('Fehler bei '.$sql);
     }
     $res = $q->fetchAll(PDO::FETCH_ASSOC);
-    if (!$res) {
-      throw new Exception('Fehler bei select * from '.$this->table);
-    }
     return $res;
   }
-  
   
 }
 
