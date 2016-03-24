@@ -9,21 +9,17 @@ class VAdminArtikelList extends VAdmin {
   public function display($errmsg, $data) {
     $this->displayHead($errmsg, 'Artikelübersicht');
 
-    ?>
-    <form method="post" action="admin.php">
-    <input type="hidden" name="mode" value="Artikel_new">
-    <button type="submit">Neuen Artikel anlegen</button>
-    </form>
-    <br>
-    
-    <form action="admin.php" method="post">
-    <input type="hidden" value="Bild_list" name="mode"></input>
-    <input type="submit" value="Bilder verwalten">
-    </form>
-    
-    <?
+    echo ' -&gt; ';
+    $this->displayNaviLink('Bild_list', 'Bilder verwalten');
+    echo ' &nbsp; -&gt; ';
+    $this->displayNaviLink('Video_list', 'Videos verwalten');
+    echo '<br><br>'."\n";
+
+    $this->displayNaviLink('Artikel_new', 'Neuen Artikel anlegen');
+    echo '<br><br>'."\n";
+
     // Liste anzeigen
-    if (!count($data)) {
+    if (!count($data['rows'])) {
       echo 'Es konnten keine Artikel gefunden werden.';
     
     } else {
@@ -39,7 +35,7 @@ class VAdminArtikelList extends VAdmin {
       <td class="tded">Mailtext</td>
       </tr>
       <?
-      foreach ($data as $artikel) {
+      foreach ($data['rows'] as $artikel) {
         ?>
         <tr>
         <td class="tded"><?= $artikel['id'] ?></td>
