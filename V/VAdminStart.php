@@ -8,7 +8,7 @@ class VAdminStart extends VAdmin {
   
   public function display($errmsg, $data) {
     
-    $this->displayHead($errmsg, 'Backend Login');
+    $this->displayHead($errmsg, 'Backend Login', false);
     
     if (isset($data['msg']) && $msg = trim($data['msg'])) {
       echo $msg.'<br>';
