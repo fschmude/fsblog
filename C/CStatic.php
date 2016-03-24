@@ -16,7 +16,7 @@ class CStatic extends Controller {
       
       // navi_arts werden in jedem Fall gebraucht
       $mart = $this->getObject('MArtikel');
-      $navi_arts = $mart->getTop(3);
+      $navi_arts = $mart->getTop(5);
       
     } catch (Exception $e) {
       $errmsg = $this->handleError($e);
