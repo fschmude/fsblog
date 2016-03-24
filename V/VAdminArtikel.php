@@ -19,33 +19,41 @@ class VAdminArtikel extends VAdmin {
    */
   public function display($errmsg, $data) {
     $this->displayHead($errmsg, 'Artikel editieren');
+
+    echo ' -&gt; ';
+    $this->displayNaviLink('Bild_list', 'Bilder verwalten');
+    echo ' &nbsp; -&gt; ';
+    $this->displayNaviLink('Video_list', 'Videos verwalten');
+    echo '<br><br>'."\n";
+
+    $artikel = $data['item'];
     ?>
-    aid = <?= $data['id'] ?>
+    aid = <?= $artikel['id'] ?>
     <form method="post" action="admin.php">
     <input type="hidden" name="mode" value="Artikel_up">
-    <input type="hidden" name="id" value="<?= $data['id'] ?>">
+    <input type="hidden" name="id" value="<?= $artikel['id'] ?>">
     Datum (YYYY-MM-DD,hh:mm):
-    <input type="text" name="datum" value="<?= $data['datum'] ?>" style="width:150px">
+    <input type="text" name="datum" value="<?= $artikel['datum'] ?>" style="width:150px">
     <br>
     Status:
-    <input type="text" name="status" value="<?= $data['status'] ?>" style="width:20px">
+    <input type="text" name="status" value="<?= $artikel['status'] ?>" style="width:20px">
     (0=unsichtbar, 1=sichtbar in navi)
     <br>
     Titel:
     <br>
-    <input type="text" name="titel" value="<?= $data['titel'] ?>" style="width:600px">
+    <input type="text" name="titel" value="<?= $artikel['titel'] ?>" style="width:600px">
     <br>
     URL:
     <br>
-    <input type="text" name="url" value="<?= $data['url'] ?>" style="width:600px">
+    <input type="text" name="url" value="<?= $artikel['url'] ?>" style="width:600px">
     <br>
     Description (max 140):
     <br>
-    <input type="text" name="metadesc" value="<?= $data['metadesc'] ?>" maxlen="140" style="width:600px">
+    <input type="text" name="metadesc" value="<?= $artikel['metadesc'] ?>" maxlen="140" style="width:600px">
     <br>
     Text des Artikels:
     <br>
-    <textarea type="text" name="text" rows="15" style="width:600px"><?= $data['text'] ?></textarea>
+    <textarea type="text" name="text" rows="15" style="width:600px"><?= $artikel['text'] ?></textarea>
     <br>
     &lt;wiki href="wiki-Seitenname"&gt;verlinkter Text&lt;/wiki&gt;
     <br>
@@ -73,29 +81,15 @@ class VAdminArtikel extends VAdmin {
     </form>
     
     <?
-    if ($data['url']) {
+    if ($artikel['url']) {
       ?>
-      <a href="<?= $this->completeUrl($data['url']) ?>" target="_blank">Preview</a>
+      <a href="<?= $this->completeUrl($artikel['url']) ?>" target="_blank">Preview</a>
       <?
     } else {
       echo 'Kein Preview-Link, da noch kein URL vergeben.';
     }
+    echo '<br>'."\n";
 
-    ?>
-    <div align="center">
-    <form action="admin.php" method="post">
-    <input type="hidden" value="Bild_list" name="mode"></input>
-    <input type="submit" value="Bilder verwalten">
-    </form>
-
-    <form action="admin.php" method="post">
-    <input type="hidden" value="Artikel_list" name="mode"></input>
-    <input type="submit" value="Artikel verwalten">
-    </form>
-
-    </div>
-    
-    <?
     $this->displayFoot();
   }
 
