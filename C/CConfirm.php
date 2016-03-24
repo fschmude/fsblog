@@ -90,7 +90,7 @@ class CConfirm extends Controller {
       }
       
       // navi_arts werden in jedem Fall gebraucht
-      $navi_arts = $mart->getTop(3);
+      $navi_arts = $mart->getTop(5);
       
     } catch (Exception $e) {
       $errmsg = $this->handleError($e);
