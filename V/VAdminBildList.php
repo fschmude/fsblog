@@ -9,16 +9,10 @@ class VAdminBildList extends VAdmin {
   public function display($errmsg, $data) {
     $this->displayHead($errmsg, 'Artikelübersicht');
 
-    ?>
-    <form method="post" action="admin.php">
-    <input type="hidden" name="mode" value="Bild_new">
-    <button type="submit">Neues Bild anlegen</button>
-    </form>
-    <br>
-    
-    <?
+    $this->displayNaviLink('Bild_new', 'Neues Bild anlegen');
+
     // Liste anzeigen
-    if (!count($data)) {
+    if (!count($data['rows'])) {
       echo 'Es konnten keine Bilder gefunden werden.';
     
     } else {
@@ -35,7 +29,7 @@ class VAdminBildList extends VAdmin {
       <td class="tded">delete</td>
       </tr>
       <?
-      foreach ($data as $bild) {
+      foreach ($data['rows'] as $bild) {
         ?>
         <tr>
         <td class="tded"><?= $bild['id'] ?></td>
@@ -61,15 +55,6 @@ class VAdminBildList extends VAdmin {
       $this->displayLinkForm('Del', 'Bild_del', true);
     }
     
-    ?>
-    <form action="admin.php" method="post">
-    <input type="hidden" value="Artikel_list" name="mode"></input>
-    <div align="center">
-    <input type="submit" value="Artikel verwalten">
-    </div>
-    </form>
-    
-    <?
     $this->displayFoot();
   }
 
