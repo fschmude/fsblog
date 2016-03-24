@@ -15,6 +15,60 @@ class MVideo extends Model {
   
 
   /**
+   * Ganze Tabelle liefern
+   */
+  public function getList() {
+    return $this->dobj->getAll();
+  }
+  
+
+  /**
+   * Video-Information für eine ID liefern
+   */
+  public function getItem($vid) {
+    $row =  $this->dobj->getRow($vid);
+    $row['t_width'] = 400;
+    $row['t_height'] = 300;
+    return $row;
+  }
+  
+
+  /**
+   * 1 Video mit Metadaten editieren
+   */
+  public function edit($row, $file) {
+    if ((int) $file['size']) {
+      if ((int) $file['error']) {
+        throw new Exception('Fehler No. '.$file['error'].' beim Video-Upload');
+      }
+      // save file
+      move_uploaded_file($file['tmp_name'], 'imga/'.$row['vname'].'.mp4');
+    }
+    
+    // edit record
+    $this->dobj->edit($row);
+
+    return true;
+  }
+  
+
+  /**
+   * Neuer DS
+   */
+  public function create() {
+    return $this->dobj->create();
+  }
+  
+
+  /**
+   * Löschen
+   */
+  public function delete($vid) {
+    $this->dobj->delete($vid);
+  }
+  
+
+  /**
    * Video-Information für eine ID liefern
    */
   public function getInfo($vid) {
