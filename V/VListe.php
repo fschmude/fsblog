@@ -44,7 +44,7 @@ class VListe extends View {
       $naviarts = array();
       $i = 0;
       foreach ($vdata['arts'] as $art) {
-        if ($i<3) {
+        if ($i<5) {
           $naviarts[] = $art;
         }
         $i++;
