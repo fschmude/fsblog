@@ -112,9 +112,9 @@ abstract class View implements IView {
       // Mail-Feature
       ?>
       <form method="post" action="<?= BASEURL ?>confirm.php">
-      Ich will bei neuen Artikeln informiert werden:
+      Ich will bei neuen Artikeln informiert werden
       <br>
-      (E-Mail-Adresse eingeben)
+      (E-Mail-Adresse eingeben):
       <br>
       <div style="text-align:center;">
       <input type="email" id="lmail" name="lmail" class="abobox">
@@ -122,6 +122,28 @@ abstract class View implements IView {
       <button type="submit" class="abobox">Eintragen</button>
       </div>
       </form>
+      <br>
+      
+      <?
+      // Suche
+      ?>
+      <form method="post" action="#" onsubmit="return suchen();">
+      Suche (mit Google):
+      <br>
+      <div style="text-align:center;">
+      <input type="text" id="query" name="query" class="abobox">
+      <br>
+      <button type="submit" class="abobox">Suchen</button>
+      </div>
+      </form>
+      <script type="text/javascript">
+      function suchen() {
+        var qy = this.query.value;
+        var link = 'https://www.google.de/search?hl=de&as_q=' + qy + '&as_qdr=all&as_sitesearch=www.fs-blog.de&as_occt=any&safe=images';
+        window.open(link);
+        return false;
+      }
+      </script>
       <br>
       
       <?
