@@ -63,11 +63,10 @@ class VListe extends View {
       //echo '<br><br>'."\n";
       foreach ($vdata['arts'] as $art) {
         echo Date('Y-m-d', strtotime($art['datum'])).': '."\n";
-        $url = $this->completeUrl($art['url']);
-        echo '<a href="'.$url.'">'.$art['titel'].'</a><br>'."\n";
+        echo '<a href="'.$art['url'].'">'.$art['titel'].'</a><br>'."\n";
         $text = $this->parse_txt($art['text']);
         $text = substr($text, 0, 400);
-        echo $text.'... <a href="'.$url.'">Weiterlesen</a>';
+        echo $text.'... <a href="'.$art['url'].'">Weiterlesen</a>';
         echo '<br><br>'."\n";
       }
       echo $nachher;
