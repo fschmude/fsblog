@@ -12,14 +12,13 @@ class VAdminBild extends VAdmin {
    * @param array $data = array(
    *  );
    */
-  public function display($errmsg, $data) {
+  public function display($errmsg, $bild) {
     $this->displayHead($errmsg, 'Bild editieren');
 
     $this->displayNaviLink('Bild_list', 'Bilder verwalten');
     echo '<br>'."\n";
-
-    $bild = $data['item'];
     ?>
+    
     Bild id = <?= $bild['id'] ?>
     <br>
     Aktuelles Bild (hier evtl. verkleinert):
