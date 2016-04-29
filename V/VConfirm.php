@@ -69,7 +69,7 @@ class VConfirm extends View {
       }
       
       if (isset($vdata['aurl']) && $vdata['aurl']) {
-        echo '<a href="'.$this->completeUrl($vdata['aurl']).'">Zurück zum Artikel</a>';
+        echo '<a href="'.$vdata['aurl'].'">Zurück zum Artikel</a>';
         echo '<br><br>';
       }
       ?>
