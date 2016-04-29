@@ -17,7 +17,7 @@ class VAdminArtikel extends VAdmin {
    *    'allauthors' => array of all authors with names
    *  );
    */
-  public function display($errmsg, $data) {
+  public function display($errmsg, $artikel) {
     $this->displayHead($errmsg, 'Artikel editieren');
 
     echo ' -&gt; ';
@@ -25,8 +25,6 @@ class VAdminArtikel extends VAdmin {
     echo ' &nbsp; -&gt; ';
     $this->displayNaviLink('Video_list', 'Videos verwalten');
     echo '<br><br>'."\n";
-
-    $artikel = $data['item'];
     ?>
     aid = <?= $artikel['id'] ?>
     <form method="post" action="admin.php">
@@ -55,24 +53,9 @@ class VAdminArtikel extends VAdmin {
     <br>
     <textarea type="text" name="text" rows="15" style="width:600px"><?= $artikel['text'] ?></textarea>
     <br>
-    &lt;wiki href="wiki-Seitenname"&gt;verlinkter Text&lt;/wiki&gt;
-    <br>
-    &lt;imga id="bid"&gt;
-    <br>
-    &lt;h2&gt;Zwischenüberschrift&lt;/h2&gt; 
-    <br>
-    Als einziges sonst erlaubt: &lt;a...
-    <br>
-    <br>
-    ACHTUNG!
-    <br>
-    "Bloggen dient m.E. hauptsaechlich eher der Selbstbeweihraeucherung des Autors,
-    deswegen macht es ja Spass und jeder bloggt was das Zeug haelt.
-    <br>
-    An Fitel als Tip:
-    Wenn die Ueberhoehung der eigenen Position und die Darstellung der eigenen intellektuellen geradezu uebermenschlichen Faehigkeiten zu extrem wird, 
-    liest das Zeug keiner - 
-    man laesst sich als Leser nur ungern in eine Idiotenecke stellen.
+    <?
+    $this->displayEditHint();
+    ?>
     <br>
     
     <div align="center">
@@ -83,7 +66,7 @@ class VAdminArtikel extends VAdmin {
     <?
     if ($artikel['url']) {
       ?>
-      <a href="<?= $this->completeUrl($artikel['url']) ?>" target="_blank">Preview</a>
+      <a href="<?= $artikel['completeUrl'] ?>" target="_blank">Preview</a>
       <?
     } else {
       echo 'Kein Preview-Link, da noch kein URL vergeben.';
