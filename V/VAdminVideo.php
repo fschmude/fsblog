@@ -12,14 +12,13 @@ class VAdminVideo extends VAdmin {
    * @param array $data = array(
    *  );
    */
-  public function display($errmsg, $data) {
+  public function display($errmsg, $video) {
     $this->displayHead($errmsg, 'Video editieren');
 
     $this->displayNaviLink('Video_list', 'Videos Übersicht');
     echo '<br>'."\n";
-    
-    $video = $data['item'];
     ?>
+    
     Video id = <?= $video['id'] ?>
     <br>
     Aktuelles Video (400x300, nur mp4):
