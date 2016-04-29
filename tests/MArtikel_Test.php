@@ -18,7 +18,9 @@ class MArtikel_Test extends Testcase {
     $m = new MArtikel();
     $res = $m->getTop(3);
     $this->assertSame(3, count($res));
-    $this->assertFalse(isset($res[0]['text']));
+    foreach ($res as $date => $row) {
+      $this->assertFalse(isset($row['text']));
+    }
   }
   
   public function test_gt02() {
@@ -26,7 +28,9 @@ class MArtikel_Test extends Testcase {
     $m = new MArtikel();
     $res = $m->getTop(2, true);
     $this->assertSame(2, count($res));
-    $this->assertTrue(isset($res[0]['text']));
+    foreach ($res as $date => $row) {
+      $this->assertTrue(isset($row['text']));
+    }
   }
   
   
@@ -164,7 +168,7 @@ class MArtikel_Test extends Testcase {
       'height' => '80',
       'vname' => 'fsv',
       'sources' => 1
-    ), $res['videos'][0]);
+    ), $res['vids'][0]);
   }
   
   
