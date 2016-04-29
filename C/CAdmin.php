@@ -58,18 +58,19 @@ class CAdmin extends Controller {
           $mclass = 'M'.$objtype;
           $model = $this->getObject($mclass);
           $vclass = 'VAdmin'.$objtype;
+          $filter = isset($post['filter']) ? (int) $post['filter'] : 0;
           switch ($act) {
           case 'del':
             $model->delete($post['id']);
             // fallthrough
           case 'list':
-            $data['rows'] = $model->getList();
+            $data = $model->getList($filter);
             $v = $this->getObject($vclass.'List');
             break;
             
           case 'new':
-            $id = $model->create();
-            $data['item'] = $model->getItem($id);
+            $id = $model->create($filter);
+            $data = $model->getItem($id);
             $v = $this->getObject($vclass);
             break;
             
@@ -77,7 +78,7 @@ class CAdmin extends Controller {
             $model->edit($post, isset($files['datei']) ? $files['datei'] : array());
             // fallthrough
           case 'up1':
-            $data['item'] = $model->getItem($post['id']);
+            $data = $model->getItem($post['id']);
             $v = $this->getObject($vclass);
             break;
             
@@ -85,7 +86,6 @@ class CAdmin extends Controller {
             throw new Exception('Ungültiger mode: "'.$mode.'"');
           }
         }
-        $data['showBackendStart'] = true;
       }
       
     } catch (Exception $e) {
