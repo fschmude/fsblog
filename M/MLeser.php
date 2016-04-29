@@ -84,6 +84,7 @@ class MLeser extends Model {
     // go
     $dart = new DArtikel;
     $art = $dart->getRow($aid);
+    $art['url'] = $this->completeUrl($art['url']);
     
     // add leser
     $leser = $this->dobj->getReaders();
