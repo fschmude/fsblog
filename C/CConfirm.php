@@ -45,7 +45,7 @@ class CConfirm extends Controller {
             $displaymode = CONFIRM_DISPLAYMODE_POSTMAIL;
           }
         }
-        $aurl = $mart->getUrl($aid);
+        $aurl = $mart->completeUrl($mart->getUrl($aid));
       }
       
       // confirm post?
@@ -57,7 +57,7 @@ class CConfirm extends Controller {
         } else {
           $pinfo = $mpost->confirmPost($pid, $code);
           $displaymode = CONFIRM_DISPLAYMODE_POSTCONFIRM;
-          $aurl = $mart->getUrl($pinfo['aid']);
+          $aurl = $mart->completeUrl($mart->getUrl($pinfo['aid']));
           $usermail = $pinfo['usermail'];
         }
       }
