@@ -34,9 +34,8 @@ class VRss extends View {
       echo '<item>'."\n";
       echo '<title>'.$art['titel'].'</title>'."\n";
       echo '<description><![CDATA['.$teaser.'...]]></description>'."\n";
-      $url = $this->completeUrl($art['url']);
-      echo '<link>'.$url.'</link>'."\n";
-      echo '<guid>'.$url.'</guid>'."\n";
+      echo '<link>'.$art['url'].'</link>'."\n";
+      echo '<guid>'.$art['url'].'</guid>'."\n";
       echo '<author>mail@fs-blog.de (fs)</author>'."\n";
       echo '<pubDate>'.Date( 'D, d M Y H:i:s O', strtotime($art['datum']) ).'</pubDate>'."\n";
       echo '</item>'."\n";
