@@ -113,7 +113,7 @@ class MBild extends Model {
    */
   public function getList() {
     $res = $this->dobj->getAll();
-    return $res;
+    return array('rows' => $res);
   }
   
 
