@@ -36,20 +36,21 @@ class VAdminVideoList extends VAdmin {
         <td class="tded"><?= $vid['height'] ?></td>
         <td class="tded"><?= $vid['vname'] ?></td>
         <td class="tded" style="text-align:center;">
-          <a href="javascript:launchEdit(<?= $vid['id'] ?>);"><img src="img/icon_edit.png" width="16" height="16"></a>
+        <?
+        $this->displayEditIcon('Video_up1', $vid['id']);
+        ?>
         </td>
         <td class="tded" style="text-align:center;">
-          <a href="javascript:launchDel(<?= $vid['id'] ?>,'Wollen Sie das Video mit ID=<?= $vid['id'] ?> wirklich löschen?');"><img src="img/icon_delete.png" width="16" height="16"></a>
+        <?
+        $this->displayDelIcon('Video_del', 'Video', $vid['id']);
+        ?>
         </td>
         </tr>
         <?
       }
       ?>
       </table>
-      
       <?
-      $this->displayLinkForm('Edit', 'Video_up1', true);
-      $this->displayLinkForm('Del', 'Video_del', true);
     }
     
     $this->displayFoot();
