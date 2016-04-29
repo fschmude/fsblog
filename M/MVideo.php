@@ -18,7 +18,8 @@ class MVideo extends Model {
    * Ganze Tabelle liefern
    */
   public function getList() {
-    return $this->dobj->getAll();
+    $rows = $this->dobj->getAll();
+    return array('rows' => $rows);
   }
   
 
