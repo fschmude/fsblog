@@ -28,31 +28,51 @@ class MArtikel extends Model {
     
     // wortgenaues Abschneiden
     $this->snipText($res);
+    $this->completeAllUrls($res);
     
-    return $res;
+    // Alle Monate, mit Teaser
+    $result = $this->addMonths($res, 0, true);
+    
+    return $result;
   }
   
+  
   /**
-   * @param byref array $rows = numeric array of rows, 
-   *    $row = array( 'text' => '...', ...);
+   * Zu einer Artikelliste Monate hinzufügen
    */
-  private function snipText(&$rows) {
-    foreach ($rows as &$row) {
-      if (strlen($row['text']) > TEASER_LENGTH) {
-        if (!$pos = strpos($row['text'], ' ', TEASER_LENGTH - 20)) {
-          $pos = TEASER_LENGTH;
-        }
-        $row['text'] = substr($row['text'], 0, $pos);
+  private function addMonths($aArtikel, $anz, $bMitTeaser) {
+    $dSnips = $this->getObject('DSnips');
+    $months = $dSnips->getMonths($anz);
+    foreach ($months as $month) {
+      $mrow = array(
+        'datum' => $month.'-01',
+        'titel' => 'Einträge von '.$month,
+        'url' => $this->completeUrl(0, 0, $month)
+      );
+      if ($bMitTeaser) {
+        $mrow['text'] = 'Hier ist die Sicherung aller Facebook-Einträge von '.$month.'. ';
       }
+      $aArtikel[] = $mrow;
     }
+    
+    // Nach Datum sortieren
+    $result = array();
+    foreach ($aArtikel as $row) {
+      $result[$row['datum']] = $row;
+    }
+    krsort($result);
+
+    return $result;
   }
+  
   
   /**
    * Übersichtsliste für admin
    */
   public function getList() {
     $res = $this->dobj->getList();
-    return $res;
+    $this->completeAllUrls($res);
+    return array('rows' => $res);
   }
   
   /**
@@ -64,6 +84,9 @@ class MArtikel extends Model {
       throw new Exception('Keine gültige aid übergeben');
     }
     $res = $this->dobj->getRow($aid);
+    if ($url = trim($res['url'])) {
+      $res['completeUrl'] = $this->completeUrl($res['url']);
+    }
     return $res;
   }
   
@@ -90,15 +113,42 @@ class MArtikel extends Model {
       throw new Exception('anz ('.$anz.') ist kein positives Int');
     }
     
+    // Artikel holen
     $res = $this->dobj->getTop($anz, $bMitTeaser);
-    
-    // Falls mit Text, diesen wortgenau Abschneiden
     if ($bMitTeaser) {
       $this->snipText($res);
     }
+    $this->completeAllUrls($res);
     
-    return $res;
+    // mit Monaten zusammensetzen, nur neueste
+    $result = $this->addMonths($res, $anz, $bMitTeaser);
+    $result = array_slice($result, 0, $anz);
+    
+    return $result;
   }
+
+
+  /**
+   * Helper: add dependent rows
+   */
+  private function addDependentRows($artikel) {
+    // Freigeschaltet?
+    $this->checkPublic($artikel);
+
+    // add Posts
+    $dposts = $this->getObject('DPosts');
+    $posts = $dposts->getPostsForAid($artikel['id']);
+    $artikel['posts'] = $posts;
+    
+    // add embedded objects
+    $deps = $this->getEmbeddedRows($artikel['text']);
+    $artikel['bilder'] = $deps['bilder'];
+    $artikel['vids'] = $deps['vids'];
+    
+    $artikel['type'] = 'artikel';
+    return $artikel;
+  }
+  
   
   /**
    * Einen Artikel zusammen mit Postings und Bildern holen - anhand der fake-url
@@ -106,12 +156,8 @@ class MArtikel extends Model {
    */
   public function getArtikelKomplettByUrl($url) {
     $art = $this->dobj->getArtikelByUrl($url);
-    
-    // Freigeschaltet?
-    $this->checkPublic($art);
-
-    $result = $this->addDependentRows($art);
-    return $result;
+    $art = $this->addDependentRows($art);
+    return $art;
   }
   
   /**
@@ -120,12 +166,8 @@ class MArtikel extends Model {
    */
   public function getArtikelKomplett($aid) {
     $art = $this->dobj->getRow($aid);
-    
-    // Freigeschaltet?
-    $this->checkPublic($art);
-
-    $result = $this->addDependentRows($art);
-    return $result;
+    $art = $this->addDependentRows($art);
+    return $art;
   }
   
   /**
@@ -141,69 +183,7 @@ class MArtikel extends Model {
     return true;
   }
   
-  /**
-   * Postings und Bilder-Infos zu einem Artikel-DS hinzufügen
-   * @param array row aus artikel
-   * @return array(
-   *    'id' =>
-   *    'titel' =>
-   *    'metadesc' =>
-   *    'datum' =>
-   *    'text' =>
-   *    'posts' => array()
-   *    'bilder' => array()
-   *    'vids' => array()
-   * );
-   */
-  private function addDependentRows($art) {
-    // hat's Bilder?
-    $dbilder = new DBilder;
-    $art['bilder'] = array();
-    $pos = 0;
-    $search = '<imga id="';
-    while ($pos = strpos($art['text'], $search, $pos)) {
-      $pos_e = strpos($art['text'], '>', $pos + 10);
-      $bid = substr($art['text'], $pos + 10, $pos_e - $pos - 11);
-      $bild = array(
-        'id' => $bid,
-        'width' => '100',
-        'height' => '50',
-        'url' => 'fehler',
-        'alt' => 'Kein Bild-Datensatz!',
-        'ext' => 'gif'
-      );
-      if ($bid = (int) $bid) {
-        $row = $dbilder->getRow($bid);
-        if (isset($row['ext']) && strlen($row['ext'])) {
-          $bild = $row;
-        }
-      }
-      $art['bilder'][] = $bild;
-      $pos++;
-    }
-    
-    // Postings
-    $dposts = new DPosts;
-    $posts = $dposts->getPostsForAid($art['id']);
-    $art['posts'] = $posts;
-    
-    // vids
-    $mv = new MVideo;
-    $art['videos'] = array();
-    $pos = 0;
-    $search = '<video id="';
-    while ($pos = strpos($art['text'], $search, $pos)) {
-      
-      $pos_e = strpos($art['text'], '>', $pos + 11);
-      $vid = substr($art['text'], $pos + 11, $pos_e - $pos - 12);
-      $art['videos'][] = $mv->getInfo($vid);
-      $pos++;
-    }
-    
-    return $art;
-  }
-  
-  
+
   /**
    * Artikel-URL zu einer aid bestimmen
    * @param int = article ID
@@ -238,5 +218,22 @@ class MArtikel extends Model {
     $this->dobj->delete($aid);
   }
   
+
+  /**
+   * Die Spalte "text" in einem array auf globale Teaser-Länge verkürzen
+   * @param byref array $rows = numeric array of rows,
+   *    $row = array( 'text' => '...', ...);
+   */
+  private function snipText(&$rows) {
+    foreach ($rows as &$row) {
+      if (strlen($row['text']) > TEASER_LENGTH) {
+        if (!$pos = strpos($row['text'], ' ', TEASER_LENGTH - 20)) {
+          $pos = TEASER_LENGTH;
+        }
+        $row['text'] = substr($row['text'], 0, $pos);
+      }
+    }
+  }
+
 }
 
