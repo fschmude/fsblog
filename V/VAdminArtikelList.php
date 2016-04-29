@@ -12,6 +12,8 @@ class VAdminArtikelList extends VAdmin {
     echo ' -&gt; ';
     $this->displayNaviLink('Bild_list', 'Bilder verwalten');
     echo ' &nbsp; -&gt; ';
+    $this->displayNaviLink('Snippet_list', 'Schnippel verwalten', date('Ym'));
+    echo ' &nbsp; -&gt; ';
     $this->displayNaviLink('Video_list', 'Videos verwalten');
     echo '<br><br>'."\n";
 
@@ -28,10 +30,10 @@ class VAdminArtikelList extends VAdmin {
       <tr>
       <td class="tded">ID</td>
       <td class="tded">Erscheinungsdatum</td>
-      <td class="tded">URL (click to view)</td>
+      <td class="tded">Titel &amp; URL (click to view)</td>
       <td class="tded">Status</td>
-      <td class="tded">edit</td>
-      <td class="tded">delete</td>
+      <td class="tded">Edit</td>
+      <td class="tded">Delete</td>
       <td class="tded">Mailtext</td>
       </tr>
       <?
@@ -39,14 +41,18 @@ class VAdminArtikelList extends VAdmin {
         ?>
         <tr>
         <td class="tded"><?= $artikel['id'] ?></td>
-        <td class="tded"><?= $artikel['datum'] ?></td>
-        <td class="tded"><a href="<?= $this->completeUrl($artikel['url']) ?>" target="_blank"><?= $artikel['url'] ?></a></td>
+        <td class="tded"><?= date('Y-m-d', strtotime($artikel['datum'])) ?></td>
+        <td class="tded"><a href="<?= $artikel['url'] ?>" target="_blank"><?= $artikel['titel'] ?></a></td>
         <td class="tded"><?= $artikel['status'] ?></td>
         <td class="tded" style="text-align:center;">
-          <a href="javascript:launchEdit(<?= $artikel['id'] ?>);"><img src="img/icon_edit.png" width="16" height="16"></a>
+        <?
+        $this->displayEditIcon('Artikel_up1', $artikel['id']);
+        ?>
         </td>
         <td class="tded" style="text-align:center;">
-          <a href="javascript:launchDel(<?= $artikel['id'] ?>,'Wollen Sie den Artikel mit ID=<?= $artikel['id'] ?> wirklich löschen?');"><img src="img/icon_delete.png" width="16" height="16"></a>
+        <?
+        $this->displayDelIcon('Artikel_del', 'Artikel', $artikel['id']);
+        ?>
         </td>
         <td class="tded">
           <?
@@ -62,10 +68,7 @@ class VAdminArtikelList extends VAdmin {
       }
       ?>
       </table>
-      
       <?
-      $this->displayLinkForm('Edit', 'Artikel_up1', true);
-      $this->displayLinkForm('Del', 'Artikel_del', true);
     }
     
     $this->displayFoot();
