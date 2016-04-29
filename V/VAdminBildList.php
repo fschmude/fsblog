@@ -39,20 +39,21 @@ class VAdminBildList extends VAdmin {
         <td class="tded"><?= $bild['ext'] ?></td>
         <td class="tded"><?= $bild['alt'] ?></td>
         <td class="tded" style="text-align:center;">
-          <a href="javascript:launchEdit(<?= $bild['id'] ?>);"><img src="img/icon_edit.png" width="16" height="16"></a>
+        <?
+        $this->displayEditIcon('Bild_up1', $bild['id']);
+        ?>
         </td>
         <td class="tded" style="text-align:center;">
-          <a href="javascript:launchDel(<?= $bild['id'] ?>,'Wollen Sie das Bild mit ID=<?= $bild['id'] ?> wirklich löschen?');"><img src="img/icon_delete.png" width="16" height="16"></a>
+        <?
+        $this->displayDelIcon('Bild_del', 'Bild', $bild['id']);
+        ?>
         </td>
         </tr>
         <?
       }
       ?>
       </table>
-      
       <?
-      $this->displayLinkForm('Edit', 'Bild_up1', true);
-      $this->displayLinkForm('Del', 'Bild_del', true);
     }
     
     $this->displayFoot();
