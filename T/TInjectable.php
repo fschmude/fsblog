@@ -19,7 +19,7 @@ trait TInjectable {
    */
   protected function getObject($key) {
     if (!isset($this->objs[$key])) {
-      // standard case: Object was not injected, create it now
+      // Object was not injected, create it now
       $letter = substr($key, 0, 1);
       $file = $letter.'/'.$key.'.php';
       if (!file_exists($file)) {
