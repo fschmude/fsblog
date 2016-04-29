@@ -10,7 +10,7 @@ class VRedirect extends View {
     }
     
     // ok
-    $loc = $this->completeUrl($vdata);
+    $loc = trim($vdata);
     header("HTTP/1.1 301 Moved Permanently");
     header("Location: ".$loc);
     header("Connection: close");
