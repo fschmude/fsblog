@@ -24,7 +24,7 @@ abstract class View implements IView {
     echo '<link href="'.BASEURL.'img/styles.css" type="text/css" rel="stylesheet">'."\n";
     echo '<link rel="SHORTCUT ICON" href="'.BASEURL.'img/favicon.ico">'."\n";
     if ($desc) {
-      echo '<meta name="description" content="'.$desc.'">'."\n";                                                                                             
+      echo '<meta name="description" content="'.$desc.'">'."\n";
     }
     if ($canonical) {
       echo '<link rel="canonical" href="'.$canonical.'" />'."\n";
@@ -33,7 +33,7 @@ abstract class View implements IView {
     ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
-    <body>                                                   
+    <body>
     <?
     if ($canonical) {
       ?>
@@ -102,7 +102,7 @@ abstract class View implements IView {
       // Artikelliste
       echo 'Neuere Artikel:<br>'."\n";
       foreach ($navi_arts as $art) {
-        echo '<a href="'.$this->completeUrl($art['url']).'">'.Date('Y-m-d', strtotime($art['datum'])).':<br>'.$art['titel'].'</a>';
+        echo '<a href="'.$art['url'].'">'.Date('Y-m-d', strtotime($art['datum'])).':<br>'.$art['titel'].'</a>';
         echo '<br><br>'."\n";
       }
       
@@ -166,15 +166,6 @@ abstract class View implements IView {
     </body>
     </html>
     <?
-  }
-
-  
-  /** 
-   * @param string $url = titel
-   * @return string http:/...titel.htm
-   */
-  protected function completeUrl($url) {
-    return BASEURL.'artikel/'.$url.'.htm';
   }
 
   
