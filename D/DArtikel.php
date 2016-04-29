@@ -82,7 +82,7 @@ class DArtikel extends DB {
    * Liste für Übersicht im Backend
    */
   public function getList() {
-    $sql = "SELECT id,datum,status,url"
+    $sql = "SELECT id,titel,datum,status,url"
       ." FROM artikel"
       ." ORDER BY id DESC"
     ;
