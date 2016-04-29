@@ -36,7 +36,7 @@ class VMailtext extends View {
               
     Sie finden ihn unter dem Link
     <br>
-    <?= $this->completeUrl($data['url']) ?>
+    <?= $data['url'] ?>
     <br><br>
     
     Wenn Sie diese Mails nicht mehr erhalten wollen, antworten Sie einfach auf diese Mail und schreiben irgendwo in den Text "unsubscribe".
