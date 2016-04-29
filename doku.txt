@@ -1,4 +1,28 @@
-(aftergit.php geht bei strato leider nicht)
+--
+Aufbau von allem:
+
+M[Objekt] enthält optional:
+- getList
+- getItem
+- deleteItem
+- editItem
+- 
+D[Tabelle] enthält (von DB geerbt)
+- getAll
+- getRow
+- delete
+- edit
+- create
+- createValues
+
+-V enthält
+display(errmsg, data);
+
+--
+Entwicklung, Tests fertig?
+dann: git push github außer config.php
+
+Schön wäre folgendes zu automatisieren, wenn man nach Produktion deployen könnte:
 
 Nach git clone oder pull in Produktion:
 1. Passwörter anpassen
@@ -8,6 +32,11 @@ Nach git clone oder pull in Produktion:
     /log
     /imga
 
-3. /tests löschen
+3. Last-Login-Datei erstellen
+  cd log
+  echo '2001-03-29 11:00' > last_login.txt
+  chmod 666 last_login.txt
+  
+4. /tests löschen
 
 
