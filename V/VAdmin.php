@@ -50,13 +50,23 @@ abstract class VAdmin extends View {
     ?>
     <a href="<?= BASEURL ?>index.php">FS-Blog Startseite</a>
     
-    <form name="frmNavilink" method="post" action="admin.php">
+    <form name="frmAdminPage" method="post" action="admin.php">
     <input type="hidden" name="mode" id="mode">
+    <input type="hidden" name="id" id="id">
+    <input type="hidden" name="filter" id="filter">
     </form>
     <script type="text/javascript">
-    function navilink(mode) {
-      this.frmNavilink.mode.value = mode;
-      this.frmNavilink.submit();
+    function adminPage(mode, id, filter) {
+      this.frmAdminPage.mode.value = mode;
+      this.frmAdminPage.id.value = id;
+      this.frmAdminPage.filter.value = filter;
+      this.frmAdminPage.submit();
+    }
+    function del(mode, objektname, id, filter) {
+      if (!confirm('Wollen Sie ' + objektname + ' Nr. ' + id + ' wirklich löschen?')) {
+        return;
+      }
+      adminPage(mode, id, filter);
     }
     </script>
     
@@ -66,41 +76,35 @@ abstract class VAdmin extends View {
     <?
   }
 
-  /**
-   * display a hidden form, which serves to launch http posts
-   * Usage: display this form, and offer links with href="javascript:launchName(id);"
-   * or href="javascript:launchName();"
-   * Caution: Dont display a form inside a form!
-   * Rather place it at the bottom of your page.
+
+  /** 
+   * Edit-Tipp anzeigen
    */
-  protected function displayLinkForm($name, $mode) {
-    // display form
-    echo '<form id="frm'.$name.'" method="post" action="'.BASEURL.'admin.php">';
-    echo '<input type="hidden" name="mode" value="'.$mode.'">';
-    echo '<input type="hidden" name="id" value="">';
-    echo '</form>';
-    
-    // display launch script
+  protected function displayEditHint() {
     ?>
-    <script type="text/javascript">
-    function launch<?= $name ?>(id, question) {
-      if (question && !confirm(question)) {
-        return;
-      }
-      
-      var frm = document.getElementById('frm<?= $name ?>');
-      if (id > 0) {
-        frm.id.value = id;
-      }
-      frm.submit();
-    }
-    </script>
+    Erlaubt:<br>
+    &lt;h2&gt;Zwischenüberschrift&lt;/h2&gt; 
+    <br>
+    &lt;wiki href="wiki-Seitenname"&gt;verlinkter Text&lt;/wiki&gt;
+    <br>
+    &lt;imga id="bid"&gt;, &lt;video id="vid"&gt;
+    <br>
+    Als einziges sonst erlaubt: &lt;a...
+    <br>
     <?
   }
 
   
-  protected function displayNaviLink($mode, $label) {
-    echo '<a href="javascript:navilink(\''.$mode.'\');">'.$label.'</a>';
+  protected function displayNaviLink($mode, $label, $filter = 0) {
+    echo '<a href="javascript:adminPage(\''.$mode.'\', 0, '.$filter.');">'.$label.'</a>';
+  }
+  
+  protected function displayEditIcon($mode, $id) {
+    echo '<a href="javascript:adminPage(\''.$mode.'\','.$id.', 0);"><img src="img/icon_edit.png" width="16" height="16"></a>';
+  }
+
+  protected function displayDelIcon($mode, $objektName, $id, $filter = 0) {
+    echo '<a href="javascript:del(\''.$mode.'\',\''.$objektName.'\','.$id.','.$filter.');"><img src="img/icon_delete.png" width="16" height="16"></a>';
   }
 
   
