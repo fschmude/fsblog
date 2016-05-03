@@ -33,7 +33,7 @@ class MSnippet extends Model {
     $list = array(
       'month' => $month,
       'rows' => $rows,
-      'allMonths' => $this->dobj->getAllMonths()
+      'allMonths' => $this->dobj->getMonths()
     );
     return $list;
   }
