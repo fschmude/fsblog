@@ -48,7 +48,7 @@ abstract class Model {
     $result['bilder'] = array();
     $pos = 0;
     $search = '<imga id="';
-    while ($pos = strpos($text, $search, $pos)) {
+    while (($pos = strpos($text, $search, $pos)) !== false) {
       $pos_e = strpos($text, '>', $pos + 10);
       $bid = substr($text, $pos + 10, $pos_e - $pos - 11);
       $bild = array(
@@ -74,7 +74,7 @@ abstract class Model {
     $result['vids'] = array();
     $pos = 0;
     $search = '<video id="';
-    while ($pos = strpos($text, $search, $pos)) {
+    while (($pos = strpos($text, $search, $pos)) !== false) {
       $pos_e = strpos($text, '>', $pos + 11);
       $vid = substr($text, $pos + 11, $pos_e - $pos - 12);
       $result['vids'][] = $mv->getInfo($vid);
