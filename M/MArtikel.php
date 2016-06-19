@@ -44,13 +44,14 @@ class MArtikel extends Model {
     $dSnips = $this->getObject('DSnips');
     $months = $dSnips->getMonths($anz);
     foreach ($months as $month) {
+      $monthStrich = substr($month, 0, 4).'-'.substr($month, 4);
       $mrow = array(
-        'datum' => $month.'-01',
-        'titel' => 'Einträge von '.$month,
-        'url' => $this->completeUrl(0, 0, $month)
+        'datum' => $monthStrich.'-01',
+        'titel' => 'Einträge von '.$monthStrich,
+        'url' => $this->completeUrl(0, 0, $monthStrich)
       );
       if ($bMitTeaser) {
-        $mrow['text'] = 'Hier ist die Sicherung aller Facebook-Einträge von '.$month.'. ';
+        $mrow['text'] = 'Hier ist die Sicherung aller Facebook-Einträge von '.$monthStrich.'. ';
       }
       $aArtikel[] = $mrow;
     }
