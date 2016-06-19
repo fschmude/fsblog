@@ -11,7 +11,7 @@ class VAdminSnippetList extends VAdmin {
    * @param string $errmsg
    * @param array $data = array(
    *    'month' => '201604',
-   *    'months' => array('201601, '201602', ...),
+   *    'allMonths' => array('201601, '201602', ...),
    *    'rows' => array(...),
    
    * );
