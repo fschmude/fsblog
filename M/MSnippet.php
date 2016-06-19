@@ -16,7 +16,7 @@ class MSnippet extends Model {
   
 
   /**
-   * getlist: Besonderheit: zusätzlicher Parameter für filtern
+   * getList: Besonderheit: zusätzlicher Parameter für filtern
    * @param int filter = 201604
    */
   public function getList($filter = 0) {
