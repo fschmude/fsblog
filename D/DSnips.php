@@ -103,11 +103,11 @@ class DSnips extends DB {
   
   
   /**
-   * Liste aller Monate (Y-m), zu denen Schnippel existieren
+   * Liste aller Monate (Ym), zu denen Schnippel existieren
    * @param int optional $anz = Anzahl neueste, falls 0 oder fehlt, dann alle 
    */
   public function getMonths($anz = 0) {
-    $sql = "SELECT DISTINCT date_format(datum, '%Y-%m') month FROM snips"
+    $sql = "SELECT DISTINCT date_format(datum, '%Y%m') month FROM snips"
       ." ORDER BY month DESC"
     ;
     if ($anz = (int) $anz) {
