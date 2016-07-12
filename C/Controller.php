@@ -34,5 +34,15 @@ abstract class Controller implements IController {
     }
   }
   
+  
+  /**
+   * Destruktor: Schließt DB-Verbindung, falls eine aufgebaut wurde
+   */
+  public function __destruct() {
+    if (isset($GLOBALS['pdo']) && $GLOBALS['pdo']) {
+      $GLOBALS['pdo'] = null;
+    }
+  }
+  
 }
 
