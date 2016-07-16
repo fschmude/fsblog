@@ -68,7 +68,7 @@ folgende URLs müssen erhalten bleiben:
 - artikel.php?aid=23
 - artikel/zettel.php, zettel.php
 - rss.php
-- Klick auf Monat, Schnippel, Artikel, alle, kontakt
+- Klick auf Monat, Schnippel, neuen Artikel mit Bild, alten Artikel mit Bild, alle, kontakt
 - google...htm
 
 
