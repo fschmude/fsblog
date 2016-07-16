@@ -20,7 +20,11 @@
 <li><a href="#über-diese-doku"><span class="toc-section-number">1</span> Über diese Doku</a></li>
 <li><a href="#aufbau-von-allem"><span class="toc-section-number">2</span> Aufbau von allem</a></li>
 <li><a href="#deployment"><span class="toc-section-number">3</span> Deployment</a></li>
-<li><a href="#testanleitung"><span class="toc-section-number">4</span> Testanleitung</a></li>
+<li><a href="#testanleitung"><span class="toc-section-number">4</span> Testanleitung</a><ul>
+<li><a href="#klicken"><span class="toc-section-number">4.1</span> Klicken</a></li>
+<li><a href="#urls-testen"><span class="toc-section-number">4.2</span> URLs testen</a></li>
+<li><a href="#mit-db-verfolgung-und-mail"><span class="toc-section-number">4.3</span> Mit DB-Verfolgung und Mail</a></li>
+</ul></li>
 </ul>
 </div>
 <h1 id="über-diese-doku"><a href="#über-diese-doku"><span class="header-section-number">1</span> Über diese Doku</a></h1>
@@ -65,14 +69,23 @@
 </ol>
 <h1 id="testanleitung"><a href="#testanleitung"><span class="header-section-number">4</span> Testanleitung</a></h1>
 <p>folgende URLs müssen erhalten bleiben:</p>
+<h2 id="klicken"><a href="#klicken"><span class="header-section-number">4.1</span> Klicken</a></h2>
+<ul>
+<li>Klick auf Monat, Schnippel, neuen Artikel mit Bild, alten Artikel mit Bild, alle, about, Kontakt, RSS</li>
+<li>Google-Suche</li>
+</ul>
+<h2 id="urls-testen"><a href="#urls-testen"><span class="header-section-number">4.2</span> URLs testen</a></h2>
 <ul>
 <li>index.php (aber nur wg. domain-Ansteuerung)</li>
 <li>imga/AfD-Mitgliederentscheid.pdf</li>
 <li>imga/Brigitte_Meier.mp4</li>
 <li>artikel.php?aid=23</li>
 <li>artikel/zettel.php, zettel.php</li>
-<li>rss.php</li>
-<li>Klick auf Monat, Schnippel, neuen Artikel mit Bild, alten Artikel mit Bild, alle, kontakt</li>
+</ul>
+<h2 id="mit-db-verfolgung-und-mail"><a href="#mit-db-verfolgung-und-mail"><span class="header-section-number">4.3</span> Mit DB-Verfolgung und Mail</a></h2>
+<ul>
+<li>Neues Abo</li>
+<li>Kommentieren (SELECT id, username, usermail, text, status FROM posts ORDER BY id DESC)</li>
 <li>google...htm</li>
 </ul>
 </body>

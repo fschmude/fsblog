@@ -62,13 +62,20 @@ Nach git clone oder pull in Produktion:
 # Testanleitung
 folgende URLs müssen erhalten bleiben:
 
+## Klicken
+- Klick auf Monat, Schnippel, neuen Artikel mit Bild, alten Artikel mit Bild, alle, about, Kontakt, RSS
+- Google-Suche
+
+## URLs testen
 - index.php (aber nur wg. domain-Ansteuerung)
 - imga/AfD-Mitgliederentscheid.pdf
 - imga/Brigitte_Meier.mp4
 - artikel.php?aid=23
 - artikel/zettel.php, zettel.php
-- rss.php
-- Klick auf Monat, Schnippel, neuen Artikel mit Bild, alten Artikel mit Bild, alle, kontakt
+
+## Mit DB-Verfolgung und Mail
+- Neues Abo
+- Kommentieren (SELECT id, username, usermail, text, status FROM posts ORDER BY id DESC)
 - google...htm
 
 
