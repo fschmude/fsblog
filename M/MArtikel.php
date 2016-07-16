@@ -157,19 +157,11 @@ class MArtikel extends Model {
    */
   public function getArtikelKomplettByUrl($url) {
     $art = $this->dobj->getArtikelByUrl($url);
+    $art['url'] = $this->completeUrl($art['url']);
     $art = $this->addDependentRows($art);
     return $art;
   }
   
-  /**
-   * Einen Artikel zusammen mit Postings und Bildern holen - anhand der ID
-   * Bei nicht freigeschalteten Artikeln Anmeldung erforderlich!
-   */
-  public function getArtikelKomplett($aid) {
-    $art = $this->dobj->getRow($aid);
-    $art = $this->addDependentRows($art);
-    return $art;
-  }
   
   /**
    * Check, ob ein Artikel angezeigt werden darf
