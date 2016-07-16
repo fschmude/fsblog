@@ -3,4 +3,8 @@ fsblog
 
 A q&amp;d blogging engine
 
-und noch eine Zeile
+For more documentation, see
+
+- doku/doku.md
+- doku/doku.htm
+
