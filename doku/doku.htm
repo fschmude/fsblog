@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <meta name="author" content="Fritz Schmude" />
+  <meta name="date" content="2016-07-01" />
+  <title>Dokumentation von fsblog</title>
+  <style type="text/css">code{white-space: pre;}</style>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Dokumentation von fsblog</h1>
+<h2 class="author">Fritz Schmude</h2>
+<h3 class="date">2016-07-01</h3>
+</div>
+<div id="TOC">
+<ul>
+<li><a href="#über-diese-doku"><span class="toc-section-number">1</span> Über diese Doku</a></li>
+<li><a href="#aufbau-von-allem"><span class="toc-section-number">2</span> Aufbau von allem</a></li>
+<li><a href="#deployment"><span class="toc-section-number">3</span> Deployment</a></li>
+<li><a href="#testanleitung"><span class="toc-section-number">4</span> Testanleitung</a></li>
+</ul>
+</div>
+<h1 id="über-diese-doku"><a href="#über-diese-doku"><span class="header-section-number">1</span> Über diese Doku</a></h1>
+<p>Wenn etwas an dieser Doku geändert werden soll, dann</p>
+<ol>
+<li>Hier ändern</li>
+<li>In Verzeichnis doku wechseln</li>
+<li>pandoc -t html -o doku.htm -s --toc -N --template doktpl.htm doku.md</li>
+<li>Nun sind die Änderungen auch in doku.htm</li>
+<li>Sowohl doku.md, als auch doku.htm einchecken</li>
+</ol>
+<p>Zu pandoc siehe <a href="http://www.pandoc.org/">http://www.pandoc.org/</a></p>
+<h1 id="aufbau-von-allem"><a href="#aufbau-von-allem"><span class="header-section-number">2</span> Aufbau von allem</a></h1>
+<p>M[Objekt] enthält optional:</p>
+<ul>
+<li>getList</li>
+<li>getItem</li>
+<li>deleteItem</li>
+<li>editItem</li>
+</ul>
+<p>D[Tabelle] enthält (von DB geerbt)</p>
+<ul>
+<li>getAll</li>
+<li>getRow</li>
+<li>delete</li>
+<li>edit</li>
+<li>create</li>
+<li>createValues</li>
+</ul>
+<p>V enthält</p>
+<ul>
+<li>display(errmsg, data);</li>
+</ul>
+<h1 id="deployment"><a href="#deployment"><span class="header-section-number">3</span> Deployment</a></h1>
+<p>Entwicklung, Tests fertig?<br />dann: git push github außer config.php</p>
+<p>Schön wäre folgendes zu automatisieren, wenn man nach Produktion deployen könnte:<br />Nach git clone oder pull in Produktion:</p>
+<ol>
+<li><p>Passwörter anpassen config.php</p></li>
+<li><p>Beschreibbare Verzeichnisse erstellen:<br /> /log<br /> /imga</p></li>
+<li><p>Last-Login-Datei erstellen<br /> cd log<br /> echo '2001-03-29 11:00' &gt; last_login.txt<br /> chmod 666 last_login.txt</p></li>
+<li><p>/tests und /doku löschen (bzw. gar nicht erst deployen)</p></li>
+</ol>
+<h1 id="testanleitung"><a href="#testanleitung"><span class="header-section-number">4</span> Testanleitung</a></h1>
+<p>folgende URLs müssen erhalten bleiben:</p>
+<ul>
+<li>index.php (aber nur wg. domain-Ansteuerung)</li>
+<li>imga/AfD-Mitgliederentscheid.pdf</li>
+<li>imga/Brigitte_Meier.mp4</li>
+<li>artikel.php?aid=23</li>
+<li>artikel/zettel.php, zettel.php</li>
+<li>rss.php</li>
+<li>Klick auf Monat, Schnippel, Artikel, alle, kontakt</li>
+<li>google...htm</li>
+</ul>
+</body>
+</html>
