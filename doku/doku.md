@@ -54,8 +54,11 @@ Nach git clone oder pull in Produktion:
   echo '2001-03-29 11:00' > last_login.txt  
   chmod 666 last_login.txt
   
-#. /tests und /doku löschen (bzw. gar nicht erst deployen)
-
+#. Löschen (bzw. gar nicht erst deployen):  
+  /tests  
+  /doku  
+  README.md
+  
 # Testanleitung
 folgende URLs müssen erhalten bleiben:
 
