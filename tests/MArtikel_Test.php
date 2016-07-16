@@ -80,18 +80,6 @@ class MArtikel_Test extends Testcase {
     }
   }
   
-  /**
-   * testing get_artikel_komplett()
-   */
-  public function test_gk01() {
-    // all ok
-    $this->prep_artikel(1);
-    $m = new MArtikel();
-    $res = $m->getArtikelKomplett(1);
-
-    $this->check_artikel_komplett($res);
-  }
-  
   // helper for gk
   private function prep_artikel($status) {
     $this->execSqls(array(
