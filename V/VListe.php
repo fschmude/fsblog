@@ -49,7 +49,7 @@ class VListe extends View {
         }
         $i++;
       }
-      $this->head($titel, $canonical, '', $desc);
+      $this->head($titel, $canonical, '', $desc, 'noindex, follow');
       
     } catch (Exception $e) {
       $errmsg = $e->getMessage();
