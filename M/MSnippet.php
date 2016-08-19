@@ -88,9 +88,13 @@ class MSnippet extends Model {
     
     // build continuous text
     $text = 'Hier ist die Sicherung all meiner Facebook-Einträge von '.$monat.'.'."\n\n";
-    foreach ($rows as $row){
+    foreach ($rows as $row) {
+      $fblink = $this->makeFbUrl($row['fbid']);
       $text .= '--'."\n"
-        .$row['datum'].' <a href="'.$this->completeUrl(0, $row['id']).'">(Direktlink)</a>'."\n\n"
+        .$row['datum']
+        .' (<a href="'.$this->completeUrl(0, $row['id'])
+        .'">Direktlink</a>, <a href'
+        .'<a href="'.$fblink.'" target="_blank">kommentieren bei Facebook</a>)'."\n\n"
         .$row['text']
         ."\n\n"
       ;
@@ -122,6 +126,16 @@ class MSnippet extends Model {
   
   
   /**
+   * make Facebook Link
+   * @access public for testing only
+   */
+  public function makeFbUrl($fbid) {
+    $url = 'https://www.facebook.com/fritz.schmude/posts/'.$fbid;
+    return $url;
+  }
+  
+  
+  /**
    * get whole snippet for showing it
    */
   public function getSnippet($sid) {
@@ -140,7 +154,7 @@ class MSnippet extends Model {
     $snip['urlBefore'] = $this->completeUrl(0, $this->dobj->getBefore($sid));
     $snip['urlAfter'] = $this->completeUrl(0, $this->dobj->getAfter($sid));
     $snip['urlMonat'] = $this->completeUrl(0, 0, date('Y-m', strtotime($snip['datum'])));
-    $snip['urlFB'] = 'https://www.facebook.com/fritz.schmude/posts/'.$row['fbid'];
+    $snip['urlFB'] = $this->makeFbUrl($row['fbid']);
     
     // add images and vids
     $addit = $this->getEmbeddedRows($snip['text']);
