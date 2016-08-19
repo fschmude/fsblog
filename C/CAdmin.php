@@ -35,7 +35,7 @@ class CAdmin extends Controller {
           fclose($f);
           if ($dtnow < $dt) {
             $data = array('msg' => 'Bitte nur ein Login-Versuch alle '.LOGIN_REFRAK.' Sekunden.');
-          } elseif ($pass != BACKEND_PASSWORD) {
+          } elseif (md5($pass) != BACKEND_PASS_HASH) {
             $data = array('msg' => 'Falsches Passwort.');
           } else {
             $_SESSION['ok'] = true;
