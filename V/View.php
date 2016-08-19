@@ -3,54 +3,32 @@ require_once 'V/IView.php';
 
 abstract class View implements IView {
   
-  protected $hinweis;
-  
-  /**
-   * Constructor
-   */
-  public function __construct() {
-    $this->hinweis = 'VERSION = '.VERSION;
-  }
-
-  protected function head($titel, $canonical = '', $datum = '', $desc = '') {
+  protected function head($titel, $canonical = '', $datum = '', $desc = '', $robots = 'index, follow') {
     header("Content-Type: text/html; charset=utf-8");
     ?><!DOCTYPE HTML>
     <html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml"> 
     <head>
-    <meta charset="UTF-8">
     <?
-    echo '<!-- '.$this->hinweis.' -->'."\n";
-    echo '<title>FS: '.$titel.'</title>'."\n";
-    echo '<link href="'.BASEURL.'img/styles.css" type="text/css" rel="stylesheet">'."\n";
-    echo '<link rel="SHORTCUT ICON" href="'.BASEURL.'img/favicon.ico">'."\n";
+    echo '<meta name="robots" content="'.$robots.'">'."\n";
+    ?>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <?
     if ($desc) {
       echo '<meta name="description" content="'.$desc.'">'."\n";
     }
+    
+    echo '<title>FS: '.$titel.'</title>'."\n";
+    
+    echo '<link href="'.BASEURL.'img/styles.css" type="text/css" rel="stylesheet">'."\n";
+    echo '<link rel="SHORTCUT ICON" href="'.BASEURL.'img/favicon.ico">'."\n";
     if ($canonical) {
       echo '<link rel="canonical" href="'.$canonical.'" />'."\n";
     }
     echo '<link rel="alternate" type="application/rss+xml" title="RSS" href="'.BASEURL.'rss.php" />'."\n";
     ?>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-    <?
-    if ($canonical) {
-      ?>
-      <!-- Fratzenbuch -->
-      <div id="fb-root"></div>
-      <script>
-      (function(d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s); js.id = id;
-        js.src = "//connect.facebook.net/de_DE/all.js#xfbml=1";
-        fjs.parentNode.insertBefore(js, fjs);
-      }(document, 'script', 'facebook-jssdk'));
-      </script>
-      <?
-    }          
-    ?>
     <div class="lt1">
     <div class="icon">
     <br>
