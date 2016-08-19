@@ -32,7 +32,11 @@ class VArtikel extends View {
       if (!in_array($data['type'], array('artikel', 'monat', 'snippet'))) {
         throw new Exception('Unbekannter Typ: "'.$data['type'].'"');
       }
-      $this->head($data['titel'], $data['url'], $data['datum'], $data['metadesc']);
+      
+      // robots: Monatsliste nicht in Google aufnehmen, sondern nur Schnippel und Artikel
+      $robots = $data['type'] == 'monat' ? 'noindex, follow' : 'index, follow';
+      
+      $this->head($data['titel'], $data['url'], $data['datum'], $data['metadesc'], $robots);
       $text_html = $this->parseArtikel($data['text'], $data['bilder'], $data['vids']);
       
     } catch (Exception $e) {
@@ -44,34 +48,6 @@ class VArtikel extends View {
     }
     
     echo $text_html;
-    
-    // Social Media Links
-    ?>
-    <table style="width:100%;text-align:right;border:0;">
-    <tr>
-    <td style="width:60%">&nbsp;</td>
-    <td style="width:20%">
-    <!-- google plus -->
-    <div><g:plusone></g:plusone></div>
-    <script type="text/javascript">
-    window.___gcfg = {
-      lang: 'en-US'
-    };
-    (function() {
-        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-        po.src = 'https://apis.google.com/js/plusone.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-    })();
-    </script>
-    
-    </td>
-    <td style="width:20%">
-    <?
-    // Fratzenbuch
-    echo '<div class="fb-like" data-href="'.$data['url'].'" data-send="false" data-layout="button_count" data-width="200" data-show-faces="true" data-font="arial"></div>';
-    ?>
-    </td></tr></table>
-    <?
     
     // Links für snippets
     if ($data['type'] == 'snippet') {
