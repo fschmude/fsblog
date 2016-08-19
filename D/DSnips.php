@@ -46,48 +46,54 @@ class DSnips extends DB {
   
   
   /**
-   * ID des vorigen Schnippels
+   * ID des datumsmäßig vorigen Schnippels
    */
   public function getBefore($sid) {
     if (!$sid = (int) $sid) {
       throw new Exception('Keine gültige sid angegeben');
     }
-    $sql = "SELECT max(id) bid FROM snips WHERE id<:sid";
+    $sql = "SELECT id FROM snips"
+      ." WHERE datum < (SELECT datum FROM snips WHERE id=:sid)"
+      ." ORDER BY datum DESC"
+    ;
     $q = $this->getPdo()->prepare($sql);
     if (!$q->execute(array(':sid' => $sid))) {
       throw new Exception('Fehler bei '.$sql);
     }
     $res = $q->fetch(PDO::FETCH_ASSOC);
-    return $res['bid'];
+    return $res['id'];
   }
   
   
   /**
-   * ID des nachfolgenden Schnippels
+   * ID des datumsmäßig nachfolgenden Schnippels
    */
   public function getAfter($sid) {
     if (!$sid = (int) $sid) {
       throw new Exception('Keine gültige sid angegeben');
     }
-    $sql = "SELECT min(id) nid FROM snips WHERE id>:sid";
+    $sql = "SELECT id FROM snips"
+      ." WHERE datum > (SELECT datum FROM snips WHERE id=:sid)"
+      ." ORDER BY datum"
+    ;
     $q = $this->getPdo()->prepare($sql);
     if (!$q->execute(array(':sid' => $sid))) {
       throw new Exception('Fehler bei '.$sql);
     }
     $res = $q->fetch(PDO::FETCH_ASSOC);
-    return $res['nid'];
+    return $res['id'];
   }
   
   
   /**
-   * Ein Monat
+   * Ein Monat, nach Datum geordnet
    * @param string $monat = '2016-05'
    */
   public function getMonat($monat) {
     $sql = "SELECT id, date_format(datum, '%Y-%m-%d %H:%i') datum, text, fbid FROM snips"
       ." WHERE datum>=:von"
       ." AND datum<:bis"
-      ." ORDER BY id"
+      ." ORDER BY datum"
     ;
     $von = $monat.'-01';
     $dtVon = new DateTime($von);
