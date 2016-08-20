@@ -29,24 +29,6 @@ class CAdmin_Test extends Testcase {
     $v->check('', array('msg' => 'Bitte nur ein Login-Versuch alle '.LOGIN_REFRAK.' Sekunden.'));
   }
   
-  public function test_r03() {
-    // correct password, VAdminArtikelList must get used now
-    $this->warten();
-    $v =  new CAdmin_VMock();
-    $get = $files = array();
-    $post = array('pass' => BACKEND_PASSWORD);
-    $c = new CAdmin(array('VAdminArtikelList' => $v));
-    $c->work($get, $post, $files);
-    $stmt = $this->pdo->prepare("SELECT count(*) cnt FROM artikel");
-    if (!$stmt->execute()) {
-      $this->fail('Fehler beim Zählen der Artikel-Datensätze');
-    }
-    $res = $stmt->fetch(PDO::FETCH_ASSOC);
-    $cnt = $res['cnt'];
-    $this->assertSame('', $v->errmsg);
-    $this->assertEquals($cnt, count($v->data['rows']));
-  }
-  
   
   private function warten() {
     $wait = LOGIN_REFRAK + 1;
