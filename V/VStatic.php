@@ -26,9 +26,13 @@ class VStatic extends View {
           .'<br>'."\n"
           .'Seit 2014 bin ich für die AfD ehrenamtlicher Stadtrat der Landeshauptstadt München (auf deutsch: in den Gemeinderat gewählt).'
           .'<br>'."\n"
-          .'Mehr braucht man nicht zu wissen, um hier (ersatzweise <a href="https://www.facebook.com/fritz.schmude" target="_blank">auch auf Facebook</a>) mitzudiskutieren, wobei ich viel Spaß wünsche.'
+          .'Mehr braucht man nicht zu wissen, um hier'
+          .' (oder auch <a href="https://www.facebook.com/fritz.schmude" target="_blank">auf Facebook</a> oder <a href="https://twitter.com/schmude" target="_blank">auf Twitter</a>)'
+          .' mitzudiskutieren, wobei ich viel Spaß wünsche.'
           .'<br>'."\n"
           .'Meinungsaustausch sollte immer Spaß machen!'
+          .'<br><br>'."\n"
+          .'<div align="center"><img src="img/fs.jpg" width="270" height="270"></div>'."\n"
           .'<br><br>'."\n"
           .'Brian: "Aber lauft doch nicht mir hinterher, Ihr seid doch alle Individuen!"'
           .'<br>'."\n"
