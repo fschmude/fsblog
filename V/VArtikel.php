@@ -51,6 +51,7 @@ class VArtikel extends View {
     
     // Links für snippets
     if ($data['type'] == 'snippet') {
+      echo '<br><br>'."\n";
       if (isset($data['urlFB']) && $data['urlFB']) {
         echo '<a href="'.$data['urlFB'].'" target="_blank">Diesen Eintrag bei Facebook kommentieren</a><br><br>'."\n";
       }
