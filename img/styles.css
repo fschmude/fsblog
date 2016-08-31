@@ -1,4 +1,4 @@
-body{
+body {
   color:#000000;
   font-family:arial,sans-serif;
   font-size:medium;
@@ -7,16 +7,16 @@ body{
   margin:0px;
   background-color: #ccccff;
 }
-a, a:visited{
+a, a:visited {
   color:#009999;
   text-decoration:none;
 }
-a:hover, a:active{
+a:hover, a:active {
   color:#009999;
   text-decoration:underline;
 }
 
-h1,h2,.us{
+h1,h2,.us {
   background-color: #ffffff;
   color:#009999;
   font-size:medium;
@@ -24,7 +24,7 @@ h1,h2,.us{
   font-weight:bold;
 }
 
-.foot{
+.foot {
   width:100%;
   background-color: #ffffff;
   font-family:arial,sans-serif;
@@ -33,13 +33,13 @@ h1,h2,.us{
 }
 
 /* backend only */
-.tdc{
+.tdc {
   background-color: #ffffff;
   border-style: solid;
   border-width: 1px;
   border-color: #009999;
 }
-.tded{
+.tded {
   padding: 2px;
   border-collapse: collapse;
   background-color: #ffffff;
@@ -52,6 +52,7 @@ h1,h2,.us{
   Layout tables 
 ------------------------------------------------------------------------------*/
 .lt1 {
+  width: 100% - 6px;
   border-style:solid;
   border-width:3px 3px 0px;
   border-color:#009999;
@@ -59,6 +60,7 @@ h1,h2,.us{
   overflow:auto;
 }
 .lt2 {
+  width: 100% - 6px;
   border-style:solid;
   border-width:0px 3px;
   border-color:#009999;
@@ -66,6 +68,7 @@ h1,h2,.us{
   overflow:auto;
 }
 .lt3 {
+  width: 100% - 6px;
   border-style:solid;
   border-width:1px 3px 3px 3px;
   border-color:#009999;
@@ -76,55 +79,82 @@ h1,h2,.us{
 /*------------------------------------------------------------------------------
   box formatting - first for mobile! 
 ------------------------------------------------------------------------------*/
-.icon{
+.icon {
   width:100%;
   float:left;
   text-align: center;
 }
-.header{
+.header {
   float:left;
   width:100%;
   background-color: #ffffff;
   vertical-align: middle;
   text-align: center;
 }
-.navi{
+.navi {
   float:right;
   width:100%;
   background-color: #ffffff;
   border-top:solid 1px #009999;
 }
-.content{
+.content {
   float:right;
   width:100%;
   border-top:solid 1px #009999;
 }
-.inside{
+.inside {
   padding:4px;
 }
-.abobox{
+.abobox {
   width:95%;
 }
 
 /*------------------------------------------------------------------------------
-  box formatting - tablet, PC 
+  Tablet, PC 
 ------------------------------------------------------------------------------*/
-@media only screen and (min-width: 600px) {
-  .icon{
+@media only screen and (min-width: 600px) and (max-width: 999px) {
+  .icon {
     width:25%;
   }
-  .header{
+  .header {
     width:75%;
   }
-  .navi{
+  .navi {
     width:25%;
     border-top:none;
   }
-  .content{
+  .content {
     width:74%;
     border-left:solid 1px #009999;
   }  
-  .inside{
+  .inside {
+    padding:10px;
+  }
+}
+
+/*------------------------------------------------------------------------------
+  PC mit sehr breitem Schirm
+------------------------------------------------------------------------------*/
+@media only screen and (min-width: 1000px) {
+  .lt1, .lt2, .lt3 {
+    width: 994px;
+    margin: auto;
+  }
+  .icon {
+    width:250px;
+  }
+  .header {
+    width:740px;
+  }
+  .navi {
+    width:250px;
+    border-top:none;
+  }
+  .content {
+    width:740px;
+    border-left:solid 1px #009999;
+  }
+  .inside {
     padding:10px;
   }
 }
