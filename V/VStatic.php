@@ -32,7 +32,7 @@ class VStatic extends View {
           .'<br>'."\n"
           .'Meinungsaustausch sollte immer Spaß machen!'
           .'<br><br>'."\n"
-          .'<div align="center"><img src="img/fs.jpg" width="270" height="270"></div>'."\n"
+          .'<div align="center"><img src="static/fs.jpg" width="270" height="270"></div>'."\n"
           .'<br><br>'."\n"
           .'Brian: "Aber lauft doch nicht mir hinterher, Ihr seid doch alle Individuen!"'
           .'<br>'."\n"
