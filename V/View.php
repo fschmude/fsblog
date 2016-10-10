@@ -6,7 +6,7 @@ abstract class View implements IView {
   protected function head($titel, $canonical = '', $datum = '', $desc = '', $robots = 'index, follow') {
     header("Content-Type: text/html; charset=utf-8");
     ?><!DOCTYPE HTML>
-    <html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml"> 
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="de">
     <head>
     <?
     echo '<meta name="robots" content="'.$robots.'">'."\n";
@@ -20,8 +20,8 @@ abstract class View implements IView {
     
     echo '<title>FS: '.$titel.'</title>'."\n";
     
-    echo '<link href="'.BASEURL.'img/styles.css" type="text/css" rel="stylesheet">'."\n";
-    echo '<link rel="SHORTCUT ICON" href="'.BASEURL.'img/favicon.ico">'."\n";
+    echo '<link href="'.BASEURL.'static/styles.css" type="text/css" rel="stylesheet">'."\n";
+    echo '<link rel="SHORTCUT ICON" href="'.BASEURL.'static/favicon.ico">'."\n";
     if ($canonical) {
       echo '<link rel="canonical" href="'.$canonical.'" />'."\n";
     }
@@ -33,7 +33,7 @@ abstract class View implements IView {
     <div class="icon">
     <br>
     <?
-    echo '<a href="'.BASEURL.'index.php"><img src="'.BASEURL.'img/fslogo.png" style="border-width:0px;"></a>'."\n";
+    echo '<a href="'.BASEURL.'index.php"><img src="'.BASEURL.'static/fslogo.png" style="border-width:0px;"></a>'."\n";
     ?>
     </div>
     
