@@ -34,8 +34,10 @@ class VAdminArtikel extends VAdmin {
     <input type="text" name="datum" value="<?= $artikel['datum'] ?>" style="width:150px">
     <br>
     Status:
-    <input type="text" name="status" value="<?= $artikel['status'] ?>" style="width:20px">
-    (0=unsichtbar, 1=sichtbar in navi)
+    <select name="status">
+    <option value="0" <?= $artikel['status'] ? '' : 'selected' ?>>unsichtbar</option>
+    <option value="1" <?= $artikel['status'] ? 'selected' : '' ?>>sichtbar</option>
+    </select>
     <br>
     Titel:
     <br>
@@ -51,7 +53,8 @@ class VAdminArtikel extends VAdmin {
     <br>
     Text des Artikels:
     <br>
-    <textarea type="text" name="text" rows="15" style="width:600px"><?= $artikel['text'] ?></textarea>
+    <textarea type="text" name="text" id="text" rows="15" style="width:600px"><?= $artikel['text'] ?></textarea>
+    <button onclick="javascript:writeAhref();" value="a">a-href</button>
     <br>
     <?
     $this->displayEditHint();
@@ -77,4 +80,3 @@ class VAdminArtikel extends VAdmin {
   }
 
 }
-
