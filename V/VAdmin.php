@@ -7,14 +7,18 @@ require_once 'V/View.php';
 abstract class VAdmin extends View {
 
   protected function displayHead($errmsg, $titel, $showStartLink = true) {
-    ?><html>
-    <body>
+    header("Content-Type: text/html; charset=utf-8");
+    ?><!DOCTYPE HTML>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="de">
     <head>
     <meta charset="UTF-8">
     <title>FS: <?= $titel ?></title>
     <?
-    echo '<link href="'.BASEURL.'img/styles.css" type="text/css" rel="stylesheet">';
+    echo '<link href="'.BASEURL.'static/styles.css" type="text/css" rel="stylesheet">';
     ?>
+    </head>
+    
+    <body>
     <div style="margin:10px; padding:10px; width:900px;" class="tdc">
     <h1>Welcome to the backend</h1>
     
@@ -24,7 +28,7 @@ abstract class VAdmin extends View {
     <?
     if ($showStartLink) {
       ?>
-      <a href="admin.php"><img src="<?= BASEURL ?>img/fslogo.png" style="border-width:0px; vertical-align:middle;">
+      <a href="admin.php"><img src="<?= BASEURL ?>static/fslogo.png" style="border-width:0px; vertical-align:middle;">
       Backend Startseite </a>
       (Artikelübersicht)
       <?
@@ -55,20 +59,8 @@ abstract class VAdmin extends View {
     <input type="hidden" name="id" id="id">
     <input type="hidden" name="filter" id="filter">
     </form>
-    <script type="text/javascript">
-    function adminPage(mode, id, filter) {
-      this.frmAdminPage.mode.value = mode;
-      this.frmAdminPage.id.value = id;
-      this.frmAdminPage.filter.value = filter;
-      this.frmAdminPage.submit();
-    }
-    function del(mode, objektname, id, filter) {
-      if (!confirm('Wollen Sie ' + objektname + ' Nr. ' + id + ' wirklich löschen?')) {
-        return;
-      }
-      adminPage(mode, id, filter);
-    }
-    </script>
+    
+    <script src="static/admin.js" type="text/javascript"></script>
     
     </div>
     </body>
@@ -100,11 +92,11 @@ abstract class VAdmin extends View {
   }
   
   protected function displayEditIcon($mode, $id) {
-    echo '<a href="javascript:adminPage(\''.$mode.'\','.$id.', 0);"><img src="img/icon_edit.png" width="16" height="16"></a>';
+    echo '<a href="javascript:adminPage(\''.$mode.'\','.$id.', 0);"><img src="static/icon_edit.png" width="16" height="16"></a>';
   }
 
   protected function displayDelIcon($mode, $objektName, $id, $filter = 0) {
-    echo '<a href="javascript:del(\''.$mode.'\',\''.$objektName.'\','.$id.','.$filter.');"><img src="img/icon_delete.png" width="16" height="16"></a>';
+    echo '<a href="javascript:del(\''.$mode.'\',\''.$objektName.'\','.$id.','.$filter.');"><img src="static/icon_delete.png" width="16" height="16"></a>';
   }
 
   
