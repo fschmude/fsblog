@@ -11,7 +11,7 @@ class VMailtext extends View {
     
     header("Content-Type: text/html; charset=utf-8");
     ?><!DOCTYPE HTML>
-    <html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml"> 
+    <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     <meta charset="UTF-8">
     <?
