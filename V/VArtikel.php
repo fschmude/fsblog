@@ -67,9 +67,15 @@ class VArtikel extends View {
 
     // Postings
     if ($data['type'] == 'artikel') {
+      ?>
+      <div style="text-align: center;">
+      <br>
+      * * *
+      <br>
+      </div>
+      <?
       if ($anz_posts = count($data['posts'])) {
         ?>
-        <br><br>
         <div class="us">Kommentare</div>
         <?
         foreach ($data['posts'] as $post) {
