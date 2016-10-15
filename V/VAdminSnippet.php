@@ -34,7 +34,8 @@ class VAdminSnippet extends VAdmin {
     <br>
     Text:
     <br>
-    <textarea type="text" name="text" rows="15" style="width:600px"><?= $snip['text'] ?></textarea>
+    <textarea type="text" name="text" id="text" rows="15" style="width:600px"><?= $snip['text'] ?></textarea>
+    <button onclick="javascript:writeAhref();" value="a">a-href</button>
     <br>
     <?
     $this->displayEditHint();
