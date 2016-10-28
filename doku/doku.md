@@ -42,9 +42,11 @@ dann: git push github außer config.php
 Schön wäre folgendes zu automatisieren, wenn man nach Produktion deployen könnte:  
 Nach git clone oder pull in Produktion:
 
-#. Passwörter anpassen
-    config.php
-
+#. Datenbank erstellen  
+  Aufruf von [datadic.php](datadic.php) liefert das Erstellungsskript für die Datenbank.
+  
+#. config.php anpassen
+  
 #. Beschreibbare Verzeichnisse erstellen:  
     /log  
     /imga  
@@ -58,7 +60,7 @@ Nach git clone oder pull in Produktion:
   /tests  
   /doku  
   README.md
-  
+
 # Testanleitung
 folgende URLs müssen erhalten bleiben:
 
@@ -69,7 +71,7 @@ folgende URLs müssen erhalten bleiben:
 ## URLs testen
 - index.php (aber nur wg. domain-Ansteuerung)
 - imga/AfD-Mitgliederentscheid.pdf
-- imga/Brigitte_Meier.mp4
+- imga/austria.mp4
 - artikel.php?aid=23
 - artikel/zettel.php, zettel.php
 
