@@ -93,7 +93,7 @@ class DSnips extends DB {
     $sql = "SELECT id, date_format(datum, '%Y-%m-%d %H:%i') datum, text, fbid FROM snips"
       ." WHERE datum>=:von"
       ." AND datum<:bis"
-      ." ORDER BY datum"
+      ." ORDER BY datum DESC"
     ;
     $von = $monat.'-01';
     $dtVon = new DateTime($von);
