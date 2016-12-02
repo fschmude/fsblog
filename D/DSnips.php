@@ -26,15 +26,19 @@ class DSnips extends DB {
       throw new Exception('month ('.$month.') hat nicht Länge 6');
     }
     
-    // get start and end
+    // get correct dates for first of month, first of next month
     $jahr = substr($month, 0, 4);
     $monat = substr($month, 4);
-    $folgeMonat = str_pad($monat + 1, 2, '0', STR_PAD_LEFT);
+    $dtM = new DateTime($jahr.'-'.$monat.'-01');
+    $dat1 = $dtM->format('Y-m-d');
+    $dtM->add(new DateInterval('P1M'));
+    $datNext1 = $dtM->format('Y-m-d');
     
+    // go
     $sql = "SELECT * FROM snips"
-      ." WHERE datum>='".date('Y-m-d', strtotime($jahr.'-'.$monat.'-01'))."'"
-      ." AND datum<'".date('Y-m-d', strtotime($jahr.'-'.$folgeMonat.'-01'))."'"
-      ." ORDER BY id DESC"
+      ." WHERE datum>='".$dat1."'"
+      ." AND datum<'".$datNext1."'"
+      ." ORDER BY datum DESC"
     ;
     $q = $this->getPdo()->prepare($sql);
     if (!$q->execute()) {
