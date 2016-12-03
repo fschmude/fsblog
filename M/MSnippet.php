@@ -87,7 +87,7 @@ class MSnippet extends Model {
     $rows = $this->dobj->getMonat($monat);
     
     // build continuous text
-    $text = 'Hier ist die Sicherung all meiner Facebook-Einträge von '.$monat.'.'."\n\n";
+    $text = 'Hier sind meine Tageseinträge von '.$monat.'.'."\n\n";
     foreach ($rows as $row) {
       $fblink = $this->makeFbUrl($row['fbid']);
       $text .= '--'."\n"
@@ -110,7 +110,7 @@ class MSnippet extends Model {
     $fakeArt = array(
       'type' => 'monat',
       'titel' => 'Einträge von '.$monat,
-      'metadesc' => 'Alle Facebook-Einträge von '.$monat,
+      'metadesc' => 'Alle Tageseinträge von '.$monat,
       'datum' => $monatsLetzter,
       'text' => $text,
       'url' => $this->completeUrl(0, 0, $monat)
