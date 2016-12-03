@@ -52,9 +52,9 @@ class CSitemap extends Controller {
    * Einen URL ausgeben
    */
   private function echoUrl($url) {
-    echo '<url>';
+    echo '<url><loc>';
     echo $url;
-    echo '</url>'."\n";
+    echo '</loc></url>'."\n";
   }
   
 }
