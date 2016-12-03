@@ -17,7 +17,7 @@ class MPost_Test extends Testcase {
     $this->execSqls(array(
       "DELETE FROM posts WHERE aid=1"
     ));
-    $mail = new MPost_Test_MEmail;
+    $mail = new MPost_Test_MEmail();
     $m = new MPost(array('MEmail' => $mail));
     $m->createPost(1, 'Fritz', 'fsmail.de', 'text');
     $this->checkDb(
