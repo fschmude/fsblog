@@ -113,6 +113,27 @@ class DSnips extends DB {
   
   
   /**
+   * Liste aller existierenden Schnippel
+   * @return array(1, 2, 4, 7, ...)
+   */
+  public function getAllIds() {
+    $sql = "SELECT id FROM snips"
+      ." ORDER BY id"
+    ;
+    $q = $this->getPdo()->prepare($sql);
+    if (!$q->execute()) {
+      throw new Exception('Fehler bei '.$sql);
+    }
+    $rows = $q->fetchAll(PDO::FETCH_ASSOC);
+    $result = array();
+    foreach ($rows as $row) {
+      $result[] = $row['id'];
+    }
+    return $result;
+  }
+  
+  
+  /**
    * Liste aller Monate (Ym), zu denen Schnippel existieren
    * @param int optional $anz = Anzahl neueste, falls 0 oder fehlt, dann alle 
    */
