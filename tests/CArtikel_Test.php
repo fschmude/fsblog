@@ -42,7 +42,7 @@ class CArtikel_Test extends Testcase {
    * Tests for addNavi
    */
   public function test_an01() {
-    $c = new CArtikel;
+    $c = new CArtikel();
     $a = array();
     $c->addNavi($a);
     $this->assertSame(5, count($a['navi_arts']));
