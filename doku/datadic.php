@@ -75,7 +75,8 @@ foreach ($database as $table) {
       break;
       
     case 'text':
-      $fieldline .= ' text NOT NULL DEFAULT \'\'';
+      // ist in MySQL per default eh immer NULL und andere defaults gehen nicht!
+      $fieldline .= ' text';
       break;
       
     case 'int':
