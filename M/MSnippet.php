@@ -93,7 +93,7 @@ class MSnippet extends Model {
       $text .= '--'."\n"
         .$row['datum']
         .' (<a href="'.$this->completeUrl(0, $row['id'])
-        .'">Direktlink</a>, <a href'
+        .'">Direktlink</a>, '
         .'<a href="'.$fblink.'" target="_blank">kommentieren bei Facebook</a>)'."\n\n"
         .$row['text']
         ."\n\n"
