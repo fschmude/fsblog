@@ -85,7 +85,7 @@ foreach ($database as $table) {
       break;
       
     default:
-      throw new Exception('kein gültiger Typ: '.$field[1]);
+      echo 'kein gültiger Typ: '.$field[1];
     }
     echo $fieldline;
   }
