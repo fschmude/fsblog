@@ -53,5 +53,24 @@ class DSnips_Test extends Testcase {
   }
   
   
+  /*
+   * getAllIds()
+   */
+  public function test_gai1() {
+    $stmt = $this->pdo->prepare(
+      "SELECT count(*) anz FROM snips"
+    );
+    if (!$stmt->execute()) {
+      $this->fail('Fehler beim Zählen aller Schnippel');
+    }
+    $res = $stmt->fetch(PDO::FETCH_ASSOC);
+    $anz = $res['anz'];
+    
+    $m = new DSnips();
+    $erg = $m->getAllIds();
+    
+    $this->assertSame((int) $anz, count($erg));
+  }
+  
 }
 
