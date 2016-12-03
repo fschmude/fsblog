@@ -18,7 +18,7 @@ class MLeser_Test extends Testcase {
     $this->execSqls(array(
       "DELETE FROM leser WHERE lmail='huhu'"
     ));
-    $mail = new MLeser_Test_MEmail;
+    $mail = new MLeser_Test_MEmail();
     $m = new MLeser(array('MEmail' => $mail));
     $m->createLeser('huhu');
     $row = $this->checkDb(
