@@ -33,7 +33,7 @@ abstract class View implements IView {
     <div class="icon">
     <br>
     <?
-    echo '<a href="'.BASEURL.'"><img src="'.BASEURL.'static/fslogo.png" style="border-width:0px;"></a>'."\n";
+    echo '<a href="'.BASEURL.'"><img src="'.BASEURL.'static/fslogo.png" style="border-width:0px;" alt="Logo"></a>'."\n";
     ?>
     </div>
     
