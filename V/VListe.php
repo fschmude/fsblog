@@ -7,6 +7,7 @@ class VListe extends View {
     try {
       switch ($vdata['page']) {
       case 'index':
+        $canonical = BASEURL;
         $titel = 'Willkommen';
         $desc = 'Ein freisinniges Blog. Der allgemeinen Verteufelung alles Liberalen eine Stimme der Vernunft, eine Stimme für die Freiheit entgegensetzen.';
         $vorher = 'Willkommen auf dem FS-Blog. Viel Spaß beim Lesen und Kommentieren.'
@@ -26,6 +27,7 @@ class VListe extends View {
         break;
         
       case 'alle':
+        $canonical = BASEURL.'alle.php';
         $titel = 'Alle Artikel';
         $desc = 'Alle bisher erschienenen Artikel des FS-Blog';
         $vorher = 'Hier ist alles bisher geschriebene, nach Erscheinungsdatum geordnet.'
@@ -37,9 +39,6 @@ class VListe extends View {
       default:
         throw new Exception('Ungültige page: "'.$vdata['page'].'"');
       }
-      
-      // page is ok, so canonical must be, too
-      $canonical = BASEURL.$vdata['page'].'.php';
       
       $naviarts = array();
       $i = 0;
