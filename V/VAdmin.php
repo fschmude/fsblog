@@ -52,7 +52,7 @@ abstract class VAdmin extends View {
   
   protected function displayFoot() {
     ?>
-    <a href="<?= BASEURL ?>index.php">FS-Blog Startseite</a>
+    <a href="<?= BASEURL ?>">FS-Blog Startseite</a>
     
     <form name="frmAdminPage" method="post" action="admin.php">
     <input type="hidden" name="mode" id="mode">
