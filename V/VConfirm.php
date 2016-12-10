@@ -73,7 +73,7 @@ class VConfirm extends View {
         echo '<br><br>';
       }
       ?>
-      <a href="index.php">Zurück zum Start</a>
+      <a href="<?= BASEURL ?>">Zurück zum Start</a>
       <?
     }
     
