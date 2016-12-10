@@ -33,7 +33,7 @@ abstract class View implements IView {
     <div class="icon">
     <br>
     <?
-    echo '<a href="'.BASEURL.'index.php"><img src="'.BASEURL.'static/fslogo.png" style="border-width:0px;"></a>'."\n";
+    echo '<a href="'.BASEURL.'"><img src="'.BASEURL.'static/fslogo.png" style="border-width:0px;"></a>'."\n";
     ?>
     </div>
     
@@ -74,7 +74,7 @@ abstract class View implements IView {
     <div class="inside">
       <?
       // Link zu START
-      echo '<a href="'.BASEURL.'index.php">Start</a>'."\n";
+      echo '<a href="'.BASEURL.'">Start</a>'."\n";
       echo '<br><br>'."\n";
       
       // Artikelliste
