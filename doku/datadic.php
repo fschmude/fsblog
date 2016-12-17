@@ -8,9 +8,9 @@ ini_set('display_errors', true);
 $database = array(
   array('name' => 'artikel',
     'fields' => array(
-      array('titel', 'char', 255),
+      array('titel', 'char', 70),
       array('url', 'char', 100),
-      array('metadesc', 'char', 140),
+      array('metadesc', 'char', 156),
       array('datum', 'date'),
       array('text', 'text'),
       array('status', 'int', 1)
