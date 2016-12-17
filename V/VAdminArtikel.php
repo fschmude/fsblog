@@ -39,17 +39,19 @@ class VAdminArtikel extends VAdmin {
     <option value="1" <?= $artikel['status'] ? 'selected' : '' ?>>sichtbar</option>
     </select>
     <br>
-    Titel:
+    Titel (max 70, mit FS 66, das was ranken soll):
     <br>
     <input type="text" name="titel" value="<?= $artikel['titel'] ?>" style="width:600px">
+    (<?= strlen($artikel['titel']) ?>)
     <br>
     URL:
     <br>
     <input type="text" name="url" value="<?= $artikel['url'] ?>" style="width:600px">
     <br>
-    Description (max 140):
+    Description (max 156):
     <br>
     <input type="text" name="metadesc" value="<?= $artikel['metadesc'] ?>" maxlen="140" style="width:600px">
+    (<?= strlen($artikel['metadesc']) ?>)
     <br>
     Text des Artikels:
     <br>
