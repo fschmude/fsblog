@@ -74,6 +74,48 @@ class MLeser extends Model {
 
   
   /**
+   * 1 DS liefern, nur Backend
+   */
+  public function getItem($id) {
+    return $this->dobj->getRow($id);
+  }
+
+  
+  /**
+   * DS löschen
+   */
+  public function delete($id) {
+    $this->dobj->delete($id);
+  }
+
+  
+  /**
+   * DS updaten
+   */
+  public function edit($row) {
+    $this->dobj->edit($row);
+  }
+
+  
+  /**
+   * DS erzeugen, nur Backend
+   */
+  public function create() {
+    return $this->dobj->create();
+  }
+
+  
+  /**
+   * Leserliste für Backend
+   */
+  public function getList() {
+    $rows =  $this->dobj->getAll();
+    $res = array('rows' => $rows);
+    return $res;
+  }
+
+  
+  /**
    * Leserliste und Hinweistext für Mailing erzeugen
    */
   public function getMaildata($aid) {
