@@ -23,19 +23,14 @@ class VAdminVideo extends VAdmin {
     <br>
     Aktuelles Video (400x300, nur mp4):
     <br>
-    
-    <form method="post" action="admin.php" enctype="multipart/form-data">
     <video width="<?= $video['t_width'] ?>" height="<?= $video['t_height'] ?>">
     <source src="<?= BASEURL ?>imga/<?= $video['vname'] ?>.mp4" type="video/mp4">
     </video>
     <br>
-    Videodatei uploaden, bzw. ändern:
+    Falls noch nicht geschehen, zuerst mit FTP hochladen.
     <br>
-    <input type="file" name="datei" value="" style="width:300px">
-    <br>
-    (Nur mp4, maximaler Upload = <?= ini_get('upload_max_filesize') ?>)
-    <br>
-
+    
+    <form method="post" action="admin.php">
     <input type="hidden" name="mode" value="Video_up">
     <input type="hidden" name="id" value="<?= $video['id'] ?>">
     <br>
@@ -56,4 +51,3 @@ class VAdminVideo extends VAdmin {
   }
 
 }
-
