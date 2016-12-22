@@ -98,4 +98,3 @@ class CAdmin extends Controller {
   }
 
 }
-
