@@ -35,21 +35,10 @@ class MVideo extends Model {
   
 
   /**
-   * 1 Video mit Metadaten editieren
+   * 1 ds editieren
    */
-  public function edit($row, $file) {
-    if ((int) $file['size']) {
-      if ((int) $file['error']) {
-        throw new Exception('Fehler No. '.$file['error'].' beim Video-Upload');
-      }
-      // save file
-      move_uploaded_file($file['tmp_name'], 'imga/'.$row['vname'].'.mp4');
-    }
-    
-    // edit record
+  public function edit($row) {
     $this->dobj->edit($row);
-
-    return true;
   }
   
 
