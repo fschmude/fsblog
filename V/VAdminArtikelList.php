@@ -10,6 +10,8 @@ class VAdminArtikelList extends VAdmin {
     $this->displayHead($errmsg, 'Artikelübersicht');
 
     echo ' -&gt; ';
+    $this->displayNaviLink('Leser_list', 'Abonnenten verwalten');
+    echo ' &nbsp; -&gt; ';
     $this->displayNaviLink('Bild_list', 'Bilder verwalten');
     echo ' &nbsp; -&gt; ';
     $this->displayNaviLink('Snippet_list', 'Schnippel verwalten', date('Ym'));
