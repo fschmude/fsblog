@@ -24,7 +24,7 @@ class VAdminSnippet extends VAdmin {
     echo 'Schnippel Nr. '.$snip['id'].'<br>';
     ?>
     
-    <form method="post" action="admin.php" enctype="multipart/form-data">
+    <form method="post" action="admin.php">
     <input type="hidden" name="mode" value="Snippet_up">
     <input type="hidden" name="id" value="<?= $snip['id'] ?>">
     <input type="hidden" name="filter" value="<?= $snip['month'] ?>">
