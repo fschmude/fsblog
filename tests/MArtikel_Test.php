@@ -166,8 +166,8 @@ class MArtikel_Test extends Testcase {
   public function test_d1() {
     $this->execSqls(array(
       "DELETE FROM artikel WHERE id=1",
-      "INSERT INTO artikel(id)"
-      ." VALUES(            1)"
+      "INSERT INTO artikel(id,text)"
+      ." VALUES(            1,  '')"
     ));
     $this->checkDb(
       "SELECT count(*) cnt FROM artikel WHERE id=1",
