@@ -5,8 +5,8 @@
 # Über diese Doku
 Wenn etwas an dieser Doku geändert werden soll, dann 
 
-#. Hier ändern
 #. In Verzeichnis doku wechseln
+#. In doku.md Änderungen durchführen
 #. pandoc -t html -o doku.htm -s --toc -N --template doktpl.htm doku.md
 #. Nun sind die Änderungen auch in doku.htm
 #. Sowohl doku.md, als auch doku.htm einchecken
