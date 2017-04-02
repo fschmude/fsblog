@@ -10,7 +10,9 @@ class CRss_Test extends Testcase {
     $c->work(0, 0, 0);
     $this->assertSame('', $v->errmsg);
     $this->assertInternalType('array', $v->data);
-    $this->assertSame(10, count($v->data));
+    // falls aktueller Monat gestrichen wurde, 10 Zeilen. Falls noch kein aktueller Monat, dann 11
+    $this->assertGreaterThanOrEqual(10, count($v->data));
+    $this->assertLessThanOrEqual(11, count($v->data));
   }
   
 }
