@@ -1,7 +1,6 @@
 <?
 require_once 'Testcase.php';
-require_once 'C/CArtikel.php';
-require_once 'M/MArtikel.php';
+require_once PATH_PRIVATE.'C/CArtikel.php';
 
 class CArtikel_Test extends Testcase {
   
