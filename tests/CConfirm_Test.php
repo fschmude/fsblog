@@ -1,10 +1,6 @@
 <?
 require_once 'Testcase.php';
-require_once 'C/CConfirm.php';
-require_once 'M/MArtikel.php';
-//require_once 'M/MLeser.php';
-require_once 'M/MPost.php';
-require_once 'V/VConfirm.php';
+require_once PATH_PRIVATE.'C/CConfirm.php';
 
 class CConfirm_Test extends Testcase {
   
@@ -197,4 +193,3 @@ class CConfirm_Test_VConfirm {
   }
   
 }
-
