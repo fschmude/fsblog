@@ -1,6 +1,6 @@
 <?
 require_once 'Testcase.php';
-require_once 'M/MArtikel.php';
+require_once PATH_PRIVATE.'M/MArtikel.php';
 
 class MArtikel_Test extends Testcase {
   
@@ -97,8 +97,8 @@ class MArtikel_Test extends Testcase {
     }
     
     // "videos" anlegen
-    exec('date > imga/fsv.mp4');
-    $oggf = 'imga/fsv.ogg';
+    exec('date > '.PATH_PRIVATE.'imga/fsv.mp4');
+    $oggf = PATH_PRIVATE.'imga/fsv.ogg';
     if (file_exists($oggf)) {
       unlink($oggf);
     }
@@ -182,4 +182,3 @@ class MArtikel_Test extends Testcase {
   }
   
 }
-
