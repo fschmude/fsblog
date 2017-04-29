@@ -1,6 +1,6 @@
 <?
 require_once 'Testcase.php';
-require_once 'C/CRss.php';
+require_once PATH_PRIVATE.'C/CRss.php';
 
 class CRss_Test extends Testcase {
   
