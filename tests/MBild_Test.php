@@ -1,6 +1,6 @@
 <?
 require_once 'Testcase.php';
-require_once 'M/MBild.php';
+require_once PATH_PRIVATE.'M/MBild.php';
 
 class MBild_Test extends Testcase {
   
@@ -31,7 +31,7 @@ class MBild_Test extends Testcase {
 
     // Testbild erzeugen (gif, 10x10 Pixel)
     $base64 = 'R0lGODlhCgAKAKECAAAAAP//AP///////yH+CGZzIGZlY2l0ACwAAAAACgAKAAACGpSPAsurEKIEKsIAmdz4NrtM3nOBh+YgjVEAADs=';
-    file_put_contents('imga/testbild', base64_decode($base64));
+    file_put_contents(PATH_PRIVATE.'imga/testbild', base64_decode($base64));
     
     $m = new MBild;
     $id = $m->create();
@@ -45,7 +45,7 @@ class MBild_Test extends Testcase {
     );
     $upfile = array(
       'size' => 100, 
-      'tmp_name' => 'imga/testbild',
+      'tmp_name' => PATH_PRIVATE.'imga/testbild',
       'error' => '0',
       'type' => 'image/gif'
     );
