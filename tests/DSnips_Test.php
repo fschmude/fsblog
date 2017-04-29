@@ -1,6 +1,6 @@
 <?
 require_once 'Testcase.php';
-require_once 'D/DSnips.php';
+require_once PATH_PRIVATE.'D/DSnips.php';
 
 class DSnips_Test extends Testcase {
   
