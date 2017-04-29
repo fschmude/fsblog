@@ -1,6 +1,6 @@
 <?
 require_once 'Testcase.php';
-require_once 'M/MVideo.php';
+require_once PATH_PRIVATE.'M/MVideo.php';
 
 class MVideo_Test extends Testcase {
   
@@ -20,8 +20,8 @@ class MVideo_Test extends Testcase {
       "INSERT INTO videos(id,width,height,vname)"
       ." VALUES(           1,  100,    80,'fsv')"
     ));
-    $this->prep_gi_mf('imga/fsv.mp4', $s == 1 || $s == 3);
-    $this->prep_gi_mf('imga/fsv.ogg', $s == 2 || $s == 3);
+    $this->prep_gi_mf(PATH_PRIVATE.'imga/fsv.mp4', $s == 1 || $s == 3);
+    $this->prep_gi_mf(PATH_PRIVATE.'imga/fsv.ogg', $s == 2 || $s == 3);
   }
   private function prep_gi_mf($file, $bCreate) {
     if ($bCreate) {
