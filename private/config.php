@@ -2,18 +2,18 @@
 /**
  * Hier dürfen sich nur globale Konstanten aufhalten!
  */
-define('BASEURL', 'http://localhost/fsblog/public/');
+define('BASEURL', 'http://www.fs-blog.de/'); 
 define('BASEPATH', __DIR__);
 
-define('BACKEND_PASS_HASH', '7acf52c3d08d2b8650a27b7c0c134394');
+define('BACKEND_PASS_HASH', 'change_this');
 
-define('DO_SEND_MAILS', false);  // true || false
+define('DO_SEND_MAILS', true);  // true || false
 
 // MySQL connection
-define('DB_HOST', 'localhost');
-define('DB_NAME', 'fsblog');
-define('DB_USER', 'root');
-define('DB_PASS', 'MeineDaten');
+define('DB_HOST', 'change_this');
+define('DB_NAME', 'change_this');
+define('DB_USER', 'change_this');
+define('DB_PASS', 'change_this');
 
 // errorhandling
 error_reporting(E_ALL);
@@ -23,7 +23,7 @@ define('LOG_FILE', __DIR__.'/log/error.log');
 
 // Login fürs Backend
 define('LOGIN_FILE', __DIR__.'/log/last_login.txt');
-define('LOGIN_REFRAK', 5);
+define('LOGIN_REFRAK', 10);
 
 
 /*******************************************************************************
@@ -44,3 +44,4 @@ function fatal_handler() {
   }
 }
 register_shutdown_function('fatal_handler');
+
