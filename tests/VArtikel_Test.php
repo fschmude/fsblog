@@ -1,6 +1,6 @@
 <?
 require_once 'Testcase.php';
-require_once 'V/VArtikel.php';
+require_once PATH_PRIVATE.'V/VArtikel.php';
 
 class VArtikel_Test extends Testcase {
   
@@ -41,7 +41,7 @@ class VArtikel_Test extends Testcase {
       .' uuund'."\n"
       .'<br>'."\n"
       .'Video: <video width="100" height="80" controls>'."\n"
-      .' <source src="http://localhost/fsblog/imga/pron.mp4" type="video/mp4">'."\n"
+      .' <source src="'.BASEURL.'imga/pron.mp4" type="video/mp4">'."\n"
       .' Ihr Browser unterstützt den Tag "video" nicht.'."\n"
       .'</video>'."\n"
     ;
