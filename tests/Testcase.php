@@ -1,8 +1,8 @@
 <?
-// muss schon während der include-Phase laufen
-set_include_path(get_include_path().PATH_SEPARATOR.'/home/fs/vw/blog');
+// Pfad vom Startpunkt der Tests aus nach /private, muss schon während der include-Phase laufen
+define('PATH_PRIVATE', 'private/');
 
-require_once 'D/DArtikel.php';
+require_once PATH_PRIVATE.'D/DArtikel.php';
 
 class Testcase extends PHPUnit_Framework_TestCase {
 
@@ -10,8 +10,11 @@ class Testcase extends PHPUnit_Framework_TestCase {
   
   protected function setUp() {
     parent::setUp();
-    $m = new DArtikel();
-    $this->pdo = $m->getPdo();
+    if (!DISPLAY_ERRORS) {
+      $this->fail('Für die Tests muss DISPLAY_ERRORS in '.PATH_PRIVATE.'config.php true sein');
+    }
+    $db = new DArtikel();
+    $this->pdo = $db->getPdo();
   }
   
   protected function execSqls($sqls) {
@@ -45,4 +48,3 @@ class Testcase extends PHPUnit_Framework_TestCase {
   }
   
 }
-
