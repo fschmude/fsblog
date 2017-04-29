@@ -1,6 +1,6 @@
 <?
 require_once 'Testcase.php';
-require_once 'M/MPost.php';
+require_once PATH_PRIVATE.'M/MPost.php';
 
 class MPost_Test extends Testcase {
   
