@@ -1,6 +1,6 @@
 <?
 require_once 'Testcase.php';
-require_once 'M/MSnippet.php';
+require_once PATH_PRIVATE.'M/MSnippet.php';
 
 class MSnippet_Test extends Testcase {
   
