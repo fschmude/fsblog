@@ -1,6 +1,6 @@
 <?
 require_once 'Testcase.php';
-require_once 'M/MArtikel.php';
+require_once PATH_PRIVATE.'M/MHelper.php';
 
 class MHelper_Test extends Testcase {
   
@@ -17,4 +17,3 @@ class MHelper_Test extends Testcase {
   }
  
 }
-
