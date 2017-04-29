@@ -1,6 +1,6 @@
 <?
 require_once 'Testcase.php';
-require_once 'C/CAdmin.php';
+require_once PATH_PRIVATE.'C/CAdmin.php';
 
 class CAdmin_Test extends Testcase {
   
