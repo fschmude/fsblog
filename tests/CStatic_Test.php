@@ -1,6 +1,6 @@
 <?
 require_once 'Testcase.php';
-require_once 'C/CStatic.php';
+require_once PATH_PRIVATE.'C/CStatic.php';
 
 class CStatic_Test extends Testcase {
   
