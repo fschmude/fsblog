@@ -97,8 +97,8 @@ class MArtikel_Test extends Testcase {
     }
     
     // "videos" anlegen
-    exec('date > '.PATH_PRIVATE.'imga/fsv.mp4');
-    $oggf = PATH_PRIVATE.'imga/fsv.ogg';
+    exec('date > imga/fsv.mp4');
+    $oggf = 'imga/fsv.ogg';
     if (file_exists($oggf)) {
       unlink($oggf);
     }
