@@ -69,10 +69,10 @@ class MVideo extends Model {
     // go
     $row = $this->dobj->getRow($vid);
     $sources = 0;
-    if (file_exists(PATH_PRIVATE.'imga/'.$row['vname'].'.mp4')) {
+    if (file_exists('imga/'.$row['vname'].'.mp4')) {
       $sources += 1;
     }
-    if (file_exists(PATH_PRIVATE.'imga/'.$row['vname'].'.ogg')) {
+    if (file_exists('imga/'.$row['vname'].'.ogg')) {
       $sources += 2;
     }
     $row['sources'] = $sources;
