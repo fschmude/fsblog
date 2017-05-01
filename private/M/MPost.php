@@ -24,7 +24,7 @@ class MPost extends Model {
     $lfnr = (int) $oldLfnr + 1;
     
     // speichern
-    $Helper = new MHelper();
+    $Helper = $this->getObject('MHelper');
     $code = $Helper->makeCode();
     $pid = $dposts->createValues(array(
       'aid' => $aid,
