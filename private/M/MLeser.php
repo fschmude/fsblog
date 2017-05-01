@@ -21,7 +21,7 @@ class MLeser extends Model {
     if (!$lmail = trim($lmail)) {
       throw new Exception('Keine E-Mail-Adresse angegeben.');
     }
-    $Helper = new MHelper();
+    $Helper = $this->getObject('MHelper');
     $code = $Helper->makeCode();
     $this->dobj->createValues(array(
       'lmail' => $lmail,
