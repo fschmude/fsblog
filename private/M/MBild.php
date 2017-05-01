@@ -123,7 +123,7 @@ class MBild extends Model {
    * @return array
    */
   public function getPath($id, $ext) {
-    return BASEPATH.'/imga/'.$id.'.'.$ext;
+    return 'imga/'.$id.'.'.$ext;
   }
 
 
@@ -146,4 +146,3 @@ class MBild extends Model {
   }
 
 }
-
