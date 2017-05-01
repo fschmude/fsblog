@@ -1,7 +1,6 @@
 <?
-// Pfad vom Startpunkt der Tests aus nach /private, muss schon während der include-Phase laufen
-define('PATH_PRIVATE', 'private/');
-
+// Tests müssen aus dem public-Verzeichnis heraus gestartet werden
+require_once 'path2private.php';
 require_once PATH_PRIVATE.'D/DArtikel.php';
 
 class Testcase extends PHPUnit_Framework_TestCase {
