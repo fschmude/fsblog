@@ -120,7 +120,7 @@ class MLeser extends Model {
     }
     
     // go
-    $dart = new DArtikel;
+    $dart = $this->getObject('DArtikel');
     $art = $dart->getRow($aid);
     $art['url'] = $this->completeUrl($art['url']);
     
