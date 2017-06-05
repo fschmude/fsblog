@@ -35,6 +35,21 @@ class DBilder extends DB {
     return $res;
   }
 
+  
+  /**
+   * Get last imgas
+   */
+  public function getLastImgas() {
+    $sql = "SELECT * FROM bilder"
+    ." ORDER BY id DESC"
+    ." LIMIT 6"
+    ;
+    $stmt = $this->getPdo()->prepare($sql);
+    if (!$stmt->execute(array())) {
+      throw new Exception('Fehler beim Suchen der neuesten imgas');
+    }
+    $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $res;
+  }
 
 }
-
