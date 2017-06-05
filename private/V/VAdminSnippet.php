@@ -33,10 +33,29 @@ class VAdminSnippet extends VAdmin {
     <input type="text" name="datum" value="<?= $snip['datum'] ?>" style="width:200px">
     <br>
     Text:
-    <br>
-    <textarea type="text" name="text" id="text" rows="15" style="width:600px"><?= $snip['text'] ?></textarea>
-    <button onclick="javascript:writeAhref();" value="a">a-href</button>
-    <br>
+    <table width="100%">
+    <tr>
+    <td rowspan="2">
+      <textarea type="text" name="text" id="text" rows="15" style="width:100%"><?= $snip['text'] ?></textarea>
+    </td>
+    <td>
+      <?
+      foreach ($snip['lastImgas'] as $imga) {
+        ?>
+        <a href="javascript:writeImga(<?= $imga['id'] ?>);">
+        <img src="imga/<?= $imga['id'] ?>.<?= $imga['ext'] ?>" style="width:<?= $imga['width'] ?>px; height:<?= $imga['height'] ?>px;">
+        </a>
+        <?
+      }
+      ?>
+    </td>
+    </tr>
+    <tr>
+    <td style="width:150px; text-align:center; vertical-align:bottom;">
+      <button onclick="javascript:writeAhref();" value="a">a-href</button>
+    </td>
+    </tr>
+    </table>
     <?
     $this->displayEditHint();
     ?>
@@ -54,4 +73,3 @@ class VAdminSnippet extends VAdmin {
   }
 
 }
-
