@@ -42,9 +42,15 @@ class MSnippet extends Model {
    * einen Schnippel holen
    */
   public function getItem($id) {
+    // DB-Eintrag
     $row = $this->dobj->getRow($id);
     $row['month'] = date('Ym', strtotime($row['datum']));
     $row['url'] = $this->completeUrl('', $row['id']);
+    
+    // imgas
+    $mBild = $this->getObject('MBild');
+    $row['lastImgas'] = $mBild->getLastImgas();
+    
     return $row;
   }
   
