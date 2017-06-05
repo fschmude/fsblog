@@ -75,13 +75,19 @@ class MArtikel extends Model {
    * @param int $aid
    */
   public function getItem($aid) {
+    // check
     if (!$aid = (int)$aid) {
       throw new Exception('Keine gültige aid übergeben');
     }
+    
+    // get Artikel
     $res = $this->dobj->getRow($aid);
     if ($url = trim($res['url'])) {
       $res['completeUrl'] = $this->completeUrl($res['url']);
     }
+    
+    // add last images
+    $res['lastImgas'] = $this->getObject('MBild')->getLastImgas();
     return $res;
   }
   
