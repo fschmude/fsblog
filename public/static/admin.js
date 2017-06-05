@@ -28,3 +28,14 @@ function writeAhref() {
   ta.value = content;
 }
 
+function writeImga(iid) {
+  var ta = document.getElementById('text');
+  var pos = ta.selectionStart;
+  var content = ta.value;
+  content = content.substring(0, pos) 
+  + '<imga id="' + iid + '">'
+  + content.substring(pos)
+  ;
+  ta.value = content;
+}
+
