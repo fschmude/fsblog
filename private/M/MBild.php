@@ -12,6 +12,7 @@ class MBild extends Model {
     $this->dobj = $this->getObject('DBilder');
   }
   
+  
   /**
    * Genau ein Bild anhand der ID holen
    */
@@ -32,6 +33,20 @@ class MBild extends Model {
     }
     
     return $row;
+  }
+  
+  
+  /**
+   * Neueste 5 Bilder holen
+   */
+  public function getLastImgas() {
+    $rows = $this->dobj->getLastImgas();
+    foreach ($rows as $nr => $row) {
+      $newWidth = ceil(50 / $row['height'] * $row['width']);
+      $rows[$nr]['height'] = 50;
+      $rows[$nr]['width'] = $newWidth;
+    }
+    return $rows;
   }
   
   
