@@ -200,7 +200,7 @@ class VArtikel extends View {
           }
           $repl .= ' Ihr Browser unterstützt den Tag "video" nicht.'."\n"
             .'</video>'."\n"
-            .$subtext."<br>\n"
+            .$subtext."\n"
           ;
         }
         
