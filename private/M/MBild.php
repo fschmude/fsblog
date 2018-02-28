@@ -42,7 +42,11 @@ class MBild extends Model {
   public function getLastImgas() {
     $rows = $this->dobj->getLastImgas();
     foreach ($rows as $nr => $row) {
-      $newWidth = ceil(50 / $row['height'] * $row['width']);
+      if ($row['height'] > 0 && $row['width'] > 0) {
+        $newWidth = ceil(50 / $row['height'] * $row['width']);
+      } else {
+        $newWidth = 50;
+      }
       $rows[$nr]['height'] = 50;
       $rows[$nr]['width'] = $newWidth;
     }

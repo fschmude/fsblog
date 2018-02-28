@@ -187,14 +187,20 @@ class VArtikel extends View {
           $repl = '[Keine Video-Dateien zu "'.$video['vname'].'" gefunden.]<br>'."\n";
         } else {
           $repl = '<video width="'.$video['width'].'" height="'.$video['height'].'" controls>'."\n";
+          $subtext = '';
           if ($sources == 1 || $sources == 3) {
-            $repl .= ' <source src="'.BASEURL.'imga/'.$video['vname'].'.mp4" type="video/mp4">'."\n";
+            $url = BASEURL.'imga/'.$video['vname'].'.mp4';
+            $repl .= ' <source src="'.$url.'" type="video/mp4">'."\n";
+            $subtext .= '<br>Quelle (mp4): '.$url;
           }
           if ($sources == 2 || $sources == 3) {
-            $repl .= ' <source src="'.BASEURL.'imga/'.$video['vname'].'.ogg" type="video/ogg">'."\n";
+            $url = BASEURL.'imga/'.$video['vname'].'.ogg';
+            $repl .= ' <source src="'.$url.'" type="video/ogg">'."\n";
+            $subtext .= '<br>Quelle (ogg): '.$url;
           }
           $repl .= ' Ihr Browser unterstützt den Tag "video" nicht.'."\n"
             .'</video>'."\n"
+            .$subtext."<br>\n"
           ;
         }
         

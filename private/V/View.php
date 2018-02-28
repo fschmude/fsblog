@@ -136,6 +136,8 @@ abstract class View implements IView {
     <div class="foot">
     <a href="<?=BASEURL?>kontakt.php">Kontakt</a>
     &nbsp; | &nbsp;
+    <a href="<?=BASEURL?>about.php">Über das FS-Blog</a>
+    &nbsp; | &nbsp;
     Erstellt mit <a href="http://jedit.org/" target="_blank">jedit</a>
     &nbsp; | &nbsp;
     <a href="<?=BASEURL?>rss.php">RSS-Feed</a>

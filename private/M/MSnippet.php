@@ -94,14 +94,18 @@ class MSnippet extends Model {
     // build continuous text
     $text = 'Hier sind meine Tageseinträge von '.$monat.'.'."\n\n";
     foreach ($rows as $row) {
-      $fblink = $this->makeFbUrl($row['fbid']);
       $text .= '--'."\n"
-        .$row['datum']
-        .' (<a href="'.$this->completeUrl(0, $row['id'])
-        .'">Direktlink</a>, '
-        .'<a href="'.$fblink.'" target="_blank">kommentieren bei Facebook</a>)'."\n\n"
-        .$row['text']
-        ."\n\n"
+      .$row['datum']
+      .' (<a href="'.$this->completeUrl(0, $row['id'])
+      .'">Direktlink</a>'
+      ;
+      if ($row['fbid']) {
+        $fblink = $this->makeFbUrl($row['fbid']);
+        $text .= ', <a href="'.$fblink.'" target="_blank">kommentieren bei Facebook</a>';
+      }
+      $text .= ")\n\n"
+      .$row['text']
+      ."\n\n"
       ;
     }
     
@@ -135,7 +139,11 @@ class MSnippet extends Model {
    * @access public for testing only
    */
   public function makeFbUrl($fbid) {
-    $url = 'https://www.facebook.com/fritz.schmude/posts/'.$fbid;
+    if ($fbid) {
+      $url = 'https://www.facebook.com/fritz.schmude/posts/'.$fbid;
+    } else {
+      $url = '';
+    }
     return $url;
   }
   

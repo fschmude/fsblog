@@ -10,12 +10,15 @@ class VAdminBildList extends VAdmin {
     $this->displayHead($errmsg, 'Artikelübersicht');
 
     $this->displayNaviLink('Bild_new', 'Neues Bild anlegen');
+    echo ' &nbsp; | &nbsp; ';
+    $this->displayNaviLink('Snippet_list', 'Schnippel-Übersicht');
 
     // Liste anzeigen
     if (!count($data['rows'])) {
       echo 'Es konnten keine Bilder gefunden werden.';
     
     } else {
+      
       ?>
       <table class="tded">
       <tr>

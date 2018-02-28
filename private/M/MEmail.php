@@ -14,7 +14,7 @@ class MEmail {
   }
 
   // mail verschicken
-  public function mailen( $adr, $betreff, $text ) {
+  public function mailen($adr, $betreff, $text) {
     if (DO_SEND_MAILS) {
       $header = 'From: '.EMAIL_OFFIZIELL."\n"
         .'MIME-Version: 1.0'."\n"

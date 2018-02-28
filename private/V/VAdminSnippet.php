@@ -19,6 +19,10 @@ class VAdminSnippet extends VAdmin {
     echo '<br>'."\n";
 
     $this->displayNaviLink('Snippet_list', 'Schnippel-Übersicht', $snip['month']);
+    echo ' &nbsp; | &nbsp; ';
+    $this->displayNaviLink('Bild_list', 'Bilder-Übersicht');
+    echo ' &nbsp; | &nbsp; ';
+    $this->displayNaviLink('Bild_new', 'Neues Bild');
     echo '<br><br>'."\n";
     
     echo 'Schnippel Nr. '.$snip['id'].'<br>';
